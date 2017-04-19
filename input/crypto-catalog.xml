@@ -210,17 +210,18 @@ xmlns:h="http://www.w3.org/1999/xhtml">
   Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
   components. 
   <subsection title="Cryptographic Support (FCS)" id="fcs">
-    <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Encryption/Decryption" status="threshold">
+    <f-component id="fcs_cop.1/UDE" name="Cryptographic Operation - User Data Encryption" status="threshold">
       <f-element id="fcs_cop.1.1(1)">
-        <title>The SSH software shall perform encryption/decryption services for data in accordance
-          with a specified cryptographic algorithm AES-CTR (as defined in NIST SP 800-38A)
-          mode and cryptographic key sizes
-          <selectables>
-            <selectable>128-bit</selectable>
-            <selectable>256-bit</selectable>
-          </selectables>.
+	      <title>The TSF shall perform <i>user data encryption/decryption</i> in accordance 
+          with a specified cryptographic algorithm <selectable>cryptographic algorithm</selectable>
+          and cryptographic key sizes <selectable>cryptographic key sizes</selectable>that meet the following 
+	  <selectable>list of standards</selectable>.
+	  <h:br />
+		      
+	  The following table provides the allowed choices for completion of the selection operations of FCS_COP.1/UDE: 
         </title>
-        <note role="application">If the SSH software does provide its own crypto 
+
+	  <note role="application">If the SSH software does provide its own crypto 
           the FCS claims will need to reflect that in the FCS selections from the base PP.
         </note>
         <aactivity>

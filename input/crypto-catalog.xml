@@ -5,7 +5,7 @@
 xmlns:h="http://www.w3.org/1999/xhtml">
   <PPReference title="PP Reference" id="ID006">
     <ReferenceTable>
-      <PPTitle>Crypto Catelog</PPTitle>
+      <PPTitle>Crypto Catalog</PPTitle>
       <PPVersion>1.0</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2017-04-19</PPPubDate>
@@ -29,7 +29,7 @@ xmlns:h="http://www.w3.org/1999/xhtml">
     <entry>
       <version>1.0</version>
       <date>2017-04-19</date>
-      <subject>Initial Catelog</subject>
+      <subject>Initial Catalog</subject>
     </entry>
   </RevisionHistory>
   <chapter title="Introduction" id="int">

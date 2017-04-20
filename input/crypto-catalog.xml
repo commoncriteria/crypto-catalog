@@ -224,85 +224,107 @@ xmlns:h="http://www.w3.org/1999/xhtml">
 		  like the aactivity to be eactivity.
         </note>
         <aactivity>
-          The evaluator shell review the TSF of the base PP to verify consistency with the functionality that
-          was claimed by the base PP to ensure that applicable dependencies are met.
+	  <h:b>TSS</h:b>
+        The evaluator shall check that the TSS includes a description of encryption function(s) used for user data encryption.
+	The evaluator should check that this description of the selected encryption function includes the key sizes and modes
+	of operation as specified in the table above per row.
+	<h:br /><h:br />
+	The evaluator shall check that the TSS describes the means by which the TOE satisfies constraints on algorithm
+	parameters included in the selections made for <h:i>cryptographic algorithm</h:i> and <h:i>list of standards</h:i>.
+          <h:br /> <h:br />
+       	<h:b>KMDSD</h:b>
+        The evaluator shall examine the KMDSD to ensure that the points at which user data encryption and decryption
+	occurs are described, and that the complete data path for user data encryption is described. The evaluator checks
+	that this description is consistent with the relevant parts of the TSS.
+  	<h:br /> <h:br />
+	If XTS-AES is used as the user data encryption algorithm then the evaluator shall check that the full length keys 
+	are created by methods that ensure that the two halves are different and independent.
           <h:br />
-         
-          The evaluator shall verify that the TSS describes the counter mechanism including 
-          rationale that the counter values provided are unique. 
+          <h:br />
+	<h:b>Guidance</h:b>
+	If multiple encryption modes are supported, the evaluator examines the guidance documentation to determine that the 
+	method of choosing a specific mode/key size by the end user is described. 
           <h:br />
           <h:br />
-          AES-CTR Tests:
-          <testlist>
+	<h:b>Tests</h:b>
+	The following tests are conditional based upon the selections made in the SFR. The evaluator shall perform the 
+	following test or witness respective tests executed by the developer if technically possible, otherwise an analysis 
+	of the implementation representation has to be performed.
+	Preconditions for testing:
+	<list>
+		<li>Specification of keys as input parameter to the function to be tested</li>
+		<li>Specification of required input parameters such as modes</li>
+		<li>Specification of user data (plaintext)</li>
+		<li>Tapping of encrypted user data (ciphertext) directly in the non-volatile memory</li>
+	</list>
+	<h:b>UDE1: AES-CBC Tests</h:b><h:br />
+	For the AES-CBC tests described below, the plaintext, ciphertext, and IV values shall consist of 128-bit blocks. 
+	To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same 
+	inputs to a known-good implementation.
+ 	<h:br />
+        <h:br />
+	These tests are intended to be equivalent to those described in NIST’s AES Algorithm Validation Suite (AESAVS) 
+	(http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf). Known answer values tailored to exercise the 
+	AES-CBC implementation can be obtained using NIST’s CAVS Algorithm Validation Tool or from NIST’s ACPV service for 
+	automated algorithm tests (acvp.nist.gov), when available. It is not recommended that evaluators use values obtained 
+	from static sources such as the example NIST’s AES Known Answer Test Values from the AESAVS document, or use values 
+	not generated expressly to exercise the AES-CBC implementation.
+        <testlist>
+		<test>
+			<h:b>AES-CBC Known-Answer Tests (KAT)</h:b>
+		<h:ul>KAT-1 (GFSBox):</h:ul><h:br />
+             	To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of five different plaintext 
+		values for each selected key size and obtain the ciphertext value that results from AES-CBC encryption of 
+		the given plaintext using a key value of all zeros and an IV of all zeros.<h:br /><h:br />
+		To test the decrypt functionality of AES-CBC, the evaluator shall supply a set of five different ciphertext 
+		values for each selected key size and obtain the plaintext value that results from AES-CBC decryption of the 
+		given ciphertext using a key value of all zeros and an IV of all zeros.
+              <h:br />
+              <h:br />
+		<h:ul>KAT-2 (KeySBox):</h:ul><h:br />
+             	To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of five different key values 
+		for each selected key size and obtain the ciphertext value that results from AES-CBC encryption of an all-zeros 
+		plaintext using the given key value and an IV of all zeros.<h:br /><h:br />
+		To test the decrypt functionality of AES-CBC, the evaluator shall supply a set of five different key values 
+		for each selected key size and obtain the plaintext that results from AES-CBC decryption of an all-zeros 
+		ciphertext using the given key and an IV of all zeros. 
+              <h:br />
+              <h:br />
+		<h:ul>KAT-3 (Variable Key):</h:ul><h:br />
+		To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of keys for each selected key 
+		size (as described below) and obtain the ciphertext value that results from AES encryption of an all-zeros plaintext 
+		using each key and an IV of all zeros.<h:br /><h:br />
+		Key <h:i>i</h:i> in each set shall have the leftmost <h:i>i</h:i> bits set to ones and the remaining bits to 
+		zeros, for values of <h:i>i</h:i> 
+		from 1 to the key size. The keys and corresponding ciphertext are listed in AESAVS, Appendix E.<h:br /><h:br />
+		To test the decrypt functionality of AES-CBC, the evaluator shall use the same keys as above to decrypt the 
+		ciphertext results from above. Each decryption should result in an all-zeros plaintext.
+              <h:br />
+              <h:br />
+		<h:ul>KAT-4 (Variable Text):</h:ul><h:br />
+		To test the encrypt functionality of AES-CBC, for each selected key size, the evaluator shall supply a set of 
+		128-bit plaintext values (as described below) and obtain the ciphertext values that result from AES-CBC 
+		encryption of each plaintext value using a key of each size and IV consisting of all zeros.<h:br /><h:br />
+		Plaintext value <h:i>i</h:i> shall have the leftmost <h:i>i</h:i> bits set to ones and the remaining bits set to zeros, for values 
+		of <h:i>i</h:i> from 1 to 128. The plaintext values are listed in AESAVS, Appendix D.<h:br /><h:br />
+		To test the decrypt functionality of AES-CBC, for each selected key size, use the plaintext values from above 
+		as ciphertext input, and AES-CBC decrypt each ciphertext value using key of each size consisting of all zeros 
+		and an IV of all zeros.
+		</test>
             <test>
-              Known Answer Tests (KATs)
+		    <h:b>AES-CBC Multi-Block Message Test</h:b>
               <h:br />
-              There are four Known Answer Tests (KATs) described below.  For all KATs, the plaintext,
-              IV, and ciphertext values shall be 128-bit blocks.  The results from each test may
-              either be obtained by the validator directly or by supplying the inputs to the implementer
-              and receiving the results in response.  To determine correctness, the evaluator shall
-              compare the resulting values to those obtained by submitting the same inputs to a known
-              good implementation.
-              
-              <h:br />
-              <h:br />
-              To test the encrypt functionality, the evaluator shall supply a set of 10 plaintext 
-              values and obtain the ciphertext value that results from encryption of the given plaintext
-              using a key value of all zeros and an IV of all zeros.  Five plaintext values shall be encrypted
-              with a 128-bit all zeros key, and the other five shall be encrypted with a 256-bit all zeros key. 
-              To test the decrypt functionality, the evaluator shall perform the same 
-              test as for encrypt, using 10 ciphertext values as input.
-              <h:br />
-              <h:br />
-              To test the encrypt functionality, the evaluator shall supply a set of 10 key values
-              and obtain the ciphertext value that results from encryption of an all zeros plaintext
-              using the given key value and an IV of all zeros.  Five of the key values shall be 128-bit
-              keys, and the other five shall be 256-bit keys. To test the decrypt functionality, the
-              evaluator shall perform the same test as for encrypt, using an all zero ciphertext
-              value as input.
-              <h:br />
-              <h:br />
-              To test the encrypt functionality, the evaluator shall supply the two sets of key values
-              described below and obtain the ciphertext values that result from AES encryption of an
-              all zeros plaintext using the given key values an an IV of all zeros.  The first set of
-              keys shall have 128 128-bit keys, and the second shall have 256 256-bit keys.  Key_i in
-              each set shall have the leftmost i bits be ones and the rightmost N-i bits be zeros,
-              for i in [1, N]. To test the decrypt functionality, the evaluator shall supply the two
-              sets of key and ciphertext value pairs described below and obtain the plaintext value
-              that results from decryption of the given ciphertext using the given key values and an
-              IV of all zeros.  The first set of key/ciphertext pairs shall have 128 128-bit
-              key/ciphertext pairs, and the second set of key/ciphertext pairs shall have 256 256-bit
-              pairs. Key_i in each set shall have the leftmost i bits be ones and the rightmost N-i
-              bits be zeros for i in [1, N].  The ciphertext value in each pair shall be the value 
-              that results in an all zeros plaintext when decrypted with its corresponding key.
-              <h:br />
-              <h:br />
-              To test the encrypt functionality, the evaluator shall supply the set of
-              128 plaintext values described below and obtain the two ciphertext values that
-              result from encryption of the given plaintext using a 128-bit key value of all
-              zeros and using a 256 bit key value of all zeros, respectively, and an IV of all
-              zeros. Plaintext value i in each set shall have the leftmost bits be ones and
-              the rightmost 128-i bits be zeros, for i in [1, 128].  To test the decrypt functionality,
-              the evaluator shall perform the same test as for encrypt, using ciphertext
-              values of the same form as the plaintext in the encrypt test as input.
+		    The evaluator shall test the encrypt functionality by encrypting nine <h:i>i</h:i>-block messages for each selected key 
+		    size, for 2 ≤ <h:i>i</h:i> ≤ 10. For each test, the evaluator shall supply a key, an IV, and a plaintext message of length 
+		    <h:i>i</h:i> blocks, and encrypt the message using AES-CBC. The resulting ciphertext values shall be compared to the results 
+		of encrypting the plaintext messages using a known good implementation.<h:br /><h:br />
+		The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected key 
+		    size, for 2 ≤ <h:i>i</h:i> ≤ 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext message of 
+		length <h:i>i</h:i> blocks, and decrypt the message using AES-CBC. The resulting plaintext values shall be compared to 
+		the results of decrypting the ciphertext messages using a known good implementation.
             </test>
             <test>
-              Multi-Block Message Test
-              <h:br />
-              The evaluator shall test the encrypt functionality by encrypting an i-block 
-              message where 1 less-than i less-than-or-equal to 10. For each i the evaluator 
-              shall choose a key, IV, and plaintext message of length i blocks and encrypt
-              the message, using the mode to be tested, with the chosen key. The ciphertext
-              shall be compared to the result of encrypting the same plaintext message with
-              the same key and IV using a known good implementation. The evaluator shall also 
-              test the decrypt functionality by decrypting an i-block message where 1 less-than
-              i less-than-or-equal to 10. For each i the evaluator shall choose a key and
-              a ciphertext message of length i blocks and decrypt the message, using the mode 
-              to be tested, with the chosen key. The plaintext shall be compared to the result
-              of decrypting the same ciphertext message with the same key using a known good implementation.
-            </test>
-            <test>
-              Monte-Carlo Test
+              Monte-Carlo Test (TBD)
               <h:br />
               For AES-CTR mode perform the Monte Carlo Test for ECB Mode on the encryption 
               engine of the counter mode implementation. There is no need to test the decryption engine.

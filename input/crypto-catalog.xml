@@ -212,10 +212,10 @@ xmlns:h="http://www.w3.org/1999/xhtml">
   <subsection title="Cryptographic Support (FCS)" id="fcs">
     <f-component id="fcs_cop.1/UDE" name="Cryptographic Operation - User Data Encryption" status="threshold">
       <f-element id="fcs_cop.1.1(1)">
-	      <title>The TSF shall perform <i>user data encryption/decryption</i> in accordance 
-          with a specified cryptographic algorithm <selectable>cryptographic algorithm</selectable>
-          and cryptographic key sizes <selectable>cryptographic key sizes</selectable>that meet the following 
-	  <selectable>list of standards</selectable>.
+	      <title>The TSF shall perform user data encryption/decryption in accordance 
+          with a specified cryptographic algorithm <selectables><selectable>cryptographic algorithm</selectable></selectables>
+          and cryptographic key sizes <selectables><selectable>cryptographic key sizes</selectable></selectables> that meet the following 
+		      <selectables><selectable>list of standards</selectable></selectables>.
 	  <h:br />
 		      
 	  The following table provides the allowed choices for completion of the selection operations of FCS_COP.1/UDE: 

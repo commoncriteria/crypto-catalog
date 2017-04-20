@@ -214,15 +214,14 @@ xmlns:h="http://www.w3.org/1999/xhtml">
       <f-element id="fcs_cop.1.1(1)">
 	      <title>The TSF shall perform user data encryption/decryption in accordance 
           with a specified cryptographic algorithm <selectables><selectable>cryptographic algorithm</selectable></selectables>
-          and cryptographic key sizes <selectables><selectable>cryptographic key sizes</selectable></selectables> that meet the following 
+          and cryptographic key sizes <selectables><selectable>key sizes</selectable></selectables> that meet the following 
 		      <selectables><selectable>list of standards</selectable></selectables>.
-	  <h:br />
-		      
+	  <h:br /><h:br />  
 	  The following table provides the allowed choices for completion of the selection operations of FCS_COP.1/UDE: 
         </title>
 
-	  <note role="application">If the SSH software does provide its own crypto 
-          the FCS claims will need to reflect that in the FCS selections from the base PP.
+	  <note role="application">There is app note here. What we really want is a nice table of the catalog options. And also, we would 
+		  like the aactivity to be eactivity.
         </note>
         <aactivity>
           The evaluator shell review the TSF of the base PP to verify consistency with the functionality that

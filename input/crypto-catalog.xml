@@ -250,13 +250,13 @@ xmlns:h="http://www.w3.org/1999/xhtml">
 	The following tests are conditional based upon the selections made in the SFR. The evaluator shall perform the 
 	following test or witness respective tests executed by the developer if technically possible, otherwise an analysis 
 	of the implementation representation has to be performed.
-	Preconditions for testing:
-	<list>
-		<li>Specification of keys as input parameter to the function to be tested</li>
-		<li>Specification of required input parameters such as modes</li>
-		<li>Specification of user data (plaintext)</li>
-		<li>Tapping of encrypted user data (ciphertext) directly in the non-volatile memory</li>
-	</list>
+	Preconditions for testing:<h:br /><h:br />
+	<h:list>
+		<h:li>Specification of keys as input parameter to the function to be tested</h:li>
+		<h:li>Specification of required input parameters such as modes</h:li>
+		<h:li>Specification of user data (plaintext)</h:li>
+		<h:li>Tapping of encrypted user data (ciphertext) directly in the non-volatile memory</h:li>
+	</h:list><h:br /><h:br />
 	<h:b>UDE1: AES-CBC Tests</h:b><h:br />
 	For the AES-CBC tests described below, the plaintext, ciphertext, and IV values shall consist of 128-bit blocks. 
 	To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same 
@@ -269,9 +269,11 @@ xmlns:h="http://www.w3.org/1999/xhtml">
 	automated algorithm tests (acvp.nist.gov), when available. It is not recommended that evaluators use values obtained 
 	from static sources such as the example NIST’s AES Known Answer Test Values from the AESAVS document, or use values 
 	not generated expressly to exercise the AES-CBC implementation.
+ 	<h:br />
+        <h:br />
         <testlist>
 		<test>
-			<h:b>AES-CBC Known-Answer Tests (KAT)</h:b>
+		<h:b>AES-CBC Known-Answer Tests (KAT)</h:b>
 		<h:ul>KAT-1 (GFSBox):</h:ul><h:br />
              	To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of five different plaintext 
 		values for each selected key size and obtain the ciphertext value that results from AES-CBC encryption of 
@@ -324,27 +326,68 @@ xmlns:h="http://www.w3.org/1999/xhtml">
 		the results of decrypting the ciphertext messages using a known good implementation.
             </test>
             <test>
-              Monte-Carlo Test (TBD)
+              <h:b>AES-CBC Monte-Carlo Test (TBD)</h:b>
               <h:br />
-              For AES-CTR mode perform the Monte Carlo Test for ECB Mode on the encryption 
-              engine of the counter mode implementation. There is no need to test the decryption engine.
-              <h:br />
-              <h:br />
-              The evaluator shall test the encrypt functionality using 200 plaintext/key pairs. 
-              100 of these shall use 128 bit keys, and 100 of these shall use 256 bit keys.  
-              The plaintext values shall be 128-bit blocks.  For each pair, 1000 iterations shall be run as follows:
+              The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of pseudo-random 
+		values for plaintext, IVs, and keys. <h:br /><h:br />
+		The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size. This 3-tuple of 
+		plaintext, IV, and key is provided as input to the below algorithm to generate the remaining 99 3-tuples, and to 
+		run each 3-tuple through 1000 iterations of AES-CBC encryption.
               <h:br />
               <h:br />
-              For AES-ECB mode<h:br />
-              # Input: PT, Key<h:br />
-              for i = 1 to 1000:<h:br />
-              CT[i] = AES-ECB-Encrypt(Key, PT)<h:br />
-              PT = CT[i]
-              <h:br />
-              The ciphertext computed in the 1000th iteration is the result for that 
-              trial.  This result shall be compared to the result of running 1000 
-              iterations with the same values using a known good implementation.  
+              	# Input: PT, IV, Key<h:br />
+              	Key[0]=Key<h:br />
+		IV[0]=IV<h:br />
+		PT[0]=PT<h:br />
+		for i = 1 to 100 {<h:br />
+              		Output Key[i],IV[i],PT[0]<h:br />
+		    	for j=1 to 1000 {<h:br />
+		    		if j==1 {<h:br />
+		    			CT[1] = AES-CBC-Encrypt(Key[i], IV[i],PT[1])<h:br />
+              				PT[2] = IV[i]<h:br />
+				} else {<h:br />
+		    			CT[j] = AES-CBC-Encrypt(Key[i],PT[j])<h:br />
+              				PT[j+1] = CT[j-1]<h:br />
+		    		}<h:br />
+		    	}<h:br />
+		    	Output CT[1000]<h:br />
+		    	If KeySize == 128 { Key[i+1] = Key[i] xor CT[1000] }<h:br />
+  			If KeySize == 256 { Key[i+1] = Key[i] xor ((CT[999] leftshift 128) | CT[1000]) }<h:br />
+  			IV[i+1] = CT[1000]<h:br />
+  			PT[0] = CT[999]<h:br />
+		} <h:br />
+              <h:br /><h:br />
+		The ciphertext computed in the 1000th iteration (CT[1000]) is the result for each of the 100 3-tuples for 
+		each selected key size. This result shall be compared to the result of running 1000 iterations with the same 
+		values using a known good implementation.
+              <h:br /><h:br />
+		The evaluator shall test the decrypt functionality using the same test as above, exchanging CT and PT, and 
+		replacing AES-CBC-Encrypt with AES-CBC-Decrypt.
+              <h:br /><h:br /> 
             </test>
+	    <test>
+		    <h:b>UDE2: AES-CCM Tests</h:b>
+		These tests are intended to be equivalent to those described in the NIST document, “The CCM Validation System
+		(CCMVS),” updated 9 Jan 2012, found at http://csrc.nist.gov/groups/STM/cavp/documents/mac/CCMVS.pdf.<h:br /><h:br />
+		Known answer values tailored to exercise the AES-CCM implementation can be obtained using NIST’s CAVS 
+		Algorithm Validation Tool or from NIST’s ACPV service for automated algorithm tests (acvp.nist.gov), when 
+		available. It is not recommended that evaluators use values obtained from static sources such as 
+		http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip or use values not generated expressly 
+		to exercise the AES-CCM implementation.<h:br /><h:br />
+		The evaluator shall test the generation-encryption and decryption-verification
+		functionality of AES-CCM for the following input parameter and tag lengths:<h:br /><h:br />
+
+		Keys: All supported and selected key sizes (e.g., 128, 192, 256 bits).<h:br /><h:br />
+		Associated Data: Two or three values for associated data length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) 
+		    supported associated data lengths, and 2^16 (65536) bytes, if supported.<h:br /><h:br />
+		Payload: Two values for payload length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) supported payload 
+		    lengths.<h:br /><h:br />
+		Nonces: All supported nonce lengths (7, 8, 9, 10, 11, 12, 13).<h:br /><h:br />
+		Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16).<h:br /><h:br />
+
+		The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator 
+		shall compare the ciphertext with the result of encryption of the same inputs with a known good implementation.<h:br /><h:br />
+		</test>
           </testlist>
         </aactivity>
       </f-element>

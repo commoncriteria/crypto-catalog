@@ -1,4 +1,4 @@
-Common Criteria Crypto Catalog
+Common Criteria Crypto Catalog [![Build Status](https://jenkins-criteria.rhcloud.com/buildStatus/icon?job=protection-profiles/crypto-catalog)](https://jenkins-criteria.rhcloud.com/job/protection-profiles/job/crypto-catalog/)
 ===============
 
 A catalog of crypto requirements.

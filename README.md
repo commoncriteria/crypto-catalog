@@ -1,12 +1,13 @@
-Common Criteria Crypto Catalog [![Build Status](https://travis-ci.org/commoncriteria/crypto-catalog.svg?branch=master)](https://travis-ci.org/commoncriteria/crypto-catalog)
+Common Criteria Crypto Catalog 
 ===============
+[![Build Status](https://travis-ci.org/commoncriteria/crypto-catalog.svg?branch=master)](https://travis-ci.org/commoncriteria/crypto-catalog)
 
 A catalog of crypto requirements.
 
 
 ## Working Draft
 
-[Common Criteria Crypto Catalog](http://common-criteria.rhcloud.com/crypto-catalog/output/crypto-catalog-release.html)
+[Common Criteria Crypto Catalog](https://commoncriteria.github.io/pp/crypto-catalog/crypto-catalog-release.html)
 
 
 ## Change Log

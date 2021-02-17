@@ -1,6 +1,6 @@
 Common Criteria Crypto Catalog 
 ===============
-[![Build Status](https://travis-ci.com/commoncriteria/crypto-catalog.svg?branch=master)](https://travis-ci.com/commoncriteria/crypto-catalog)
+![Build](https://github.com/commoncriteria/crypto-catalog/workflows/Build/badge.svg)
 
 A catalog of crypto requirements.
 

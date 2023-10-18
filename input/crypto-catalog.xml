@@ -15,7 +15,16 @@
         <CatPubDate>2023-06-13</CatPubDate>
 	</CatReference>
 
+	<RevisionHistory>
+		<entry>
+			<version>v 0.1</version>
+			<date>2023-06-13</date>
+			<subject>First draft</subject>
+		</entry>
+	</RevisionHistory>	
 
-
+	<release-notes>
+		Version 0.1 is the initial draft.
+	</release-notes>
 
 </SFRCatalog>

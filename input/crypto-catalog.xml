@@ -9,10 +9,13 @@
     >
 
 	<CatReference>
-		<CatTitle>Specifications of Functional Requirements for Cryptography (Draft)</CatTitle>
+		<CatTitle>Specification of Functional Requirements for Cryptography (Draft)</CatTitle>
         <CatVersion>0.1</CatVersion>
         <CatAuthor>CCDB Crypto Working Group</CatAuthor>
         <CatPubDate>2023-06-13</CatPubDate>
 	</CatReference>
+
+
+
 
 </SFRCatalog>

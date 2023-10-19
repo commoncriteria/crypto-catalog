@@ -23,5 +23,11 @@
 		</entry>
 	</RevisionHistory>	
 
-
+	<CatPreferences>
+		<display-audit-with-sfrs/>  
+		<audit-events-in-sfrs/>
+	</CatPreferences
+	
+	
+	
 </SFRCatalog>

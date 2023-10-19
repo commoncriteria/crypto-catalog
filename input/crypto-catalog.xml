@@ -33,22 +33,39 @@
 	
 		<!-- 1.1 Purpose -->
 		<section title="Purpose" id="catsec-purpose">
-			Purpose text.
+			The Common Criteria Development Board (CCDB) tasked the Crypto Working Group with writing a specification 
+			for cryptographic SFRs for use in Common Criteria evaluations. The purpose of this document is to provide
+			filled-in templates of cryptographic requirements for developers of protection profiles to chose from.
+			This should result in better standardization and more consistent usage of FCS family requirements across
+			all protection profiles.<br/><br/>
+			The template requirements in this document are based on SFRs published in CC:2022 Part 1. Blah blah blah.
 		</section>
 
 		<!-- Intended audience -->
 		<section title="Intended Audience" id="catsec-audience">
-			Intended audience.
+			This document is intended for protection profile developers and technical communities. Blah blah blah.
 		</section>
 		
 		<!-- References -->
 		<section title="References" id="catsec-refs">
-			References 
+			References to CC docs. There should be a reference to standards in an appendix.
 		</section>
 		
 		<!-- Terms and Definitions -->
 		<section title="Terms and Definitions" id="catsec-terms">
 			Terms and definitions 
+			
+			<cat-terms>
+				<term full="Personally Identifiable Information" abbr="PII">
+					Any information about an individual maintained by an agency, including, but
+					not limited to, education, financial transactions, medical history, and criminal or
+					employment history and information which can be used to distinguish or trace an
+					individual's identity, such as their name, social security number, date and place of
+					birth, mother’s maiden name, biometric records, etc., including any other personal
+					information which is linked or linkable to an individual.
+				</term>
+			</cat-terms>
+
 		</section>
 
 		<!-- Abbreviations -->

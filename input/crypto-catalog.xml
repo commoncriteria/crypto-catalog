@@ -52,44 +52,46 @@
 		</section>
 		
 		<!-- 1.4 Terms and Definitions -->
-		<cat-terms>
-			<term full="Initialization vector" abbr="IV">
-				Blah
-			</term>
-			<term full="Key agreement">
-				Blah
-			</term>
-			<term full="Key derivation">
-				Blah
-			</term>
-			<term full="Key distribution">
-				A key establishment scheme in which one party creates a key and sends it to another party. 
-			</term>
-			<term full="Key encapsulation">
-				Blah
-			</term>
-			<term full="Key encryption">
-				Blah
-			</term>
-			<term full="Key establishment">
-				Blah
-			</term>
-			<term full="Key generation">
-				Blah
-			</term>
-			<term full="Key transport">
-				Blah
-			</term>
-			<term full="Key wrapping">
-				Blah
-			</term>
-			<term full="Nonce">
-				Blah
-			</term>
-			<term full="Salt">
-				Blah
-			</term>
-		</cat-terms>
+		<section title="Terms and Definitions">
+			<cat-terms>
+				<term full="Initialization vector" abbr="IV">
+					Blah
+				</term>
+				<term full="Key agreement">
+					Blah
+				</term>
+				<term full="Key derivation">
+					Blah
+				</term>
+				<term full="Key distribution">
+					A key establishment scheme in which one party creates a key and sends it to another party. 
+				</term>
+				<term full="Key encapsulation">
+					Blah
+				</term>
+				<term full="Key encryption">
+					Blah
+				</term>
+				<term full="Key establishment">
+					Blah
+				</term>
+				<term full="Key generation">
+					Blah
+				</term>
+				<term full="Key transport">
+					Blah
+				</term>
+				<term full="Key wrapping">
+					Blah
+				</term>
+				<term full="Nonce">
+					Blah
+				</term>
+				<term full="Salt">
+					Blah
+				</term>
+			</cat-terms>
+		</section>  <!-- Terms and Definitions -->
 
 		<!-- 1.5 Abbreviations -->
 		<section title="Abbreviations" id="catsec-abbrev">

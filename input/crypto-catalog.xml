@@ -28,6 +28,34 @@
 		<audit-events-in-sfrs/>
 	</CatPreferences>
 	
+	<!-- 1.0 Introduction -->
+	<section title="Introduction" id="catsec-introdution">
 	
+		<!-- 1.1 Purpose -->
+		<section title="Purpose" id="catsec-purpose">
+			Purpose text.
+		</section>
+
+		<!-- Intended audience -->
+		<section title="Intended Audience" id="catsec-audience">
+			Intended audience.
+		</section>
+		
+		<!-- References -->
+		<section title="References" id="catsec-refs">
+			References 
+		</section>
+		
+		<!-- Terms and Definitions -->
+		<section title="Terms and Definitions" id="catsec-terms">
+			Terms and definitions 
+		</section>
+
+		<!-- Abbreviations -->
+		<section title="Abbreviations" id="catsec-abbrev">
+			Abbreviations 
+		</section>
+		
+	</section>
 	
 </SFRCatalog>

@@ -171,7 +171,7 @@
 
 					<!-- PP Author notes need to be somewhere around here, but probably within the component -->
 
-					<cat-f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
+					<f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
 						name="Cryptographic Key Generation - Asymmetric Key">
 <!--						<note role="ppdev">Blahblah</note>  -->
 <!--						<comp-rel>  -->
@@ -279,7 +279,7 @@
 										</col>
 									</selectable>
 								</selectables>
-								The following table provides the allowed choices for completion of the selection 
+								<h:br/><h:br/>The following table provides the allowed choices for completion of the selection 
 								operations of FCS_CKM.1/AKG:
 							</title>
 
@@ -305,7 +305,7 @@
 						</f-element>
 						<audit-event/>
 <!--					<management-function/>   -->
-					</cat-f-component>
+					</f-component>
 				</section>  <!-- FCS_CKM.1 -->
 			</section> <!-- FCS_CKM -->
 		</section>  <!-- FCS -->

@@ -100,7 +100,7 @@
 		
 	</section>
 	
-	<!-- 2.0 Introduction -->
+	<!-- 2.0 Overview -->
 	<section title="Overview" id="catsec-overview">
 
 		<!-- 2.1 Organization of this Document -->
@@ -120,8 +120,198 @@
 
 	</section>
 	
-</SFRCatalog>
+	<!-- 3.0 Security Functional Requirements -->
+	<section title="Security Functional Requirements" id="catsec-sfrs">
+	
+		This is the section with all the requirements. They are listed alphabetically by class and family.
+		
+		<section title="Class FCS: Cryptographic Support" id="catsec-fcs">
 
+			<section title="Cryptographic Key Management (FCS_CKM)" id="catsec-fcs-ckm">
+			
+				<!-- FCS_CKM_EXT -->
+<!--				<ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
+					<fam-behavior>This family defines requirements for management of cryptographic keys that are not 
+						addressed by FCS_CKM in CC Part 2.
+					</fam-behavior>
+				</ext-comp-def>
+-->
+			
+				Family FCS_CKM contains requirements that pertain to the life-cycle management of cryptographic keys.  
+				This includes key generation, key derivation, key distribution, key agreement, key access, and key destruction. <br/><br/>
+				This catalogue distinguishes key generation from key derivation. Key generation those instances in
+				which a new key is created from a source of entropy.  Those instances in which a  reproducible process 
+				derives a key from other material that are themselves reasonable sources of entropy are referred to as 
+				key derivation.  Ideally, in a key derivation process, the sources of entropy in a key derivation 
+				process are unknown.  However, password-based key derivation, which uses low-entropy sources of 
+				derivation material thatwhich may be easily guessable, has been in used and supported for decades.  
+				This catalogue recommends FCS_CKM.5 Cryptographic Key Derivation for those instances in which the
+				sources for derivation are reasonably expected to be unknown and unguessable and introduces 
+				FCS_CKM_EXT.8 to add constraints, work, or more entropy for those instances in which one or more 
+				components of the derivation material may contain limited entropy.<br/><br/>
+				
+				NIST SP 800-56A explains that “[a]A key-establishment scheme can be characterized as either a 
+				key-agreement scheme or a key transport scheme.”   Key agreement schemes refer to those cases in 
+				which two parties want to establish a single key between them, and they both contribute to the entropy 
+				of the agreed-upon key.  Key transport schemes refer to those cases in which one party has a key it
+				wants to share with another party.  In this case, only one party has contributed to the entropy of the
+				key.  Since FCS_CKM.2 supports key distribution, this catalogue recommends using FCS_CKM.2 
+				Cryptographic Key Distribution to specify key transport schemes and introduces FCS_CKM_EXT.7 
+				Cryptographic Key Agreement to cover key agreement schemes.
+
+				<section title="FCS_CKM.1 Cryptographic Key Generation" id="catsec-fcs-ckm-1">
+					The FCS_CKM SFRs distinguish cryptographic key generation from cryptographic key derivation and 
+					cryptographic key agreement.  For cryptographic key generation, a standard specifies how TOEs 
+					should generate certain keys, usually from a random source of entropy.  For cryptographic key
+					derivation, there are one or more sources of contributeion to the input of a standard algorithm 
+					used to derive a key, not all of which are random sources of entropy.  For key agreement, two 
+					parties contribute material to form a single shared key between them.<br/><br/>
+		
+					FCS_CKM.1 further distinguishes between asymmetric key generation and symmetric key generation.
+
+					<!-- PP Author notes need to be somewhere around here, but probably within the component -->
+
+					<f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
+						name="Cryptographic Key Generation - Asymmetric Key">
+<!--						<note role="ppdev">Blahblah</note>  -->
+<!--						<comp-rel>
+<!--							<hierarchical-to>No other components.</hierarchical-to>  -->
+<!--							<dependencies>
+									[FCS_CKM.2 Cryptographic key distribution, or 
+									FCS_CKM.5 Cryptographic key derivation, or
+									FCS_COP.1 Cryptographic operation]
+									FCS_CKM.3 Cryptographic key access
+									[FCS_RBG.1 Random bit generation, or
+									FCS_RNG.1 Generation of random numbers]
+									FCS_CKM.6 Timing and event of cryptographic key destruction
+								</dependencies>  -->
+<!--						</comp-rel>	-->
+						<f-element id="fel-fcs-ckm-1-akg-1">
+							<title>
+								The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
+								a specified cryptographic key generation algorithm<selectables>
+									<tabularize id="fcs-ckm-1-ak-sels" title="AKG Asymmetric Cryptographic Key Generation">
+										<selectcol>Cryptographic key generation algorithm</selectcol>
+										<reqtext>and specified cryptographic key sizes</reqtext>
+										<selectcol>Cryptographic key sizes</selectcol>
+										<reqtext>that meet the following: </reqtext>
+										<selectcol>List of standards</selectcol>
+									</tabularize>
+
+									<!-- RSA -->
+									<selectable id="sel-fcs-ckm-ak-rsa">
+										<col>RSA</col>
+										<col><selectables>
+											<selectable id="sel-exp-ak-rsa-2048">2048 bit</selectable>
+											<selectable id="sel-exp-ak-rsa-3072">3072-bit</selectable>
+											<selectable id="sel-exp-ak-rsa-4096">4096-bit</selectable></selectables>
+										</col>
+										<col>FIPS PUB 186-5 (Section A.1.1)</col>
+									</selectable>
+
+									<!-- EDCSA - Extra Random Bits -->
+									<selectable id="sel-fcs-ckm-ak-ecdsa-erb">
+										<col>EDCSA - Extra Random Bits</col>
+										<col><selectables>
+											<selectable id="sel-exp-ak-edcsa-erb-P256">256 bits (P-256, brainpoolP256r1)</selectable>
+											<selectable id="sel-exp-ak-edcsa-erb-P384">384 bits (P-384, brainpoolP384r1)</selectable>
+											<selectable id="sel-exp-ak-edcsa-erb-P521"> 512 bits (P-521, brainpoolP512r1)</selectable></selectables>
+										</col>
+										<col><selectables>
+											<selectable>FIPS PUB 186-5 (Section A.2.1)</selectable>
+											<selectable>NIST SP 800-56A (Section 5.6.1.2.1)</selectable></selectables>
+										</col><h:p/>
+									</selectable>
+
+									<!-- EDCSA - Rejection Sampling -->
+									<selectable id="sel-fcs-ckm-ak-edcsa-rs">
+										<col>EDCSA - Rejection Sampling</col>
+										<col><selectables>
+											<selectable id="sel-exp-ak-edcsa-rs-P256">256 bits (P-256, brainpoolP256r1)</selectable>
+											<selectable id="sel-exp-ak-edcsa-rs-P384">384 bits (P-384, brainpoolP384r1)</selectable>
+											<selectable id="sel-exp-ak-edcsa-rs-P521">512 bits (P-521, brainpoolP512r1)</selectable></selectables>
+										</col>
+										<col><selectables>
+											<selectable>FIPS PUB 186-5 (Section A.2.2)</selectable>
+											<selectable>NIST SP 800-56A (Section 5.6.1.2.2)</selectable></selectables>
+										</col><h:p/>
+									</selectable>
+
+									<!-- DSA -->
+									<selectable id="sel-fcs-ckm-ak-dsa">
+										<col>DSA</col>
+										<col>DSA Bit lengths of p and q respectively (L, N) (3072, 256)</col>
+										<col>BSI TR-02102-1 (Section 6.3.2) [Key generation]</col>
+									</selectable>
+
+									<!-- EdDSA -->
+									<selectable id="sel-fcs-ckm-ak-eddsa">
+										<col>EdDSA</col>
+										<col><selectables>
+											<selectable>256 (Edwards25519)</selectable>
+											<selectable>448 (Edwards448)</selectable></selectables> bits
+										</col>
+										<col><selectables>
+											<selectable>FIPS PUB 186-5 (Section A.2.3)</selectable>
+											<selectable>RFC 8032</selectable></selectables>
+										</col>
+									</selectable>
+									
+									<!-- KCDSA -->
+									<selectable id="sel-fcs-ckm-ak-kcdsa">
+										<col>KCDSA</col>
+										<col><selectables>
+											<selectable>(2048, 224)</selectable>
+											<selectable>(2048, 256)</selectable></selectables>
+										</col>
+										<col>ISO/IEC 14888-3:2018 (subclause 6.3) [KCDSA]</col>
+									</selectable>
+									
+									<!-- EC-KCDSA -->
+									<selectable id="sel-fcs-ckm-ak-eckcdsa">
+										<col>EC-KCDSA</col>
+										<col><selectables>
+											<selectable>224 (P-224, B-233, K-233)</selectable>
+											<selectable>256 (P-256, B-283, K-283)</selectable></selectables> bits
+										</col>
+										<col>ISO/IEC 14888-3:2018 (subclause 6.7) [EC-KCDSA]<br/><br/>
+											 FIPS PUB 186-5 (Appendix A.2.1, A.2.2) [NIST Curves]
+										</col>
+									</selectable>
+								</selectables>
+								The following table provides the allowed choices for completion of the selection 
+								operations of FCS_CKM.1/AKG:
+							</title>
+
+							<note role="application">
+								For DSA, PP authors should consult schemes for additional guidelines on use.  For 
+								example, FIPS PUB 186-5 does not approve DSA for digital signature generation but 
+								allows DSA for digital signature verification for legacy purposes.  BSI TR-02102-1 
+								requires 3000-bits and larger key sizes for DSA for digital signature generation and 
+								verification.
+							</note>
+							
+							<aactivity level="element">
+								<TSS><h:p>
+									The evaluator shall inspect the application and its developer documentation 
+									to determine if the application needs asymmetric key generation services. If not, the 
+									evaluator shall verify the <h:b>generate no asymmetric cryptographic keys</h:b> selection is present 
+									in the ST. Otherwise, the evaluation activities shall be performed as stated in the 
+									selection-based requirements.</h:p>
+								</TSS>
+								<Guidance><h:p>None.</h:p></Guidance>
+								<Tests><h:p>None.</h:p></Tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+<!--					<management-function/>   -->
+					</f-component>
+				</section>  <!-- FCS_CKM.1 -->
+			</section> <!-- FCS_CKM -->
+		</section>  <!-- FCS -->
+	</section>  <!-- SFRs -->
+	
+</SFRCatalog>
 
 
 

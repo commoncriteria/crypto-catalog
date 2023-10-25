@@ -37,7 +37,7 @@
 			for cryptographic SFRs for use in Common Criteria evaluations. The purpose of this document is to provide
 			filled-in templates of cryptographic requirements for developers of protection profiles to chose from.
 			This should result in better standardization and more consistent usage of FCS family requirements across
-			all protection profiles.<br/><br/>
+			all protection profiles.<h:br/><h:br/>
 			The template requirements in this document are based on SFRs published in CC:2022 Part 1. Blah blah blah.
 		</section>
 
@@ -148,7 +148,7 @@
 				This catalogue recommends FCS_CKM.5 Cryptographic Key Derivation for those instances in which the
 				sources for derivation are reasonably expected to be unknown and unguessable and introduces 
 				FCS_CKM_EXT.8 to add constraints, work, or more entropy for those instances in which one or more 
-				components of the derivation material may contain limited entropy.<br/><br/>
+				components of the derivation material may contain limited entropy.<h:br/><h:br/>
 				
 				NIST SP 800-56A explains that “[a]A key-establishment scheme can be characterized as either a 
 				key-agreement scheme or a key transport scheme.”   Key agreement schemes refer to those cases in 
@@ -165,7 +165,7 @@
 					should generate certain keys, usually from a random source of entropy.  For cryptographic key
 					derivation, there are one or more sources of contributeion to the input of a standard algorithm 
 					used to derive a key, not all of which are random sources of entropy.  For key agreement, two 
-					parties contribute material to form a single shared key between them.<br/><br/>
+					parties contribute material to form a single shared key between them.<h:br/><h:br/>
 		
 					FCS_CKM.1 further distinguishes between asymmetric key generation and symmetric key generation.
 
@@ -274,7 +274,7 @@
 											<selectable>224 (P-224, B-233, K-233)</selectable>
 											<selectable>256 (P-256, B-283, K-283)</selectable></selectables> bits
 										</col>
-										<col>ISO/IEC 14888-3:2018 (subclause 6.7) [EC-KCDSA]<br/><br/>
+										<col>ISO/IEC 14888-3:2018 (subclause 6.7) [EC-KCDSA]<h:br/><h:br/>
 											 FIPS PUB 186-5 (Appendix A.2.1, A.2.2) [NIST Curves]
 										</col>
 									</selectable>

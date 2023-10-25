@@ -171,10 +171,10 @@
 
 					<!-- PP Author notes need to be somewhere around here, but probably within the component -->
 
-					<f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
+					<cat-f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
 						name="Cryptographic Key Generation - Asymmetric Key">
 <!--						<note role="ppdev">Blahblah</note>  -->
-<!--						<comp-rel>
+<!--						<comp-rel>  -->
 <!--							<hierarchical-to>No other components.</hierarchical-to>  -->
 <!--							<dependencies>
 									[FCS_CKM.2 Cryptographic key distribution, or 
@@ -305,7 +305,7 @@
 						</f-element>
 						<audit-event/>
 <!--					<management-function/>   -->
-					</f-component>
+					</cat-f-component>
 				</section>  <!-- FCS_CKM.1 -->
 			</section> <!-- FCS_CKM -->
 		</section>  <!-- FCS -->

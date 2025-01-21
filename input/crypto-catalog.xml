@@ -180,7 +180,6 @@
 									[FCS_CKM.2 Cryptographic key distribution, or 
 									FCS_CKM.5 Cryptographic key derivation, or
 									FCS_COP.1 Cryptographic operation]
-									FCS_CKM.3 Cryptographic key access
 									[FCS_RBG.1 Random bit generation, or
 									FCS_RNG.1 Generation of random numbers]
 									FCS_CKM.6 Timing and event of cryptographic key destruction
@@ -191,9 +190,10 @@
 								The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
 								a specified cryptographic key generation algorithm<selectables>
 									<tabularize id="fcs-ckm-1-ak-sels" title="AKG Asymmetric Cryptographic Key Generation">
+										<textcol>Identifier</textcol>
 										<selectcol>Cryptographic key generation algorithm</selectcol>
-										<reqtext>and specified cryptographic key sizes</reqtext>
-										<selectcol>Cryptographic key sizes</selectcol>
+										<reqtext>and specified cryptographic algorithm parameters</reqtext>
+										<selectcol>Cryptographic algorithm parameters</selectcol>
 										<reqtext>that meet the following: </reqtext>
 										<selectcol>List of standards</selectcol>
 									</tabularize>
@@ -201,110 +201,327 @@
 									<!-- RSA -->
 									<selectable id="sel-fcs-ckm-ak-rsa">
 										<col>RSA</col>
-										<col><selectables>
-											<selectable id="sel-exp-ak-rsa-2048">2048 bit</selectable>
-											<selectable id="sel-exp-ak-rsa-3072">3072-bit</selectable>
-											<selectable id="sel-exp-ak-rsa-4096">4096-bit</selectable></selectables>
+										<col>RSA</col>
+										<col>Modulus of size <selectables>
+											<selectable>2048</selectable>
+											<selectable>3072</selectable>
+											<selectable>4096</selectable></selectables> bits
 										</col>
-										<col>FIPS PUB 186-5 (Section A.1.1)</col>
+										<col>NIST FIPS PUB 186-5 (Section A.1.1)</col>
 									</selectable>
 
-									<!-- EDCSA - Extra Random Bits -->
+									<!-- ECC-ERB - Extra Random Bits -->
 									<selectable id="sel-fcs-ckm-ak-ecdsa-erb">
-										<col>EDCSA - Extra Random Bits</col>
-										<col><selectables>
-											<selectable id="sel-exp-ak-edcsa-erb-P256">256 bits (P-256, brainpoolP256r1)</selectable>
-											<selectable id="sel-exp-ak-edcsa-erb-P384">384 bits (P-384, brainpoolP384r1)</selectable>
-											<selectable id="sel-exp-ak-edcsa-erb-P521"> 512 bits (P-521, brainpoolP512r1)</selectable></selectables>
+										<col>ECC-ERB</col>
+										<col>ECC-ERB - Extra Random Bits</col>
+										<col>Elliptic Curve <selectables>
+											<selectable>P-256</selectable>
+											<selectable>brainpoolP256r1</selectable>
+											<selectable>P-384</selectable>
+											<selectable>brainpoolP384r1</selectable>
+											<selectable>P-521</selectable>
+											<selectable>brainpoolP512r1</selectable></selectables>
 										</col>
-										<col><selectables>
-											<selectable>FIPS PUB 186-5 (Section A.2.1)</selectable>
-											<selectable>NIST SP 800-56A (Section 5.6.1.2.1)</selectable></selectables>
-										</col><h:p/>
+										<col>
+											FIPS PUB 186-5 (Section A.2.1)<h:p/>
+											<selectables>
+											<selectable>NIST SP 800-186 (Section 3) [NIST Curves]</selectable>
+											<selectable>RFC 5639 (Section 3) [Brainpool curves]</selectable></selectables>
+										</col>
 									</selectable>
 
-									<!-- EDCSA - Rejection Sampling -->
-									<selectable id="sel-fcs-ckm-ak-edcsa-rs">
-										<col>EDCSA - Rejection Sampling</col>
-										<col><selectables>
-											<selectable id="sel-exp-ak-edcsa-rs-P256">256 bits (P-256, brainpoolP256r1)</selectable>
-											<selectable id="sel-exp-ak-edcsa-rs-P384">384 bits (P-384, brainpoolP384r1)</selectable>
-											<selectable id="sel-exp-ak-edcsa-rs-P521">512 bits (P-521, brainpoolP512r1)</selectable></selectables>
+									<!-- ECC-RS - Rejection Sampling -->
+									<selectable id="sel-fcs-ckm-ak-ecdsa-rs">
+										<col>ECC-RS</col>
+										<col>ECC-RS - Rejection Sampling</col>
+										<col>Elliptic Curve <selectables>
+											<selectable>P-256</selectable>
+											<selectable>brainpoolP256r1</selectable>
+											<selectable>P-384</selectable>
+											<selectable>brainpoolP384r1</selectable>
+											<selectable>P-521</selectable>
+											<selectable>brainpoolP512r1</selectable></selectables>
 										</col>
-										<col><selectables>
-											<selectable>FIPS PUB 186-5 (Section A.2.2)</selectable>
-											<selectable>NIST SP 800-56A (Section 5.6.1.2.2)</selectable></selectables>
-										</col><h:p/>
+										<col>
+											FIPS PUB 186-5 (Section A.2.2)<h:p/>
+											<selectables>
+											<selectable>NIST SP 800-186 (Section 3) [NIST Curves]</selectable>
+											<selectable>RFC 5639 (Section 3) [Brainpool curves]</selectable></selectables>
+										</col>
 									</selectable>
 
-									<!-- DSA -->
-									<selectable id="sel-fcs-ckm-ak-dsa">
-										<col>DSA</col>
-										<col>DSA Bit lengths of p and q respectively (L, N) (3072, 256)</col>
-										<col>BSI TR-02102-1 (Section 6.3.2) [Key generation]</col>
+									<!-- FFC-ERB - Extra Random Bits -->
+									<selectable id="sel-fcs-ckm-ak-ffc-erb">
+										<col>FFC-ERB</col>
+										<col>FFC-ERB - Extra Random Bits</col>
+										<col>Static domain parameters approved for <selectables>
+											<selectable>IKE Groups <selectables>
+												<selectable>MODP-2048</selectable>
+												<selectable>MODP-3072</selectable>
+												<selectable>MODP-4096</selectable>
+												<selectable>MODP-6144</selectable>
+												<selectable>MODP-8192</selectable>
+											</selectables></selectable>
+											<selectable>TLS Groups <selectables>
+												<selectable>ffdhe2048</selectable>
+												<selectable>ffdhe3072</selectable>
+												<selectable>ffdhe4096</selectable>
+												<selectable>ffdhe6144</selectable>
+												<selectable>ffdhe8192</selectable>
+											</selectables></selectable></selectables>
+										</col>
+										<col>
+											NIST SP 800-56A Revision 3 (Section 5.6.1.1.3) [key pair generation]<h:p/>
+											<selectables>
+											<selectable>RFC 3526 [IKE groups]</selectable>
+											<selectable>RFC 7919 [TLS groups]</selectable></selectables>
+										</col>
+									</selectable>
+
+									<!-- FFC-RS - Extra Random Bits -->
+									<selectable id="sel-fcs-ckm-ak-ffc-rs">
+										<col>FFC-RS</col>
+										<col>FFC-RS - Extra Random Bits</col>
+										<col>Static domain parameters approved for <selectables>
+											<selectable>IKE Groups <selectables>
+												<selectable>MODP-2048</selectable>
+												<selectable>MODP-3072</selectable>
+												<selectable>MODP-4096</selectable>
+												<selectable>MODP-6144</selectable>
+												<selectable>MODP-8192</selectable>
+											</selectables></selectable>
+											<selectable>TLS Groups <selectables>
+												<selectable>ffdhe2048</selectable>
+												<selectable>ffdhe3072</selectable>
+												<selectable>ffdhe4096</selectable>
+												<selectable>ffdhe6144</selectable>
+												<selectable>ffdhe8192</selectable>
+											</selectables></selectable></selectables>
+										</col>
+										<col>
+											NIST SP 800-56A Revision 3 (Section 5.6.1.1.3) [key pair generation]<h:p/>
+											<selectables>
+											<selectable>RFC 3526 [IKE groups]</selectable>
+											<selectable>RFC 7919 [TLS groups]</selectable></selectables>
+										</col>
 									</selectable>
 
 									<!-- EdDSA -->
 									<selectable id="sel-fcs-ckm-ak-eddsa">
 										<col>EdDSA</col>
-										<col><selectables>
-											<selectable>256 (Edwards25519)</selectable>
-											<selectable>448 (Edwards448)</selectable></selectables> bits
+										<col>EdDSA</col>
+										<col>Domain parameters approved for elliptic curves 
+											<selectables>
+											<selectable>Edwards25519</selectable>
+											<selectable>Edwards448</selectable></selectables>
 										</col>
-										<col><selectables>
-											<selectable>FIPS PUB 186-5 (Section A.2.3)</selectable>
-											<selectable>RFC 8032</selectable></selectables>
+										<col>
+											NIST FIPS PUB 186-5 (Section 6.2.1) [key-pair generation]<h:p/>
+											NIST SP 800-186 (Section 3.2.3) [Edwards Curves]
 										</col>
 									</selectable>
-									
+												
 									<!-- KCDSA -->
 									<selectable id="sel-fcs-ckm-ak-kcdsa">
 										<col>KCDSA</col>
-										<col><selectables>
+										<col>KCDSA</col>
+										<col>Domain parameters generation with (L, N) = <selectables>
 											<selectable>(2048, 224)</selectable>
-											<selectable>(2048, 256)</selectable></selectables>
+											<selectable>(2048, 256)</selectable>
+											<selectable>(3072, 256)</selectable>
+											</selectables>bits
 										</col>
-										<col>ISO/IEC 14888-3:2018 (subclause 6.3) [KCDSA]</col>
+										<col>ISO/IEC 14888-3:2018 (Subclause 6.3) [KCDSA]</col>
 									</selectable>
-									
+												
 									<!-- EC-KCDSA -->
 									<selectable id="sel-fcs-ckm-ak-eckcdsa">
 										<col>EC-KCDSA</col>
-										<col><selectables>
-											<selectable>224 (P-224, B-233, K-233)</selectable>
-											<selectable>256 (P-256, B-283, K-283)</selectable></selectables> bits
+										<col>EC-KCDSA</col>
+										<col>Elliptic Curves <selectables>
+											<selectable>P-224</selectable>
+											<selectable>B-233</selectable>
+											<selectable>K-233</selectable>
+											<selectable>P-256</selectable>
+											<selectable>B-283</selectable>
+											<selectable>K-283</selectable></selectables>
 										</col>
-										<col>ISO/IEC 14888-3:2018 (subclause 6.7) [EC-KCDSA]<h:br/><h:br/>
-											 FIPS PUB 186-5 (Appendix A.2.1, A.2.2) [NIST Curves]
+										<col>ISO/IEC 14888-3:2018 (Subclause 6.7) [EC-KCDSA]<h:p/>
+											 NIST SP 800-186 (Section 3) [NIST Curves]
+										</col>
+									</selectable>
+									
+									<!-- LMS -->
+									<selectable id="sel-fcs-ckm-ak-lms">
+										<col>LMS</col>
+										<col>LMS</col>
+										<col>Private key size = <selectables>
+											<selectable>192 bits with <selectables>
+												<selectable>SHA-256/192</selectable>
+												<selectable>SHAKE256/192</selectable>
+											</selectables></selectable>
+											<selectable>256 bits with <selectables>
+												<selectable>SHA-256</selectable>
+												<selectable>SHAKE256</selectable>
+											</selectables></selectable>
+											</selectables><h:p/>
+											Winternitz parameter = <selectables>
+												<selectable>1</selectable>
+												<selectable>2</selectable>
+												<selectable>4</selectable>
+												<selectable>8</selectable></selectables><h:p/>
+											Tree height = <selectables>
+												<selectable>5</selectable>
+												<selectable>10</selectable>
+												<selectable>15</selectable>
+												<selectable>20</selectable>
+												<selectable>25</selectable></selectables>
+										</col>
+										<col>RFC 8554 [LMS]<h:p/>
+											 NIST SP 800-208 [parameters]
+										</col>
+									</selectable>
+									
+									<!-- HSS -->
+									<selectable id="sel-fcs-ckm-ak-hss">
+										<col>HSS</col>
+										<col>HSS</col>
+										<col>Private key size = <selectables>
+											<selectable>192 bits with <selectables>
+												<selectable>SHA-256/192</selectable>
+												<selectable>SHAKE256/192</selectable>
+											</selectables></selectable>
+											<selectable>256 bits with <selectables>
+												<selectable>SHA-256</selectable>
+												<selectable>SHAKE256</selectable>
+											</selectables></selectable>
+											</selectables><h:p/>
+											Winternitz parameter = <selectables>
+												<selectable>1</selectable>
+												<selectable>2</selectable>
+												<selectable>4</selectable>
+												<selectable>8</selectable></selectables><h:p/>
+											Tree height = <selectables>
+												<selectable>5</selectable>
+												<selectable>10</selectable>
+												<selectable>15</selectable>
+												<selectable>20</selectable>
+												<selectable>25</selectable></selectables><h:p/>
+											Number of levels = <selectables>
+												<selectable>1</selectable>
+												<selectable>2</selectable>
+												<selectable>3</selectable>
+												<selectable>4</selectable>
+												<selectable>5</selectable>
+												<selectable>6</selectable>
+												<selectable>7</selectable>
+												<selectable>8</selectable></selectables>
+										</col>
+										<col>RFC 8554 [HSS]<h:p/>
+											 NIST SP 800-208 [parameters]
+										</col>
+									</selectable>
+									
+									<!-- XMSS -->
+									<selectable id="sel-fcs-ckm-ak-xmss">
+										<col>XMSS</col>
+										<col>XMSS</col>
+										<col>Private key size = <selectables>
+											<selectable>192 bits with <selectables>
+												<selectable>SHA-256/192</selectable>
+												<selectable>SHAKE256/192</selectable>
+											</selectables></selectable>
+											<selectable>256 bits with <selectables>
+												<selectable>SHA-256</selectable>
+												<selectable>SHAKE256</selectable>
+											</selectables></selectable>
+											</selectables><h:p/>
+											Tree height = <selectables>
+												<selectable>10</selectable>
+												<selectable>16</selectable>
+												<selectable>20</selectable>
+											</selectables>
+										</col>
+										<col>RFC 8391 [XMSS]<h:p/>
+											 NIST SP 800-208 [parameters]
+										</col>
+									</selectable>
+
+									<!-- XMSS(TM) -->
+									<selectable id="sel-fcs-ckm-ak-xmssmt">
+										<col>XMSS(MT)</col>
+										<col>XMSS(MT)</col>
+										<col>Private key size = <selectables>
+											<selectable>192 bits with <selectables>
+												<selectable>SHA-256/192</selectable>
+												<selectable>SHAKE256/192</selectable>
+											</selectables></selectable>
+											<selectable>256 bits with <selectables>
+												<selectable>SHA-256</selectable>
+												<selectable>SHAKE256</selectable>
+											</selectables></selectable>
+											</selectables><h:p/>
+											(Total Tree height, Number of Levels) = <selectables>
+												<selectable>(20, 2)</selectable>
+												<selectable>(20, 4)</selectable>
+												<selectable>(40, 2)</selectable>
+												<selectable>(40, 4)</selectable>
+												<selectable>(40, 8)</selectable>
+												<selectable>(60, 3)</selectable>
+												<selectable>(60, 6)</selectable>
+												<selectable>(60, 12)</selectable>
+											</selectables>
+										</col>
+										<col>RFC 8391 [XMSS(MT)]<h:p/>
+											 NIST SP 800-208 [parameters]
 										</col>
 									</selectable>
 								</selectables>
-								<h:br/><h:br/>The following table provides the allowed choices for completion of the selection 
-								operations of FCS_CKM.1/AKG:
 							</title>
-
 							<note role="application">
-								For DSA, PP authors should consult schemes for additional guidelines on use.  For 
-								example, FIPS PUB 186-5 does not approve DSA for digital signature generation but 
-								allows DSA for digital signature verification for legacy purposes.  BSI TR-02102-1 
-								requires 3000-bits and larger key sizes for DSA for digital signature generation and 
-								verification.
+								This SFR must be included in the ST if asymmetric key generation is a service provided by 
+								the TOE to tenant software, or if it is used by the TOE itself to support or implement PP-specified
+								security functionality.<h:p/> 
+								Also, this SFR must be included in the ST if FCS_IPSEC_EXT.1 is claimed, or if 
+								"<h:i>causing the TOE to generate [asymmetric] keys/secrets</h:i>" is selected in FCS_STG_EXT.1.2.<h:p/>
+								If this SFR is included in the ST, then FCS_CKM.6 and FCS_RBG.1 must also be claimed.<h:p/>
+								
+								For RSA the choice of the modulus implies the resulting key sizes of the public and 
+								private keys generated using the specified standard methods.<h:p/>
+
+								For Finite Field Cryptography (FFC) DSA, ST authors should consult schemes for 
+								guidelines on use.  FIPS PUB 186-5 does not approve DSA for digital signature 
+								generation but allows DSA for digital signature verification for legacy purposes.
+								“FFC-ERB” or  “FFC–RS” may be claimed only for generating private and public keys
+								when “DH” is claimed in FCS_CKM_EXT.7.<h:p/>
+
+								When generating ECC keys pairs for key agreement and if “ECDH” or “ECDH-Ed” is 
+								claimed in FCS_CKM_EXT.7, then “ECC–ERB” or “ECC–RS” must be claimed.  The sizes 
+								of the private key, which is a scalar, and the public key, which is a point on 
+								the elliptic curve, are determined by the choice of the curve.<h:p/>
+
+								When generating ECC key pairs for digital signature generation and if “ECDSA” or 
+								“EC-KCDSA” are claimed in FCS_COP.1/SigGen, then “ECC–ERB” or “ECC–RS” must be 
+								claimed.  The sizes of the private key, which is a scalar, and the public key, 
+								which is a point on the elliptic curve, are determined by the choice of the 
+								curve.<h:p/>
+
+								When generating EdDSA key pairs for digital signatures and if “EdDSA” is claimed
+								in FCS_COP.1/SigGen, then “EdDSA” must be claimed here.  The chosen domain
+								parameters determine the size of the private keys and the public keys.<h:p/>
+
+								For LMS, HSS, XMSS, and XMSSMT, the key sizes do not represent the expected 
+								security strength.  All key sizes given here correspond to an expected security 
+								strength of 128 bits, per NIST SP 800-208.<h:p/>
+
+								For HSS and XMSSMT the same hash or XOF function must be used at each level.  
+								Within each level, the same Winternitz parameter must be used but can be 
+								different for each level.  For HSS, within each level, the same tree height 
+								must be used but can be different for each level.
 							</note>
-							
-							<aactivity level="element">
-								<TSS><h:p>
-									The evaluator shall inspect the application and its developer documentation 
-									to determine if the application needs asymmetric key generation services. If not, the 
-									evaluator shall verify the <h:b>generate no asymmetric cryptographic keys</h:b> selection is present 
-									in the ST. Otherwise, the evaluation activities shall be performed as stated in the 
-									selection-based requirements.</h:p>
-								</TSS>
-								<Guidance><h:p>None.</h:p></Guidance>
-								<Tests><h:p>None.</h:p></Tests>
-							</aactivity>
+							<aactivity/>
 						</f-element>
 						<audit-event/>
-<!--					<management-function/>   -->
 					</f-component>
 				</section>  <!-- FCS_CKM.1 -->
 			</section> <!-- FCS_CKM -->

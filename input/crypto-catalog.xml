@@ -189,7 +189,7 @@
 							<title>
 								The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
 								a specified cryptographic key generation algorithm<selectables>
-									<tabularize id="fcs-ckm-1-ak-sels" title="AKG Asymmetric Cryptographic Key Generation">
+									<tabularize id="fcs-ckm-1-akg-sels" title="Recommended choices for FCS_CKM.1/AKG">
 										<textcol>Identifier</textcol>
 										<selectcol>Cryptographic key generation algorithm</selectcol>
 										<reqtext>and specified cryptographic <h:b>algorithm parameters</h:b> <h:s>key sizes</h:s></reqtext>
@@ -479,13 +479,6 @@
 								</selectables>
 							</title>
 							<note role="application">
-								This SFR must be included in the ST if asymmetric key generation is a service provided by 
-								the TOE to tenant software, or if it is used by the TOE itself to support or implement PP-specified
-								security functionality.<h:p/> 
-								Also, this SFR must be included in the ST if FCS_IPSEC_EXT.1 is claimed, or if 
-								"<h:i>causing the TOE to generate [asymmetric] keys/secrets</h:i>" is selected in FCS_STG_EXT.1.2.<h:p/>
-								If this SFR is included in the ST, then FCS_CKM.6 and FCS_RBG.1 must also be claimed.<h:p/>
-								
 								For RSA the choice of the modulus implies the resulting key sizes of the public and 
 								private keys generated using the specified standard methods.<h:p/>
 
@@ -523,6 +516,41 @@
 						</f-element>
 						<audit-event/>
 					</f-component>
+					
+					<!-- FCS_CKM.1/SKG Cryptographic Key Generation - Symmetric Key -->
+					<f-component id="sfr-fcs-ckm-1-skg" cc-id="fcs_ckm.1" iteration="SKG" 
+						name="Cryptographic Key Generation - Symmetric Key">
+						<f-element id="fcs-ckm-1e1-skg">
+							<title>
+								The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with
+								a specified cryptographic key generation algorithm<selectables>
+									<tabularize id="fcs-ckm-1-skg-sels" title="Recommended choices for FCS_CKM.1/SKG">
+										<textcol>Identifier</textcol>
+										<selectcol>Cryptographic Key Generation Algorithm</selectcol>
+										<reqtext>and specified cryptographic key sizes</reqtext>
+										<selectcol>Cryptographic Key Sizes</selectcol>
+										<reqtext>that meet the following: </reqtext>
+										<selectcol>List of standards</selectcol>
+									</tabularize>
+
+									<!-- RSK -->
+									<selectable id="sel-fcs-ckm-sk-rsk">
+										<col>RSK</col>
+										<col>Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</col>
+										<col><selectables>
+											<selectable id="sel-exp-skg-128">123</selectable>
+											<selectable id="sel-exp-skg-256">256</selectable>
+											<selectable id="sel-exp-skg-512">512</selectable></selectables> bits
+										</col>
+										<col>NIST SP 800-133 Revision 2 (Section 6.1)[Direct generation of symmetric keys]</col>
+									</selectable>
+								</selectables>
+							</title>
+							<aactivity/>
+						</f-element>
+						<audit-event/>
+					</f-component>
+					
 				</section>  <!-- FCS_CKM.1 -->
 			</section> <!-- FCS_CKM -->
 		</section>  <!-- FCS -->

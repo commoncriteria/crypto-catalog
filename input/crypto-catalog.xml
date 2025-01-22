@@ -1140,14 +1140,197 @@
 					</f-element>
 					<audit-event/>
 				</f-component>
-
-
-				
-				
-				
 				
 			</section> <!-- FCS_CKM -->
 			
+			<section id="sec-fcs-cop-1" title="FCS_COP.1: Cryptographic Operations">
+
+				<!-- FCS_COP.1/AEAD Cryptographic Operation – Authenticated Encryption with Associated Data -->	
+				<f-component id="sfr-fcs-cop-1-aead" cc-id="fcs_cop.1" iteration="AEAD" name="Cryptographic Operation – Authenticated Encryption with Associated Data">
+					<f-element id="fcs-cop-1e1-aead">
+						<title>
+							The TSF shall perform [authenticated encryption with associated data] in accordance with a specified 
+							cryptographic algorithm 
+							<selectables>
+								<tabularize id="fcs-cop-aead-sels" title="Recommended choices for FCS_COP.1/AEAD">
+									<textcol>Identifier</textcol>
+									<reqtext></reqtext>
+									<selectcol>Cryptographic algorithm</selectcol>
+									<reqtext>and cryptographic key sizes</reqtext>
+									<selectcol>Cryptographic key sizes</selectcol>
+									<reqtext>that meet the following:</reqtext>
+									<selectcol>List of standards</selectcol>
+								</tabularize>
+								
+								<selectable id="sel-fcs-cop-aead-aes-ccm">
+								<col>AES-CCM</col>
+								<col>AES in CCM mode with unpredictable, non-repeating nonce, minimum size of 64 bits</col>
+								<col><selectables>
+									<selectable>128 bits</selectable>
+									<selectable>192 bits</selectable>
+									<selectable>256 bits</selectable>
+								</selectables></col>
+								<col><selectables>
+									<selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable>
+									<selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 7)</selectable> 
+									<selectable>NIST SP 800-38C</selectable></selectables> [CCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-aes-gcm">
+								<col>AES-GCM</col>
+								<col>AES in GCM mode with non-repeating IVs using <selectables>
+									<selectable>deterministic</selectable>
+									<selectable>RBG-based</selectable></selectables>,
+									IV construction; the tag must be of length
+									<selectables>
+										<selectable>96</selectable>
+										<selectable>104</selectable>
+										<selectable>112</selectable>
+										<selectable>120</selectable>
+										<selectable>128</selectable>
+									</selectables> bits.
+								</col>
+								<col><selectables>
+										<selectable>128 bits</selectable>
+										<selectable>192 bits</selectable>
+										<selectable>256 bits</selectable>
+									</selectables></col>
+								<col><selectables>
+									<selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable>
+									<selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 10)</selectable> 
+									<selectable>NIST SP 800-38D</selectable></selectables> [GCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-cam-ccm">
+								<col>CAM-CCM</col>
+								<col>Camellia in CCM mode with non-repeating nonce, minimum size of 64 bits</col>
+								<col><selectables>
+									<selectable>128 bits</selectable>
+									<selectable>192 bits</selectable>
+									<selectable>256 bits</selectable>
+								</selectables></col>
+								<col>ISO/IEC 18033-3:2010 (Subclause 5.3) [Camellia]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 7)</selectable> 
+									<selectable>NIST SP 800-38C</selectable></selectables> [CCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-cam-gcm">
+								<col>CAM-GCM</col>
+								<col>Camillia in GCM mode with non-repeating IVs using <selectables>
+									<selectable>deterministic</selectable>
+									<selectable>RBG-based</selectable></selectables>,
+									IV construction; the tag must be of length
+									<selectables>
+										<selectable>96</selectable>
+										<selectable>104</selectable>
+										<selectable>112</selectable>
+										<selectable>120</selectable>
+										<selectable>128</selectable>
+									</selectables> bits.
+								</col>
+								<col><selectables>
+										<selectable>128 bits</selectable>
+										<selectable>192 bits</selectable>
+										<selectable>256 bits</selectable>
+									</selectables></col>
+								<col>ISO/IEC 18033-3:2010 (Subclause 5.3) [Camellia]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 10)</selectable> 
+									<selectable>NIST SP 800-38D</selectable></selectables> [GCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-seed-ccm">
+								<col>SEED-CCM</col>
+								<col>SEED in CCM mode with non-repeating nonce, minimum size of 64 bits</col>
+								<col>128 bits</col>
+								<col>ISO/IEC 18033-3:2010 (Subclause 5.4) [SEED]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 7)</selectable> 
+									<selectable>NIST SP 800-38C</selectable></selectables> [CCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-seed-gcm">
+								<col>SEED-GCM</col>
+								<col>SEED in GCM mode with non-repeating IVs using <selectables>
+									<selectable>deterministic</selectable>
+									<selectable>RBG-based</selectable></selectables>,
+									IV construction; the tag must be of length
+									<selectables>
+										<selectable>96</selectable>
+										<selectable>104</selectable>
+										<selectable>112</selectable>
+										<selectable>120</selectable>
+										<selectable>128</selectable>
+									</selectables> bits.
+								</col>
+								<col>128 bits</col>
+								<col>ISO/IEC 18033-3:2010 (Subclause 5.4) [SEED] <h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 10)</selectable> 
+									<selectable>NIST SP 800-38D</selectable></selectables> [GCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-lea-ccm">
+								<col>LEA-CCM</col>
+								<col>LEA in CCM mode with non-repeating nonce, minimum size of 64 bits</col>
+								<col><selectables>
+									<selectable>128 bits</selectable>
+									<selectable>192 bits</selectable>
+									<selectable>256 bits</selectable>
+								</selectables></col>
+								<col>ISO/IEC 29192-2:2019 (Subclause 6.3 [LEA]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 7)</selectable> 
+									<selectable>NIST SP 800-38C</selectable></selectables> [CCM]
+								</col></selectable>
+
+								<selectable id="sel-fcs-cop-aead-lea-gcm">
+								<col>LEA-GCM</col>
+								<col>LEA in GCM mode with non-repeating IVs using <selectables>
+									<selectable>deterministic</selectable>
+									<selectable>RBG-based</selectable></selectables>,
+									IV construction; the tag must be of length
+									<selectables>
+										<selectable>96</selectable>
+										<selectable>104</selectable>
+										<selectable>112</selectable>
+										<selectable>120</selectable>
+										<selectable>128</selectable>
+									</selectables> bits.
+								</col>
+								<col><selectables>
+										<selectable>128 bits</selectable>
+										<selectable>192 bits</selectable>
+										<selectable>256 bits</selectable>
+									</selectables></col>
+								<col>ISO/IEC 29192-2:2019 (Subclause 6.3 [LEA]<h:p/>
+									<selectables>
+									<selectable>ISO/IEC 19772:2020 (Clause 10)</selectable> 
+									<selectable>NIST SP 800-38D</selectable></selectables> [GCM]
+								</col></selectable>
+							</selectables>
+						</title>
+						<note role="application">
+							If the selected cryptographic algorithm requires an IV or nonce, 
+							then FCS_OTV_EXT.1 must be claimed.
+						</note>
+						<aactivity>
+							<no-tests>TBD</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
+				
+				
+				
+				
+				
+			</section>   <!-- FCS_COP.1 -->
 		</section>  <!-- FCS -->
 	</section>  <!-- SFRs -->
 	

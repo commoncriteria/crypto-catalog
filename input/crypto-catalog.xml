@@ -196,6 +196,8 @@
 										<selectcol>Cryptographic algorithm parameters</selectcol>
 										<reqtext>that meet the following: </reqtext>
 										<selectcol>List of standards</selectcol>
+										<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_CKM.1/AKG.</reqtext>
 									</tabularize>
 
 									<!-- RSA -->
@@ -531,6 +533,8 @@
 										<selectcol>Cryptographic Key Sizes</selectcol>
 										<reqtext>that meet the following: </reqtext>
 										<selectcol>List of standards</selectcol>
+										<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_CKM.1/SKG.</reqtext>
 									</tabularize>
 
 									<!-- RSK -->
@@ -597,6 +601,8 @@
 									<reqtext>and specified cryptographic key sizes</reqtext>
 									<selectcol>Key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_CKM.5.</reqtext>
 									<selectcol>List of standards</selectcol>
 								</tabularize>
 
@@ -1102,6 +1108,107 @@
 					</f-element>
 					<audit-event/>
 				</f-component>
+
+				<!-- FCS_CKM_EXT.7 Cryptographic Key Agreement -->
+				<f-component id="sfr-fcs-ckm-ext-7" cc-id="fcs_ckm_ext.7" name="Cryptographic Key Agreement">
+					<f-element id="fcs-ckm-ext-7e1">
+						<title>
+							The TSF shall derive shared cryptographic keys with input from multiple parties in accordance 
+							with specified cryptographic key agreement algorithms  
+							<selectables>
+								<tabularize id="fcs-ckm-ext-7-sels" 
+										title="Recommended choices for FCS_CKM_EXT.7">
+									<textcol>Identifier</textcol>
+									<selectcol>Cryptographic algorithm</selectcol>
+									<reqtext>and specified cryptographic parameters</reqtext>
+									<selectcol>Cryptographic parameters</selectcol>
+									<reqtext>that meet the following:</reqtext>
+									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+												completion of the selection operations of FCS_CKM_EXT.7.</reqtext>
+								</tabularize>
+
+								<selectable id="sel-fcs-ckm-kat-kas2">
+									<col>KAS2</col>
+									<col>RSA</col>
+									<col>Modulus size <selectables>
+										<selectable>2048</selectable>
+										<selectable>3072</selectable>
+										<selectable>4096</selectable>
+										<selectable>6144</selectable>
+										<selectable>8192</selectable>
+									</selectables> bits</col>
+									<col>NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</col>
+								</selectable>
+
+								<selectable id="sel-fcs-ckm-kat-dh">
+									<col>DH</col>
+									<col>Finite Field Cryptography Diffie-Hellman</col>
+									<col>Static domain parameters approved for <selectables>
+										<selectable>IKE Groups <selectables>
+											<selectable id="sel-kat-ffc-modp2048">MODP-2048</selectable>
+											<selectable id="sel-kat-ffc-modp3072">MODP-3072</selectable>
+											<selectable id="sel-kat-ffc-modp4096">MODP-4096</selectable>
+											<selectable id="sel-kat-ffc-modp6144">MODP-6144</selectable>
+											<selectable id="sel-kat-ffc-modp8192">MODP-8192</selectable>
+										</selectables></selectable>
+										<selectable>TLS Groups <selectables>
+											<selectable id="sel-kat-ffc-ffdhe2048">ffdhe2048</selectable>
+											<selectable id="sel-kat-ffc-ffdhe3072">ffdhe3072</selectable>
+											<selectable id="sel-kat-ffc-ffdhe4096">ffdhe4096</selectable>
+											<selectable id="sel-kat-ffc-ffdhe6144">ffdhe6144</selectable>
+											<selectable id="sel-kat-ffc-ffdhe8192">ffdhe8192</selectable>
+										</selectables></selectable></selectables>
+									</col>
+									<col>
+										NIST SP 800-56A Revision 3 (Section 5.7.1.1) [DH]<h:p/>
+										<selectables>
+										<selectable>RFC 3526 [IKE groups]</selectable>
+										<selectable>RFC 7919 [TLS groups]</selectable></selectables>
+									</col>
+								</selectable>
+
+								<selectable id="sel-fcs-ckm-kat-ecdh">
+									<col>ECDH</col>
+									<col>Elliptic Curve Diffie-Hellman</col>
+									<col>Elliptic Curve <selectables>
+										<selectable id="sel-exp-kat-ecdh-P256">P-256</selectable>
+										<selectable id="sel-exp-kat-ecdh-brainpoolP256r1">brainpoolP256r1</selectable>
+										<selectable id="sel-exp-kat-ecdh-P384">P-384</selectable>
+										<selectable id="sel-exp-kat-ecdh-brainpoolP384r1">brainpoolP384r1</selectable>
+										<selectable id="sel-exp-kat-ecdh-P521">P-521</selectable>
+										<selectable id="sel-exp-kat-ecdh-brainpoolP512r1">brainpoolP512r1</selectable></selectables>
+									</col>
+									<col>
+										NIST SP 800-56A Revision 3 (Section 5.7.1.2) [ECDH]<h:p/>
+										<selectables>
+										<selectable>: NIST SP 800-186 (Section 3.2.1) [NIST Curves]</selectable>
+										<selectable>RFC 5639 (Section 3) [Brainpool curves]</selectable></selectables>
+									</col>
+								</selectable>
+
+								<selectable id="sel-fcs-ckm-kat-eddsa">
+									<col>ECDH-Ed</col>
+									<col>ECDH with Montgomery Curves</col>
+									<col>Domain parameters approved for elliptic curves 
+										<selectables>
+										<selectable>curve25519</selectable>
+										<selectable>curve448</selectable></selectables>
+									</col>
+									<col>
+										RFC 7748 (Section 5) [ECDH-Ed]<h:p/>
+										NIST SP 800-186 (Section 3.2.2) [Montgomery Curves]
+									</col>
+								</selectable>
+							</selectables>
+						</title>
+						<aactivity>
+							<no-tests>TBD</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
+
 						
 
 				<!-- FCS_CKM_EXT.8 Password-Based Key Derivation -->
@@ -1160,6 +1267,8 @@
 									<selectcol>Cryptographic key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
 									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/AEAD.</reqtext>
 								</tabularize>
 								
 								<selectable id="sel-fcs-cop-aead-aes-ccm">
@@ -1340,6 +1449,8 @@
 									<selectcol>Cryptographic key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
 									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/CMAC.</reqtext>
 								</tabularize>
 								
 								<selectable id="sel-fcs-cop-cmac-aes">
@@ -1435,6 +1546,8 @@
 									<selectcol>Cryptographic key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
 									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/KeyedHash.</reqtext>
 								</tabularize>
 								
 								<selectable id="sel-fcs-cop-keyedhash-hmac-sha-1">
@@ -1568,6 +1681,8 @@
 									<selectcol>Cryptographic key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
 									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/KeyEncap.</reqtext>
 								</tabularize>
 								
 								<selectable id="sel-fcs-cop-keyencap-kas1">
@@ -1620,6 +1735,8 @@
 									<selectcol>Cryptographic key sizes</selectcol>
 									<reqtext>that meet the following:</reqtext>
 									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/SigGen.</reqtext>
 								</tabularize>
 								
 								<selectable id="sel-fcs-cop-siggen-rsa-pkcs">
@@ -1899,6 +2016,8 @@
 								<selectcol>Cryptographic key sizes</selectcol>
 								<reqtext>that meet the following:</reqtext>
 								<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_COP.1/SigVer.</reqtext>
 							</tabularize>
 							
 							<selectable id="sel-fcs-cop-sigver-rsa-pkcs">
@@ -2173,6 +2292,117 @@
 					<audit-event/>
 				</f-component>	
 	
+				<!-- FCS_COP.1/KeyWrap Cryptographic Operation - Key Wrapping -->
+				<f-component id="sfr-fcs-cop-1-kw" cc-id="fcs_cop.1" iteration="KeyWrap" name="Cryptographic Operation - Key Wrapping">
+					<f-element id="fcs-cop-1e1-kw">
+						<title>
+							The TSF shall perform [key wrapping] in accordance with a specified cryptographic algorithm 
+							<selectables>
+								<tabularize id="fcs-cop-kw-sels" title="Recommended choices for FCS_COP.1/KeyWrap">
+									<textcol>Identifier</textcol>
+									<reqtext></reqtext>
+									<selectcol>Cryptographic algorithm</selectcol>
+									<reqtext>and cryptographic key sizes</reqtext>
+									<selectcol>Cryptographic key sizes</selectcol>
+									<reqtext>that meet the following:</reqtext>
+									<selectcol>List of standards</selectcol>
+									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+										completion of the selection operations of FCS_COP.1.1/KeyWrap.</reqtext>
+								</tabularize>
+								
+								<!-- KW mode -->
+								<selectable id="sel-fcs-cop-kw-kw">
+									<col>KW</col>
+									<col><selectables>
+										<selectable>AES</selectable>
+										<selectable>CAM</selectable>
+										<selectable>SEED</selectable>
+										<selectable>LEA</selectable></selectables> in KW mode
+									</col>
+									<col><selectables>
+										<selectable>128 (AES, CAM, SEED, LEA)</selectable>
+										<selectable>192 (AES, CAM, LEA)</selectable>
+										<selectable>256 (AES, CAM, LEA)</selectable>
+									</selectables> bits</col>
+									<col><selectables>
+										<selectable>ISO/IEC 19772:2020 (clause 6)</selectable>
+										<selectable>NIST SP 800-38F (Section 6.2)</selectable> 
+									</selectables> [KW mode]</col>
+								</selectable>
+
+								<!-- KWP mode -->
+								<selectable id="sel-fcs-cop-kw-kwp">
+									<col>KWP</col>
+									<col><selectables>
+										<selectable>AES</selectable>
+										<selectable>CAM</selectable>
+										<selectable>SEED</selectable>
+										<selectable>LEA</selectable></selectables> in KWP mode
+									</col>
+									<col><selectables>
+										<selectable>128 (AES, CAM, SEED, LEA)</selectable>
+										<selectable>192 (AES, CAM, LEA)</selectable>
+										<selectable>256 (AES, CAM, LEA)</selectable>
+									</selectables> bits</col>
+									<col>NIST SP 800-38F (Section 6.3) [KWP mode]</col>
+								</selectable>
+
+								<!-- CCM mode -->
+								<selectable id="sel-fcs-cop-kw-ccm">
+									<col>CCM</col>
+									<col><selectables>
+										<selectable>AES</selectable>
+										<selectable>CAM</selectable>
+										<selectable>SEED</selectable>
+										<selectable>LEA</selectable></selectables> in CCM mode with non-repeating nonce, 
+											minimum size of 64 bits
+									</col>
+									<col><selectables>
+										<selectable>128 (AES, CAM, SEED, LEA)</selectable>
+										<selectable>192 (AES, CAM, LEA)</selectable>
+										<selectable>256 (AES, CAM, LEA)</selectable>
+									</selectables> bits</col>
+									<col><selectables>
+										<selectable>ISO/IEC 19772:2020 (Clause 7)</selectable>
+										<selectable>NIST SP 800-38C</selectable> 
+									</selectables> [CCM mode]</col>
+								</selectable>
+
+								<!-- GCM mode -->
+								<selectable id="sel-fcs-cop-kw-gcm">
+									<col>GCM</col>
+									<col><selectables>
+										<selectable>AES</selectable>
+										<selectable>CAM</selectable>
+										<selectable>SEED</selectable>
+										<selectable>LEA</selectable></selectables> in GCM mode with non-repeating IVs
+											IV length must be equal to 96 bits; the deterministic IV construction 
+											method [SP800-38D, Section 8.2.1] must be used; the MAC length t must be one 
+											of the values 96, 104, 112, 120, and 128 bits.
+									</col>
+									<col><selectables>
+										<selectable>128 (AES, CAM, SEED, LEA)</selectable>
+										<selectable>192 (AES, CAM, LEA)</selectable>
+										<selectable>256 (AES, CAM, LEA)</selectable>
+									</selectables> bits</col>
+									<col><selectables>
+										<selectable>ISO/IEC 19772:2020 (Clause 10)</selectable>
+										<selectable>NIST SP 800-38D</selectable> 
+									</selectables> [GCM mode]</col>
+								</selectable>
+							</selectables>
+						</title>
+						<note role="application">
+							NIST 800-57p1rev5 sec. 5.6.2 specifies that the size of key used to protect the key being 
+							transported should be at least the security strength of the key it is protecting. <h:p/>
+							The SEED algorithm supports keys of size 128 bits only.
+						</note>
+						<aactivity>
+							<no-tests>TBD</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
 				
 				
 			</section>   <!-- FCS_COP.1 -->

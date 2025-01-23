@@ -2929,7 +2929,7 @@
 				<!-- FCS_RBG.1 Random Bit Generation -->
 				<!-- CC:2022 replacement for FCS_RBG_EXT.1 -->
 				<f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
-					<f-element id="fel-fcs-rbg-1-1">
+					<f-element id="fcs-rbg-1e1">
 						<title>
 							TSF shall perform deterministic random bit generation services using   
 							<selectables>
@@ -3001,7 +3001,7 @@
 							<no-tests>TBD</no-tests>
 						</aactivity>
 					</f-element>
-					<f-element id="fel-fcs-rbg-1-2">
+					<f-element id="fcs-rbg-1e2">
 						<title>
 							The TSF shall use a <selectables>
 								<selectable id="internal-seed">TSF noise source <assignable>name of noise source</assignable></selectable>
@@ -3019,7 +3019,7 @@
 						</aactivity>
 					</f-element>
 					
-					<f-element id="fel-fcs-rbg-1-3">
+					<f-element id="fcs-rbg-1e3">
 						<title>
 							The TSF shall update the DRBG state by <selectables>
 								<selectable>reseeding</selectable>
@@ -3059,10 +3059,148 @@
 					</audit-event>
 				</f-component>    
 			
+				<!-- FCS_RBG.2 Random Bit Generation (External Seeding) -->
+				<!-- Claimed from selection in RBG.1 -->
+				<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)">
+					<f-element id="fcs-rbg-2e1">
+						<title>
+							The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
+							from a TSF interface for the purpose of obtaining entropy.
+						</title>
+						<note role="application">
+							In order to maintain compliance with NIST SP 800-90A Revision 1, the TSF accepts enough 
+							bits of input from an external noise source to satisfy the entropy requirements of the DRBG.
+							The TSF should also protect the integrity and confidentiality of the entropy it receives from
+							the external noise source.<h:p/>
+							The TSF interface for the purpose of seeding here is the interface used to gather entropy 
+							for initializing the seed.
+						</note>
+						<aactivity>
+							<no-tests>
+								TBD
+							</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
+					
+				<!-- FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source) -->
+				<!-- Claimed when FCS_RBG.1.2 selects "TSF noise source..." -->
+				<f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)">
+					<f-element id="fcs-rbg-3e1">
+						<title>
+							The TSF shall be able to seed the DRBG using a <selectables choose-one-of="yes">
+								<selectable>TSF software-based entropy source</selectable>
+								<selectable>TSF hardware-based entropy source <assignable>name of entropy source</assignable></selectable></selectables>
+							with <assignable>number of bits</assignable> bits of min-entropy.
+						</title>        
+						<note role="application">
+							If an ST Author wishes to use multiple internal noise sources, they iterate this requirement
+							for each noise source used by the TSF.<h:p/>
+							Hardware-based noise sources are entropy sources whose primary function is noise generation, 
+							such as ring oscillators, diodes, and thermal noise.  While a TOE may use software to collect
+							the noise from these hardware sources, these are not software-based.  Software-based noise 
+							sources are those sources that have some other primary function, and the noise is a byproduct 
+							of their normal operation.  Examples of software-based noise sources are user or system-based 
+							events, reading the least significant bits from an event timer, etc. <h:p/>
+							Hardware-based noise sources may be stochastically modelled, in which case the amount of 
+							entropy is well understood.  Software-based noise sources are usually less well understood 
+							and therefore will typically take a more conservative approach, gathering larger numbers of 
+							bits than required, then performing a compression function to derive the final output. 
+							Software-based noise sources often rely on an entropy estimator. 
+						</note>
+						<aactivity>
+							<no-tests>TBD
+							</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
 			
-			
-			
-			
+				<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
+				<!-- Claimed when FCS_RBG.1.2 selects "multiple TSF noise sources..." -->
+				<f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)">
+					<f-element id="fcs-rbg-4e1">
+						<title>
+							The TSF shall be able to seed the DRBG using <selectables>
+								<selectable><assignable>number</assignable> TSF software-based entropy source(s)</selectable>
+								<selectable><assignable>number</assignable> TSF hardware-based entropy source(s)</selectable>
+							</selectables>.
+						</title>
+						<aactivity>
+							<no-tests>TBD
+							</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>
+					
+
+				<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
+				<!-- Claimed when FCS_RBG.1.2 selects "multiple TSF noise sources..." -->
+				<f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Entropy Sources)">
+					<f-element id="fcs-rbg-5e1">
+						<title>
+							The TSF shall <selectables>
+								<selectable>hash</selectable>
+								<selectable>concatenate and hash</selectable>
+								<selectable>XOR</selectable>
+								<selectable>input into a linear feedback shift register</selectable>
+								<selectable><assignable>combining operation</assignable></selectable> </selectables>
+								<selectables>
+								<selectable>output from TSF entropy source(s)</selectable>
+								<selectable>input from TSF interface(s) for obtaining entropy</selectable></selectables>
+							resulting in a minimum of <assignable>number of bits</assignable>
+							bits of min-entropy to create the entropy input into the derivation function as defined in
+							<selectables>
+								<selectable>ISO/IEC 18031:2011</selectable>
+								<selectable>NIST SP 800-90A Revision 1</selectable>
+							</selectables>						
+						</title>        
+						<note role="application">
+							One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal noise sources 
+							(a.k.a. raw entropy) to confirm the min-entropy of the noise sources either in aggregate or 
+							individually.  One should not apply NIST SP 800-90B (or AIS-31) statistical tests against 
+							external noise sources since the TOE is unable to enforce entropy requirements or conditioning 
+							requirements against external sources of entropy.  However, the TSS may include estimates 
+							for min-entropy from external sources that contribute to the overall entropy requirements 
+							for either the DRBG or for FCS_OTV_EXT.1.<h:p/>
+							FCS_RBG.5 specifies the combining operation such that the combined min-entropy of all the 
+							internal sources and the estimated entropy of the external sources is greater than or equal 
+							to the desired entropy of the output of the combining operation.  The output could be used as 
+							a nonce or a seed for a DRBG.  The combining operation should avoid crushing the entropy of
+							the sources such that the desired entropy of the output cannot be met.<h:p/>
+							The TSF interface(s) for seeding here is the interface used to gather entropy for
+							initializing the seed.
+						</note>
+						<aactivity>
+							<no-tests>TBD
+							</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>  
+		
+
+				<!-- FCS_RBG.6 Random Bit Generation Service -->
+				<f-component cc-id="fcs_rbg.6" name="Random Bit Generation (Combining Entropy Sources)">
+					<f-element id="fcs-rbg-6e1">
+						<title>
+							The TSF shall provide a <selectables>
+								<selectable>hardware</selectable>
+								<selectable>software</selectable>
+								<selectable><assignable>other interface type</assignable></selectable> </selectables>
+							interface to make the DRBG output, as specified in FCS_RBG.1 Random Bit Generation (RBG), 
+							available as a service to entities outside of the TOE.
+						</title>        
+						<aactivity>
+							<no-tests>TBD
+							</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event/>
+				</f-component>  
+		
 			</section>   <!-- FCS_RBG -->
 
 		</section>  <!-- FCS -->

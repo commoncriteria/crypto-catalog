@@ -2920,11 +2920,150 @@
 					</f-element>
 					<audit-event/>
 				</f-component>
-				
-			
-			
+						
 			</section>  <!-- FCS_OTV -->
 
+			<section id="sec-fcs-rbg" title="Random Bit Generation (FCS_RBG)">
+			
+
+				<!-- FCS_RBG.1 Random Bit Generation -->
+				<!-- CC:2022 replacement for FCS_RBG_EXT.1 -->
+				<f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
+					<f-element id="fel-fcs-rbg-1-1">
+						<title>
+							TSF shall perform deterministic random bit generation services using   
+							<selectables>
+								<tabularize id="fcs-rbg-1-sels" title="Recommended choices for FCS_RBG.1.1">
+									<textcol>Identifier</textcol>
+									<reqtext></reqtext>
+									<selectcol>DRBG Algorithm</selectcol>
+									<reqtext> in accordance with </reqtext>
+									<selectcol>List of standards</selectcol>
+									<reqtext>after initialization.<h:p/><h:p/>The following table provides the recommended choices for
+										completion of the selection operations of FCS_RBG.1.</reqtext>
+								</tabularize>
+								
+								<selectable id="sel-fcs-rbg-hash-drbg">
+									<col>HASH_DRBG</col>
+									<col>Hash_DRBG with <selectables>
+										<selectable>SHA-256</selectable>
+										<selectable>SHA-384</selectable>
+										<selectable>SHA-512</selectable>
+										<selectable>SHA3-256</selectable>
+										<selectable>SHA3-384</selectable>
+										<selectable>SHA3-512</selectable>
+									</selectables></col>
+									<col><selectables>
+										<selectable>ISO/IEC 18031: 2011 (Section C.2.2)</selectable>
+										<selectable>NIST SP 800-90A Revision 1 Section 10.1.1</selectable></selectables>
+									</col>
+								</selectable>
+			
+								<selectable id="sel-fcs-rbg-hmac-drbg">
+									<col>HMAC_DRBG</col>
+									<col>HMAC_DRBG with  <selectables>
+										<selectable>SHA-256</selectable>
+										<selectable>SHA-384</selectable>
+										<selectable>SHA-512</selectable>
+										<selectable>SHA3-256</selectable>
+										<selectable>SHA3-384</selectable>
+										<selectable>SHA3-512</selectable>
+									</selectables></col>
+									<col><selectables>
+										<selectable>ISO/IEC 18031: 2011 (Section C.2.3)</selectable>
+										<selectable>NIST SP 800-90A Revision 1 Section 10.1.2</selectable></selectables>
+									</col>
+								</selectable>
+
+								<selectable id="sel-fcs-rbg-ctr-drbg">
+									<col>CTR_DRBG</col>
+									<col>CTR_DRBG  with  <selectables>
+										<selectable>AES-128</selectable>
+										<selectable>AES-192</selectable>
+										<selectable>AES-256</selectable>
+										<selectable>CAM-128</selectable>
+										<selectable>CAM-192</selectable>
+										<selectable>CAM-256</selectable>
+										<selectable>SEED-128</selectable>
+										<selectable>HIGHT-128</selectable>
+										<selectable>LEA-128</selectable>
+										<selectable>LEA-192</selectable>
+										<selectable>LEA-256</selectable>
+									</selectables></col>
+									<col><selectables>
+										<selectable>ISO/IEC 18031: 2011 (Section C.3.2)</selectable>
+										<selectable>NIST SP800-90A Revision 1 Section 10.2.1</selectable></selectables>
+									</col>
+								</selectable>
+							</selectables>
+						</title>
+						<aactivity level="element">
+							<no-tests>TBD</no-tests>
+						</aactivity>
+					</f-element>
+					<f-element id="fel-fcs-rbg-1-2">
+						<title>
+							The TSF shall use a <selectables>
+								<selectable id="internal-seed">TSF noise source <assignable>name of noise source</assignable></selectable>
+								<selectable id="external-seed">TSF interface for seeding</selectable>
+							</selectables>
+							for initialization and reseeding.
+						</title>
+						<aactivity level="element">
+							<no-tests>
+								Documentation will be produced - and the evaluator shall perform the
+								activities - in accordance with <xref to="entropyappendix"/> and
+								the
+								<h:a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
+							</no-tests>
+						</aactivity>
+					</f-element>
+					
+					<f-element id="fel-fcs-rbg-1-3">
+						<title>
+							The TSF shall update the DRBG state by <selectables>
+								<selectable>reseeding</selectable>
+								<selectable>uninstantiating and re-instantiating</selectable>
+							</selectables> using a <selectables>
+								<selectable>TSF entropy source <assignable>name of entropy source</assignable></selectable>
+								<selectable>TSF interface for obtaining entropy <assignable>name of the interface</assignable></selectable></selectables>
+							in the following situations: <selectables linebreak="yes">
+								<selectable>never</selectable>
+								<selectable>on demand</selectable>
+								<selectable>on the condition: <assignable>condition</assignable></selectable>
+								<selectable>after <assignable>time</assignable></selectable>
+							</selectables>
+							in accordance with <assignable>list of standards</assignable>.
+						</title>
+						<note role="application">
+							No rationale is acceptable for not satisfying one of these dependencies.<h:p/>
+							If a reseeding is selected in the first selection and something other than “never” is 
+							selected in the third selection of FCS_RBG.1.3, but reseeding is not feasible, the TSF will
+							uninstantiate RBGs, rather than produce output that is of insufficient quality.  The listed 
+							standards should specify the reseed interval and procedure for uninstantiating and reseeding. 
+							The remaining selection allows the PP Author to require application-specific conditions for 
+							reseeding.<h:p/>
+							"Uninstantiate” means that the internal state of the DRBG is no longer available for use. 
+							In the second selection of FCS_RBG.1.3, “on demand” means that a TOE presents an interface to 
+							reseed as a TSFI (e.g., an API call).  The interface causes the DRBG to reseed at the request 
+							of an authorized user, either with an internal source, an external source, or from input 
+							provided through the TSFI (e.g., the API call).
+						</note>
+						<aactivity level="element">              
+							<no-tests>TBD</no-tests>
+						</aactivity>
+					</f-element>
+					<audit-event>
+						<audit-event-descr>Failure of the randomization process</audit-event-descr>
+						<audit-event-info>None.</audit-event-info>
+					</audit-event>
+				</f-component>    
+			
+			
+			
+			
+			
+			</section>   <!-- FCS_RBG -->
 
 		</section>  <!-- FCS -->
 	</section>  <!-- SFRs -->

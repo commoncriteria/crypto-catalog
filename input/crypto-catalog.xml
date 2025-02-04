@@ -285,7 +285,7 @@
 				</ext-comp-def>
 -->
 
-				<section title="FCS_CKM.1/AKG Cryptographic Key Generation" id="catsec-fcs-ckm-1">
+				<section title="FCS_CKM.1/AKG Cryptographic Key Generation - Asymmetric Keys" id="catsec-fcs-ckm-1-akg">
 					
 					<!-- <note role="ppdev">Blahblah</note>  -->
 					<h:b>Catalog Guidance Notes</h:b><h:p/>
@@ -307,18 +307,22 @@
 					<f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
 						name="Cryptographic Key Generation - Asymmetric Key">
 						
-<!--						<comp-rel>  -->
-<!--							<hierarchical-to>No other components.</hierarchical-to>  -->
-<!--							<dependencies>
-									[FCS_CKM.2 Cryptographic key distribution, or 
-									FCS_CKM.5 Cryptographic key derivation, or
-									FCS_COP.1 Cryptographic operation]
-									[FCS_RBG.1 Random bit generation, or
-									FCS_RNG.1 Generation of random numbers]
-									FCS_CKM.6 Timing and event of cryptographic key destruction
-								</dependencies>  -->
-<!--						</comp-rel>	-->
-						<f-element id="fel-fcs-ckm-1-akg-1">
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref>
+								</or-dep>
+								<or-dep>
+									<sfr-cat-rep>FCS_RBG.1 Random bit generation</sfr-cat-ref>
+									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
+								</or-dep>
+								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+							</dependencies>
+						</comp-rel>
+						<f-element id="fcs-ckm-1e1-akg">
 							<title>
 								The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
 								a specified cryptographic key generation algorithm<selectables>
@@ -584,8 +588,8 @@
 
 									<!-- XMSS(TM) -->
 									<selectable id="sel-fcs-ckm-ak-xmssmt">
-										<col>XMSS(MT)</col>
-										<col>XMSS(MT)</col>
+										<col>XMSS<sup>MT</sup></col>
+										<col>XMSS<sup>MT</sup></col>
 										<col>Private key size = <selectables>
 											<selectable>192 bits with <selectables>
 												<selectable>SHA-256/192</selectable>
@@ -607,7 +611,7 @@
 												<selectable>(60, 12)</selectable>
 											</selectables>
 										</col>
-										<col>RFC 8391 [XMSS(MT)]<h:p/>
+										<col>RFC 8391 [XMSS<sup>MT</sup>]<h:p/>
 											 NIST SP 800-208 [parameters]
 										</col>
 									</selectable>
@@ -652,9 +656,39 @@
 						<audit-event/>
 					</f-component>
 					
+				</section>  <!-- FCS_CKM.1/AKG -->
+				
+				<section title="FCS_CKM.1/SKG Cryptographic Key Generation - Symmetric Keys" id="catsec-fcs-ckm-1-skg">
+					
+					<!-- <note role="ppdev">Blahblah</note>  -->
+					<h:b>Catalog Guidance Notes</h:b><h:p/>
+						Include this component if the TOE supports creating symmetric keys directly from the output of
+						an RBG without further conditioning.<h:p/>
+						To derive symmetric keys from other keying material, see FCS_CKM.5. To derive symmetric
+						keys from passwords, see FCS_CKM_EXT.8. To derive symmetric keys from keying material
+						contributed from two parties, see FCS_CKM_EXT.7. 
+					
 					<!-- FCS_CKM.1/SKG Cryptographic Key Generation - Symmetric Key -->
 					<f-component id="sfr-fcs-ckm-1-skg" cc-id="fcs_ckm.1" iteration="SKG" 
 						name="Cryptographic Key Generation - Symmetric Key">
+
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref>
+								</or-dep>
+								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<or-dep>
+									<sfr-cat-rep>FCS_RBG.1 Random bit generation</sfr-cat-ref>
+									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
+								</or-dep>
+							</dependencies>
+						</comp-rel>
+
 						<f-element id="fcs-ckm-1e1-skg">
 							<title>
 								The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with
@@ -690,131 +724,191 @@
 						<audit-event/>
 					</f-component>
 					
-				</section>  <!-- FCS_CKM.1 -->
+				</section>  <!-- FCS_CKM.1/SKG -->
+
+				<section title="FCS_CKM.2 Cryptographic Key Distribution" id="catsec-fcs-ckm-2">
+					
+					<!-- <note role="ppdev">Blahblah</note>  -->
+					<h:b>Catalog Guidance Notes</h:b><h:p/>
+						Key distribution (or key transport) is a key establishment scheme in which one party creates a key
+						and sends it to another party.<h:p/>
+						Key distribution methods cover both the transmission and reception of keys. Although many
+						products support both the transmission and reception of keys, it is not unusual to find that
+						constrained environments only support one or the other. 
 				
+					<!-- FCS_CKM.2 Cryptographic Key Distribution -->
+					<f-component id="sfr-fcs-ckm-2" cc-id="fcs_ckm.2" name="Cryptographic Key Distribution">
 				
-				<!-- FCS_CKM.2 Cryptographic Key Distribution -->
-				<f-component id="sfr-fcs-ckm-2" cc-id="fcs_ckm.2" name="Cryptographic Key Distribution">
-					<f-element id="fcs-ckm-2e1">
-						<title>The TSF shall distribute cryptographic keys in accordance with a specified cryptographic 
-							key distribution method <selectables>
-								<selectable>key encapsulation</selectable>
-								<selectable>key wrapping</selectable>
-								<selectable>encrypted channels</selectable>
-							</selectables> that meets the following: [none].
-						</title>
-						<note role="application">
-							If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed, which specifies 
-							the relevant list of standards.  <h:p/>
-							If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed, which specifies the 
-							relevant list of standards.<h:p/>
-							If “encrypted channels” is selected, FTP_PRO.1 must be claimed, which specifies the relevant 
-							list of standards.
-						</note>
-						<aactivity>
-							<no-tests>Tests are TBD</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
+									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM_EXT.3 Cryptographic Key Access</sfr-cat-ref>
+								</or-dep>
+								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<or-dep>
+									<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
+									<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-rep>
+									<sfr-cat-rep>FTP_PRO.1 Trusted Channel Protocol</sfr-cat-rep>
+								</or-dep>
+							</dependencies>
+						</comp-rel>
 				
-				<!-- FCS_CKM_EXT.5 Cryptographic Key Derivation -->
-				<f-component id="sfr-fcs-ckm-ext-5" cc-id="fcs_ckm_ext.5" name="Cryptographic Key Derivation">
-					<f-element id="fcs-ckm-ext-5e1">
-						<title>
-							The TSF shall derive cryptographic keys
-							<selectables>
-								<tabularize id="fcs-ckm-keydrv-sels" title="Recommended choices for FCS_CKM.5">
-									<selectcol>Key type</selectcol>
-									<reqtext>from</reqtext>
-									<selectcol>Input parameters</selectcol>
-									<reqtext>in accordance with a specified key derivation algorithm</reqtext>
-									<selectcol>Key derivation algorithm</selectcol>
-									<reqtext>and specified cryptographic key sizes</reqtext>
-									<selectcol>Key sizes</selectcol>
-									<reqtext>that meet the following:</reqtext>
-									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
-											completion of the selection operations of FCS_CKM.5.</reqtext>
-									<selectcol>List of standards</selectcol>
-								</tabularize>
+						<f-element id="fcs-ckm-2e1">
+							<title>The TSF shall distribute cryptographic keys in accordance with a specified cryptographic 
+								key distribution method <selectables>
+									<selectable>key encapsulation</selectable>
+									<selectable>key wrapping</selectable>
+									<selectable>encrypted channels</selectable>
+								</selectables> that meets the following: [none].
+							</title>
+							<note role="application">
+								If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed, which specifies 
+								the relevant list of standards.  <h:p/>
+								If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed, which specifies the 
+								relevant list of standards.<h:p/>
+								If “encrypted channels” is selected, FTP_PRO.1 must be claimed, which specifies the relevant 
+								list of standards.
+							</note>
+							<aactivity>
+								<no-tests>Tests are TBD</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>     <!-- FCS_CKM.2 -->
 
-								<!-- KDF-CTR -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-ctr">
-									<col>KDF-CTR</col>  <!-- formerly KeyDrv1 -->
-									<col><selectables>
-										<selectable id="sel-fcs-ckm-5-kdf-ctr-dirgen">Direct Generation from a Random
-											Bit Generator as specified in FCS_RBG.1</selectable>
-										<selectable>Concatenated keys</selectable>
-									</selectables></col>
-									<col>KPF2 - KDF in Counter Mode using <selectables>
-										<selectable>AES-128-CMAC</selectable>
-										<selectable>AES-192-CMAC</selectable>
-										<selectable>AES-256-CMAC</selectable>
-										<selectable>Camillia-128-CMAC</selectable>
-										<selectable>Camillia-192-CMAC</selectable>
-										<selectable>Camillia-256-CMAC</selectable>
-										<selectable>CMAC-HIGHT-128</selectable>
-										<selectable>CMAC-LEA-128</selectable>
-										<selectable>CMAC-LEA-256</selectable>
-										<selectable>CMAC-SEED-128</selectable>
-										<selectable>HMAC-SHA-1</selectable>
-										<selectable>HMAC-SHA-256</selectable>
-										<selectable>HMAC-SHA-512</selectable>
-									</selectables> as the PRF</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-									</selectables> bits</col>
-									<col><selectables>
-										<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.2) [KPF2]</selectable>
-										<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.1) [KDF in Counter Mode]</selectable>
-									</selectables></col>
-								</selectable>
+				<section title="FCS_CKM_EXT.3 Cryptographic Key Access" id="catsec-fcs-ckm-ext-3">
+					
+					<!-- <note role="ppdev">Blahblah</note>  -->
+					<h:b>Catalog Guidance Notes</h:b><h:p/>
+						FCS_CKM_EXT.3 cryptographic key access applies primarily to the storage of keys for future
+						use and retrieval of keys for immediate use by the TOE. There may be some overlap in
+						primitives used in other SFRs, but the end goals here are to protect the confidentiality and
+						authenticity of the keys while in storage.<h:p/>
+						This SFR recasts FCS_CKM.3.1 of CC:2022 Part 2 to place the emphasis on key access
+						methods.<h:p/>
+						It may be necessary to combine this component with other components to ensure the
+						confidentiality, integrity, and authenticity of the key while it is outside the control 
+						of the TOE.  
+				
+					<!-- FCS_CKM_EXT.3 Cryptographic Key Access -->
+					<!-- This one will need ECD stuff -->
+					<f-component id="sfr-fcs-ckm-ext-3" cc-id="fcs_ckm_ext.3" name="Cryptographic Key Access">
+				
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref> 
+								</or-dep>
+								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<or-dep>
+									<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
+									<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-rep>
+									<sfr-cat-rep>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-rep>
+									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data]</sfr-cat-rep>
+								</or-dep>
+							</dependencies>
+						</comp-rel>
+				
+						<f-element id="fcs-ckm-ext-3e1">
+							<title>The TSF shall use specified cryptographic key access methods <selectables>
+									<selectable>key encapsulation</selectable>
+									<selectable>key wrapping</selectable>
+									<selectable>key encryption</selectable>
+								</selectables> to access keys when performing <selectables>
+									<selectable>cryptographic key archival</selectable>
+									<selectable>cryptographic key backup</selectable>
+									<selectable>cryptographic key escrow</selectable>
+									<selectable>cryptographic key recovery</selectable>
+									<selectable>cryptographic key import</selectable>
+									<selectable>cryptographic key export</selectable>
+								</selectables>
+							</title>
+							<note role="application">
+								If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed. <h:p/>
+								If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed.<h:p/>
+								If “key encryption” is selected, FCS_COP.1/SKC or FCS_COP.1/AEAD must be claimed. 
+							</note>
+							<aactivity>
+								<no-tests>Tests are TBD</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>     <!-- FCS_CKM_EXT.3 -->
+			
+	
+				<section title="FCS_CKM.5 Cryptographic Key Derivation" id="catsec-fcs-ckm-5">
+					
+					<!-- <note role="ppdev">Blahblah</note>  -->
+					<h:b>Catalog Guidance Notes</h:b><h:p/>
+						FCS_CKM.5 Cryptographic Key Derivation covers keys derived using specified cryptographic
+						algorithms. The input to the cryptographic algorithms may be from an entropy source or from
+						other sources. Passwords and pass phrases as input are special cases of key derivation with
+						limited entropy input, which are addressed in FCS_CKM_EXT.8. <h:p/>
+						The output may be used as a symmetric key or for other cryptographic purposes, such as
+						initialization vectors, authentication secrets, HMAC keys, KMAC keys, secret IVs, and secret
+						seeds. <h:p/>
+						The protocol- and application-specific KDFs specified in NIST SP 800-135r1 (e.g., IKE, TLS) do
+						not appear in this catalog.   
+				
+					<!-- FCS_CKM.5 Cryptographic Key Derivation -->
+					<f-component id="sfr-fcs-ckm-5" cc-id="fcs_ckm.5" name="Cryptographic Key Derivation">
+					
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_COP.1 Cryptographic Operation</sfr-cat-ref> 
+								</or-dep>
+								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<or-dep>
+									<sfr-cat-rep>FCS_COP.1/CMAC Cryptographic Operation - CMAC</sfr-cat-ref>
+									<sfr-cat-rep>FCS_COP.1/Hash Cryptographic Operation - Hashing</sfr-cat-rep>
+									<sfr-cat-rep>FCS_COP.1/KeyedHash Cryptographic Operation - Keyed hash</sfr-cat-rep>
+									<sfr-cat-rep>FCS_COP.1/SKC Cryptographic Operation - Symmetric key cryptography</sfr-cat-rep>
+									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</sfr-cat-rep>
+								</or-dep>
+							</dependencies>
+						</comp-rel>
+					
+						<f-element id="fcs-ckm-5e1">
+							<title>
+								The TSF shall derive cryptographic keys
+								<selectables>
+									<tabularize id="fcs-ckm-keydrv-sels" title="Recommended choices for FCS_CKM.5">
+										<selectcol>Key type</selectcol>
+										<reqtext>from</reqtext>
+										<selectcol>Input parameters</selectcol>
+										<reqtext>in accordance with a specified key derivation algorithm</reqtext>
+										<selectcol>Key derivation algorithm</selectcol>
+										<reqtext>and specified cryptographic key sizes</reqtext>
+										<selectcol>Key sizes</selectcol>
+										<reqtext>that meet the following:</reqtext>
+										<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+												completion of the selection operations of FCS_CKM.5.</reqtext>
+										<selectcol>List of standards</selectcol>
+									</tabularize>
 
-								<!-- KDF-FB -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-fb">
-									<col>KDF-FB</col>  <!-- formerly KeyDrv2  -->
-									<col><selectables>
-										<selectable id="sel-fcs-ckm-5-kdf-fb-dirgen">Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</selectable>
-										<selectable>Concatenated keys</selectable>
-									</selectables></col>
-									<col>KPF3 - KDF in Feedback Mode using <selectables>
-										<selectable>AES-128-CMAC</selectable>
-										<selectable>AES-192-CMAC</selectable>
-										<selectable>AES-256-CMAC</selectable>
-										<selectable>Camillia-128-CMAC</selectable>
-										<selectable>Camillia-192-CMAC</selectable>
-										<selectable>Camillia-256-CMAC</selectable>
-										<selectable>CMAC-HIGHT-128</selectable>
-										<selectable>CMAC-LEA-128</selectable>
-										<selectable>CMAC-LEA-256</selectable>
-										<selectable>CMAC-SEED-128</selectable>
-										<selectable>HMAC-SHA-1</selectable>
-										<selectable>HMAC-SHA-256</selectable>
-										<selectable>HMAC-SHA-512</selectable>
-									</selectables> as the PRF</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-									</selectables> bits</col>
-									<col><selectables>
-										<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.3) [KPF3]</selectable>
-										<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.2) [KDF in Feedback Mode]</selectable>
-									</selectables></col>
-								</selectable>
-
-								<!-- KDF-DPI -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-dpi">
-									<col>KDF-DPI</col> <!-- formerly KeyDrv3  -->
-										<col><selectables><selectable id="sel-fcs-ckm-5-kdf-dpi-dirgen">Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</selectable>
-										<selectable>Concatenated keys</selectable>
+									<!-- KDF-CTR -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-ctr">
+										<col>KDF-CTR</col>  <!-- formerly KeyDrv1 -->
+										<col><selectables>
+											<selectable id="sel-fcs-ckm-5-kdf-ctr-dirgen">Direct Generation from a Random
+												Bit Generator as specified in FCS_RBG.1</selectable>
+											<selectable>Concatenated keys</selectable>
 										</selectables></col>
-									<col>KDF in Double Pipeline Iteration Mode using <selectables>
+										<col>KPF2 - KDF in Counter Mode using <selectables>
 											<selectable>AES-128-CMAC</selectable>
 											<selectable>AES-192-CMAC</selectable>
 											<selectable>AES-256-CMAC</selectable>
@@ -829,419 +923,507 @@
 											<selectable>HMAC-SHA-256</selectable>
 											<selectable>HMAC-SHA-512</selectable>
 										</selectables> as the PRF</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-										</selectables>bits</col>
-									<col><selectables>
-										<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.4) [KPF4]</selectable>
-										<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.3) [KDF in Double-Pipeline Iteration Mode]</selectable>
-									</selectables></col>
-								</selectable>
-								
-								<!-- KDF-XOR -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-xor">
-									<col>KDF-XOR</col>  <!-- formerly KeyDrv4  -->
-									<col>More than one intermediary key</col>
-									<col>exclusive OR (XOR)</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
 										</selectables> bits</col>
-									<col>N/A</col>
-								</selectable>
+										<col><selectables>
+											<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.2) [KPF2]</selectable>
+											<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.1) [KDF in Counter Mode]</selectable>
+										</selectables></col>
+									</selectable>
 
-								<!-- KDF-ENC -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-enc">
-									<col>KDF-ENC</col>  <!-- formerly KeyDrv6 -->
-									<col>Two keys</col>
-									<col>Encrypting using an algorithm specified in <selectables>
-										<selectable>FCS_COP.1/SKC</selectable>
-										<selectable>FCS_COP.1/AEAD</selectable></selectables>
-									</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
+									<!-- KDF-FB -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-fb">
+										<col>KDF-FB</col>  <!-- formerly KeyDrv2  -->
+										<col><selectables>
+											<selectable id="sel-fcs-ckm-5-kdf-fb-dirgen">Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</selectable>
+											<selectable>Concatenated keys</selectable>
+										</selectables></col>
+										<col>KPF3 - KDF in Feedback Mode using <selectables>
+											<selectable>AES-128-CMAC</selectable>
+											<selectable>AES-192-CMAC</selectable>
+											<selectable>AES-256-CMAC</selectable>
+											<selectable>Camillia-128-CMAC</selectable>
+											<selectable>Camillia-192-CMAC</selectable>
+											<selectable>Camillia-256-CMAC</selectable>
+											<selectable>CMAC-HIGHT-128</selectable>
+											<selectable>CMAC-LEA-128</selectable>
+											<selectable>CMAC-LEA-256</selectable>
+											<selectable>CMAC-SEED-128</selectable>
+											<selectable>HMAC-SHA-1</selectable>
+											<selectable>HMAC-SHA-256</selectable>
+											<selectable>HMAC-SHA-512</selectable>
+										</selectables> as the PRF</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
 										</selectables> bits</col>
-									<col>N/A</col>
-								</selectable>
+										<col><selectables>
+											<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.3) [KPF3]</selectable>
+											<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.2) [KDF in Feedback Mode]</selectable>
+										</selectables></col>
+									</selectable>
 
-								<!-- KDF-HASH -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-hash">
-									<col>KDF-HASH</col>  <!-- formerly KeyDrv7 -->
-									<col>Shared secret</col>
-									<col>Hash function from FCS_COP.1/Hash</col> 
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-										</selectables> bits</col>
-									<col>NIST SP 800-56C Revision 2 (Section 4.1, Option 1) [One-Step Key Derivation]</col>
-								</selectable>
+									<!-- KDF-DPI -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-dpi">
+										<col>KDF-DPI</col> <!-- formerly KeyDrv3  -->
+											<col><selectables><selectable id="sel-fcs-ckm-5-kdf-dpi-dirgen">Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</selectable>
+											<selectable>Concatenated keys</selectable>
+											</selectables></col>
+										<col>KDF in Double Pipeline Iteration Mode using <selectables>
+												<selectable>AES-128-CMAC</selectable>
+												<selectable>AES-192-CMAC</selectable>
+												<selectable>AES-256-CMAC</selectable>
+												<selectable>Camillia-128-CMAC</selectable>
+												<selectable>Camillia-192-CMAC</selectable>
+												<selectable>Camillia-256-CMAC</selectable>
+												<selectable>CMAC-HIGHT-128</selectable>
+												<selectable>CMAC-LEA-128</selectable>
+												<selectable>CMAC-LEA-256</selectable>
+												<selectable>CMAC-SEED-128</selectable>
+												<selectable>HMAC-SHA-1</selectable>
+												<selectable>HMAC-SHA-256</selectable>
+												<selectable>HMAC-SHA-512</selectable>
+											</selectables> as the PRF</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables>bits</col>
+										<col><selectables>
+											<selectable>ISO/IEC 11770-6:2016 (Subclause 7.3.4) [KPF4]</selectable>
+											<selectable>NIST SP 800-108 Revision 1 Update 1 (Section 4.3) [KDF in Double-Pipeline Iteration Mode]</selectable>
+										</selectables></col>
+									</selectable>
+									
+									<!-- KDF-XOR -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-xor">
+										<col>KDF-XOR</col>  <!-- formerly KeyDrv4  -->
+										<col>More than one intermediary key</col>
+										<col>exclusive OR (XOR)</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>N/A</col>
+									</selectable>
 
-								<!-- KDF-MAC-1S -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-mac-1S">
-									<col>KDF-MAC-1S</col>  <!-- formerly KeyDrv8 -->
-									<col>Shared secret, salt, IV, output length, fixed information</col>
-									<col>Keyed hash from FCS_COP.1/KeyedHash</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-										</selectables> bits</col>
-									<col>NIST SP 800-56C Revision 2 (Section 4.1, Options 2, 3) [One-Step Key Derivation]</col>
-								</selectable>
+									<!-- KDF-ENC -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-enc">
+										<col>KDF-ENC</col>  <!-- formerly KeyDrv6 -->
+										<col>Two keys</col>
+										<col>Encrypting using an algorithm specified in <selectables>
+											<selectable>FCS_COP.1/SKC</selectable>
+											<selectable>FCS_COP.1/AEAD</selectable></selectables>
+										</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>N/A</col>
+									</selectable>
 
-								<!-- KDF-MAC-2S -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-mac-2S">
-									<col>KDF-MAC-2S</col>  
-									<col>Shared secret, salt, IV, output length, fixed information</col>
-									<col>MAC Step <selectables>
-										<selectable>AES-128-CMAC</selectable>
-										<selectable>AES-192-CMAC</selectable>
-										<selectable>AES-256-CMAC</selectable>
-										<selectable>Camillia-128-CMAC</selectable>
-										<selectable>Camillia-192-CMAC</selectable>
-										<selectable>Camillia-256-CMAC</selectable>
-										<selectable>HMAC-SHA-1</selectable>
-										<selectable>HMAC-SHA-256</selectable>
-										<selectable>HMAC-SHA-512</selectable></selectables>
-										as randomness extraction and; KDF Step <selectables>
-										<selectable>KDF-CTR</selectable>
-										<selectable>KDF-FB</selectable>
-										<selectable>KDF-DPI</selectable></selectables>
-										using <selectables>	
-										<selectable>AES-128-CMAC</selectable>
-										<selectable>AES-192-CMAC</selectable>
-										<selectable>AES-256-CMAC</selectable>
-										<selectable>Camillia-128-CMAC</selectable>
-										<selectable>Camillia-192-CMAC</selectable>
-										<selectable>Camillia-256-CMAC</selectable>
-										<selectable>HMAC-SHA-1</selectable>
-										<selectable>HMAC-SHA-256</selectable>
-										<selectable>HMAC-SHA-512</selectable></selectables>
-										as PRF.</col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-										</selectables> bits</col>
-									<col>NIST SP 800-56C Revision 2 (Section 5) [Two-Step Key Derivation]</col>
-								</selectable>
+									<!-- KDF-HASH -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-hash">
+										<col>KDF-HASH</col>  <!-- formerly KeyDrv7 -->
+										<col>Shared secret</col>
+										<col>Hash function from FCS_COP.1/Hash</col> 
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>NIST SP 800-56C Revision 2 (Section 4.1, Option 1) [One-Step Key Derivation]</col>
+									</selectable>
 
-								<!-- KDF-KMAC -->
-								<selectable id="sel-fcs-ckm-ext-5-kdf-kmac">
-									<col>KDF-KMAC</col>
-									<col>Key, context string, output length, label</col>
-									<col><selectables>
-										<selectable>KMAC128</selectable>
-										<selectable>KMAC256</selectable>
-									</selectables></col>
-									<col><selectables>
-										<selectable>128</selectable>
-										<selectable>192</selectable>
-										<selectable>256</selectable>
-										<selectable>512</selectable>
-										</selectables> bits</col>
-									<col>NIST SP 800-108 Revision 1 Update 1 (Section 4.4 “KDF Using KMAC”)</col>
-								</selectable>
-							</selectables>
-						</title>
-						<note role="application">
-							In KDF-MAC-2S, if a CMAC is selected in the MAC step, then select AES-128-CMAC or 
-							Camellia-128-CMAC in the KDF step and select 128 as the output key size.  If HMAC is 
-							selected in the MAC step, then select the same HMAC in the KDF.<h:p/>
+									<!-- KDF-MAC-1S -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-mac-1S">
+										<col>KDF-MAC-1S</col>  <!-- formerly KeyDrv8 -->
+										<col>Shared secret, salt, IV, output length, fixed information</col>
+										<col>Keyed hash from FCS_COP.1/KeyedHash</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>NIST SP 800-56C Revision 2 (Section 4.1, Options 2, 3) [One-Step Key Derivation]</col>
+									</selectable>
 
-							The respective FCS_COP.1 component must be claimed for each primitive selected in key
-							derivation algorithm.
-						</note>
-						<aactivity>
-							<no-tests>TBD</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-				
-				<!-- FCS_CKM.6 Timing and Event of Cryptographic Key Destruction -->
-				<f-component id="sfr-fcs-ckm-6" cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
-					<f-element id="fcs-ckm-6e1">
-						<title>
-							The TSF shall destroy <assignable>list of cryptographic keys (including keying 
-							material)</assignable> when <selectables>
-								<selectable>no longer needed</selectable>
-								<selectable><assignable>other circumstances for key or keying material destruction</assignable>
-								</selectable></selectables>
-						</title>
-						<note role="application">
-							<comment>From catalog</comment>The TOE will have mechanisms to destroy keys, including intermediate keys and key material, by using
-							an approved method as specified in FCS_CKM.6.2.  Examples of keys include intermediate keys, leaf keys, 
-							encryption keys, and signing keys.  Key material includes seeds, authentication secrets, passwords, 
-							PINs, and other secret values used to derive keys.  The ST Author shall list all such keys and keying
-							material that are subject to destruction in the first assignment.<h:p/>
-		 
-							This SFR does not apply to the public component of asymmetric key pairs or to keys that are permitted
-							to remain stored, such as device identification keys. 
-						</note>
-						
-					</f-element>
-					<f-element id="fcs-ckm-6e2">
-						<title>The TSF shall destroy cryptographic keys and keying material specified by FCS_CKM.6.1 in accordance
-							with a specified cryptographic key destruction method [<h:i>
-							<h:ul><h:li>For volatile memory, the destruction shall be executed by a 
-								<selectables linebreak="yes">
-									<selectable>single overwrite consisting of 
-										<selectables onlyone="yes">
-											<selectable>a pseudo-random pattern using the TSF’s RBG</selectable>
-											<selectable>zeroes</selectable>
-											<selectable>ones</selectable>
-											<selectable>a new value of a key</selectable>
-											<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
-										</selectables></selectable>
-									<selectable>removal of power to the memory</selectable>
-									<selectable>removal of all references to the key directly followed by a request for garbage
-										collection</selectable>
-								</selectables></h:li>
-								<h:li>For non-volatile memory 
-								<selectables linebreak="yes">
-									<selectable>that employs a wear-leveling algorithm, the destruction shall be executed by a
-										<selectables>
-											<selectable>single overwrite consisting of 
-												<selectables onlyone="yes">
-													<selectable>zeroes</selectable>
-													<selectable>ones</selectable>
-													<selectable>pseudo-random pattern</selectable>
-													<selectable>a new value of a key of the same size</selectable>
-													<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
-												</selectables></selectable>
-											<selectable>block erase</selectable>
-										</selectables></selectable>
-									<selectable>that does not employ a wear-leveling algorithm, the destruction shall be executed by a
-										<selectables linebreak="yes">
-											<selectable>
-												<selectables onlyone="yes">
-													<selectable>single</selectable>
-													<selectable><assignable>ST Author-defined multi-pass</assignable></selectable>
-												</selectables> overwrite consisting of 
-												<selectables>
-													<selectable>zeros</selectable>
-													<selectable>ones</selectable>
-													<selectable>pseudo-random pattern</selectable>
-													<selectable>a new value of a key of the same size</selectable>
-													<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
-												</selectables> followed by a read-verify. If the read-verification of the overwritten data fails,
-												the process shall be repeated again up to <assignable>number of times to attempt overwrite</assignable> times, 
-												whereupon an error is returned</selectable>
-											<selectable>block erase</selectable>
-										</selectables></selectable>
-								</selectables></h:li></h:ul></h:i>]
-							that meets the following: [<h:i>no standard</h:i>].
-						</title>
-						<note role="application">
-							This SFR must be included in the ST if the TOE handles sensitive cryptographic keys or credentials.
-							In particular, if the TOE creates or stores keys, it must be able to destroy them. Specifically, this SFR
-							must be included in the ST if any of the following SFRs are claimed: FCS_CKM.1/AKG, FCS_CKM.1/SKG,
-							FCS_CKM.2, FCS_CKM_EXT.5, FCS_COP.1/KAT, FCS_STG_EXT.1, or FIA_AFL_EXT.1<h:p/>
-							The term “cryptographic keys” in this SFR includes
-							the authorization data that is the entry point to a key chain and all other cryptographic keys and
-							keying material (whether in plaintext or encrypted form). Examples of keys and key material include intermediate keys, 
-							encryption keys, signing keys, verification keys, authentication tokens, and submasks.
-							This SFR does not apply to the public
-							component of asymmetric key pairs, or to keys that are permitted to remain stored such as device
-							identification keys. The TOE will have mechanisms to destroy keys and key material when the keys and key material is 
-							no longer needed. Based on their implementations, vendors will explain when certain keys are no longer needed.<h:p/>
-							In the case of volatile memory, the selection “<h:i>removal of all references to the key directly followed
-							by a request for garbage collection</h:i>” is used in a situation where the TSF cannot address the
-							specific physical memory locations holding the data to be erased and therefore relies on
-							addressing logical addresses (which frees the relevant physical addresses holding the old data)
-							and then requesting the platform to ensure that the data in the physical addresses is no longer
-							available for reading (i.e. the “garbage collection” referred to in the SFR text).<h:p/>
-							The selection for destruction of data in non-volatile memory includes block erase as an option,
-							and this option applies only to flash memory. A block erase does not require a read verify, since 
-							the mappings of logical addresses to the erased memory locations are erased as well as the data
-							itself.<h:p/>
-							Some selections allow assignment of “some value that does not contain any CSP.” This means
-							that the TOE uses some specified data not drawn from an RBG meeting FCS_RBG
-							requirements, and not being any of the particular values listed as other selection options. The point
-							of the phrase “does not contain any sensitive data” is to ensure that the overwritten data is
-							carefully selected, and not taken from a general pool that might contain current or residual data
-							that itself requires confidentiality protection.<h:p/>
-							<h:p/>
-							<comment>From crypto catalog</comment>In the case of volatile memory, the selection “removal of all references to the key directly followed 
-							by a request for garbage collection” is used in a situation where the TSF cannot address the specific 
-							physical memory locations holding the data to be erased and therefore relies on addressing logical 
-							addresses (which frees the relevant physical addresses holding the old data) and then requesting the 
-							platform to ensure that the data in the physical addresses is no longer available for reading (i.e. 
-							the “garbage collection” referred to in the SFR text). <h:p/>
+									<!-- KDF-MAC-2S -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-mac-2S">
+										<col>KDF-MAC-2S</col>  
+										<col>Shared secret, salt, IV, output length, fixed information</col>
+										<col>MAC Step <selectables>
+											<selectable>AES-128-CMAC</selectable>
+											<selectable>AES-192-CMAC</selectable>
+											<selectable>AES-256-CMAC</selectable>
+											<selectable>Camillia-128-CMAC</selectable>
+											<selectable>Camillia-192-CMAC</selectable>
+											<selectable>Camillia-256-CMAC</selectable>
+											<selectable>HMAC-SHA-1</selectable>
+											<selectable>HMAC-SHA-256</selectable>
+											<selectable>HMAC-SHA-512</selectable></selectables>
+											as randomness extraction and; KDF Step <selectables>
+											<selectable>KDF-CTR</selectable>
+											<selectable>KDF-FB</selectable>
+											<selectable>KDF-DPI</selectable></selectables>
+											using <selectables>	
+											<selectable>AES-128-CMAC</selectable>
+											<selectable>AES-192-CMAC</selectable>
+											<selectable>AES-256-CMAC</selectable>
+											<selectable>Camillia-128-CMAC</selectable>
+											<selectable>Camillia-192-CMAC</selectable>
+											<selectable>Camillia-256-CMAC</selectable>
+											<selectable>HMAC-SHA-1</selectable>
+											<selectable>HMAC-SHA-256</selectable>
+											<selectable>HMAC-SHA-512</selectable></selectables>
+											as PRF.</col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>NIST SP 800-56C Revision 2 (Section 5) [Two-Step Key Derivation]</col>
+									</selectable>
 
-							The selection for destruction of data in non-volatile memory includes block erase as an option, and 
-							this option applies only to flash memory.  A block erase does not require a read verify, since the
-							mappings of logical addresses to the erased memory locations are erased, as well as the data itself.<h:p/>
+									<!-- KDF-KMAC -->
+									<selectable id="sel-fcs-ckm-ext-5-kdf-kmac">
+										<col>KDF-KMAC</col>
+										<col>Key, context string, output length, label</col>
+										<col><selectables>
+											<selectable>KMAC128</selectable>
+											<selectable>KMAC256</selectable>
+										</selectables></col>
+										<col><selectables>
+											<selectable>128</selectable>
+											<selectable>192</selectable>
+											<selectable>256</selectable>
+											<selectable>512</selectable>
+											</selectables> bits</col>
+										<col>NIST SP 800-108 Revision 1 Update 1 (Section 4.4 “KDF Using KMAC”)</col>
+									</selectable>
+								</selectables>
+							</title>
+							<note role="application">
+								In KDF-MAC-2S, if a CMAC is selected in the MAC step, then select AES-128-CMAC or 
+								Camellia-128-CMAC in the KDF step and select 128 as the output key size.  If HMAC is 
+								selected in the MAC step, then select the same HMAC in the KDF.<h:p/>
 
-							Some selections allow the assignment of “some value that does not contain any CSP.” This means that 
-							the TOE uses some specified data not drawn from an RBG meeting FCS_RBG requirements, and not being 
-							any of the values listed as other selection options.  The point of the phrase “does not contain any 
-							CSP” is to ensure that the overwritten data is carefully selected, and not taken from a general pool 
-							that might contain data that itself requires confidentiality protection. 
-						</note>
-						<aactivity>
-							<TSS>
-								The evaluator shall examine the TSS to ensure it lists all relevant keys and keying
-								material (describing the source of the data, all memory types in which the data is
-								stored (covering storage both during and outside of a session, and both plaintext and
-								non-plaintext forms of the data)), all relevant destruction situations (including the
-								point in time at which the destruction occurs; e.g. factory reset or device wipe
-								function, change of authorization data, change of DEK, completion of use of an
-								intermediate key) and the destruction method used in each case. The evaluator shall
-								confirm that the description of the data and storage locations is consistent with the
-								functions carried out by the TOE (e.g. that all keys in the key chain are accounted
-								for). (Where keys are stored encrypted or wrapped under another key then this may need to
-								be explained in order to allow the evaluator to confirm the consistency of the description 
-								of keys with the TOE functions). <h:p/>
-								The evaluator shall check that the TSS identifies any configurations or
-								circumstances that may not conform to the key destruction requirement (see further
-								discussion in the AGD section below). Note that reference may be made to the AGD
-								for description of the detail of such cases where destruction may be prevented or
-								delayed.<h:p/>
-								Where the ST specifies the use of “a value that does not contain any sensitive data”
-								to overwrite keys, the evaluator shall examine the TSS to ensure that it describes
-								how that pattern is obtained and used, and that this justifies the claim that the pattern
-								does not contain any sensitive data.
-							</TSS>
-							<Guidance>
-								A TOE may be subject to situations that could prevent or delay data destruction in
-								some cases. The evaluator shall check that the AGD identifies
-								configurations or circumstances that may not strictly conform to the key destruction
-								requirement, and that this description is consistent with the relevant parts of the TSS
-								(and KMD). The evaluator shall check that the AGD provides
-								guidance on situations where key destruction may be delayed at the physical layer,
-								identifying any additional mitigation actions for the user (e.g. there might be some
-								operation the user can invoke, or the user might be advised to retain control of the
-								device for some particular time to maximize the probability that garbage collection
-								has occurred).<h:p/>
-								For example, when the TOE does not have full access to the physical memory, it is
-								possible that the storage may implement wear-leveling and garbage collection. This
-								may result in additional copies of the data that are logically inaccessible but persist
-								physically. Where available, the TOE might then describe use of the TRIM
-								command	and garbage collection to destroy these persistent copies upon their
-								deletion (this would be explained in TSS and AGD). <h:p/>
-								Where TRIM is used then the TSS or AGD is also expected to describe how
-								the keys are stored such that they are not inaccessible to TRIM, (e.g. they would need not
-								to be contained in a file less than 982 bytes which would be completely contained in the
-								master file table.
-							</Guidance>
-							<CustomEA name="KMD">
-								The evaluator shall examine the KMD to verify that it identifies and describes the
-								interfaces that are used to service commands to read/write memory. The evaluator
-								shall examine the interface description for each different media type to ensure that
-								the interface supports the selections made by the ST Author.<h:p/>
-								The evaluator shall examine the KMD to ensure that all keys and keying material
-								identified in the TSS and KMD have been accounted for.<h:p/>
-								Note that where selections include "<h:i>destruction of reference to the key directly
-								followed by a request for garbage collection</h:i>" (for volatile memory) then the
-								evaluator shall examine the KMD to ensure that it explains the nature of the
-								destruction of the reference, the request for garbage collection, and of the garbage
-								collection process itself.
-							</CustomEA>
-							<Tests>
-								The following tests require the developer to provide access to a test platform that
-								provides the evaluator with tools that are typically not found on factory products.<h:p/>
-								The evaluator shall perform the following tests:
-								<testlist>
-									<test>
-										Applied to each key or keying material held as plaintext in volatile
-										memory and subject to destruction by overwrite by the TOE (whether or not the
-										plaintext value is subsequently encrypted for storage in volatile or non-volatile
-										memory).<h:p/>
-										The evaluator shall:<h:ol type="1">
-										<h:li>Record the value of the key or keying material.</h:li>
-										<h:li>Cause the TOE to dump the SDO/SDE memory of the TOE into a binary file.</h:li>
-										<h:li>Search the content of the binary file created in Step #2 to locate all
-											instances of the known key value from Step #1.<h:p/>
-											Note that the primary purpose of Step #3 is to demonstrate that appropriate
-											search commands are being used for Steps #8 and #9.</h:li>
-										<h:li>Cause the TOE to perform normal cryptographic processing with the key
-											from Step #1.</h:li>
-										<h:li>Cause the TOE to destroy the key.</h:li>
-										<h:li>Cause the TOE to stop execution but not exit.</h:li>
-										<h:li>Cause the TOE to dump the SDO/SDE memory of the TOE into a binary
-											file.</h:li>
-										<h:li>Search the content of the binary file created in Step #7 for instances of the
-											known key value from Step #1.</h:li>
-										<h:li>Break the key value from Step #1 into an evaluator-chosen set of
-											fragments and perform a search using each fragment. (Note that the
-											evaluator shall first confirm with the developer how the key is normally
-											stored, in order to choose fragment sizes that are the same or smaller than
-											any fragmentation of the data that may be implemented by the TOE. The
-											endianness or byte-order should also be taken into account in the search.)</h:li>
-										</h:ol><h:p/>
-										Steps #1-8 ensure that the complete key does not exist anywhere in volatile
-										memory. If a copy is found, then the test fails.<h:p/>
-										Step #9 ensures that partial key fragments do not remain in memory. If the
-										evaluator finds a 32-or-greater-consecutive-bit fragment, then fail immediately.
-										Otherwise, there is a chance that it is not within the context of a key (e.g., some
-										random bits that happen to match). If this is the case the test should be repeated
-										with a different key in Step #1. If a fragment is also found in this repeated run,
-										then the test fails unless the developer provides a reasonable explanation for the
-										collision, then the evaluator may give a pass on this test.<h:p/>
-									</test>
-									<test>
-										Applied to each key and keying material held in non-volatile memory and
-										subject to destruction by overwrite by the TOE.<h:ol type="1">
-										<h:li>Record the value of the key or keying material.</h:li>
-										<h:li>Cause the TOE to perform normal cryptographic processing with the key
-											from Step #1.</h:li>
-										<h:li>Search the non-volatile memory the key was stored in for instances of the
-											known key value from Step #1. <h:p/>
-											Note that the primary purpose of Step #3 is to demonstrate that appropriate
-											search commands are being used for Steps #5 and #6.</h:li>
-										<h:li>Cause the TOE to clear the key.</h:li>
-										<h:li>Search the non-volatile memory in which the key was stored for instances
-											of the known key value from Step #1. If a copy is found, then the test fails.</h:li>
-										<h:li>Break the key value from Step #1 into an evaluator-chosen set of
-											fragments and perform a search using each fragment. (Note that the
-											evaluator shall first confirm with the developer how the key is normally
-											stored, in order to choose fragment sizes that are the same or smaller than
-											any fragmentation of the data that may be implemented by the TOE. The
-											endianness or byte-order should also be taken into account in the search).</h:li>
-										</h:ol>
-										Step #6 ensures that partial key fragments do not remain in non-volatile memory.
-										If the evaluator finds a 32-or-greater-consecutive-bit fragment, then fail
-										immediately. Otherwise, there is a chance that it is not within the context of a key
-										(e.g., some random bits that happen to match). If this is the case the test should be
-										repeated with a different key in Step #1. If a fragment is also found in this
-										repeated run, then the test fails unless the developer provides a reasonable
-										explanation for the collision, then the evaluator may give a pass on this test.<h:p/>
-									</test>
-									<test>
-										Applied to each key and keying material held in non-volatile memory and
-										subject to destruction by overwrite by the TOE.<h:ol type="1">
-										<h:li>Record memory of the key or keying material.</h:li>
-										<h:li>Cause the TOE to perform normal cryptographic processing with the key
-											from Step #1.</h:li>
-										<h:li>Cause the TOE to clear the key. Record the value to be used for the
-											overwrite of the key. </h:li>
-										<h:li>Examine the memory from Step #1 to ensure the appropriate pattern
-											(recorded in Step #3) is used. </h:li>
-										</h:ol>
-										The test succeeds if correct pattern is found in the memory location. If the pattern
-										is not found, then the test fails.
-									</test>
-								</testlist>
-							</Tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
+								The respective FCS_COP.1 component must be claimed for each primitive selected in key
+								derivation algorithm.
+							</note>
+							<aactivity>
+								<no-tests>TBD</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>   <!-- FCS_CKM.5 -->
 
+
+				<section title="FCS_CKM.6 Timing and Event of Cryptographic Key Destruction" id="catsec-fcs-ckm-6">
+					
+					<!-- FCS_CKM.6 Timing and Event of Cryptographic Key Destruction -->
+					<f-component id="sfr-fcs-ckm-6" cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
+
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
+									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
+									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
+									<sfr-cat-rep>FCS_CKM_EXT.3 Cryptographic key access</sfr-cat-rep>
+									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-rep>
+									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
+									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+								</or-dep>
+							</dependencies>
+						</comp-rel>
+
+						<f-element id="fcs-ckm-6e1">
+							<title>
+								The TSF shall destroy <assignable>list of cryptographic keys (including keying 
+								material)</assignable> when <selectables>
+									<selectable>no longer needed</selectable>
+									<selectable><assignable>other circumstances for key or keying material destruction</assignable>
+									</selectable></selectables>
+							</title>
+							<note role="application">
+								<comment>From catalog</comment>The TOE will have mechanisms to destroy keys, including intermediate keys and key material, by using
+								an approved method as specified in FCS_CKM.6.2.  Examples of keys include intermediate keys, leaf keys, 
+								encryption keys, and signing keys.  Key material includes seeds, authentication secrets, passwords, 
+								PINs, and other secret values used to derive keys.  The ST Author shall list all such keys and keying
+								material that are subject to destruction in the first assignment.<h:p/>
+			 
+								This SFR does not apply to the public component of asymmetric key pairs or to keys that are permitted
+								to remain stored, such as device identification keys. 
+							</note>
+							
+						</f-element>
+						<f-element id="fcs-ckm-6e2">
+							<title>The TSF shall destroy cryptographic keys and keying material specified by FCS_CKM.6.1 in accordance
+								with a specified cryptographic key destruction method [<h:i>
+								<h:ul><h:li>For volatile memory, the destruction shall be executed by a 
+									<selectables linebreak="yes">
+										<selectable>single overwrite consisting of 
+											<selectables onlyone="yes">
+												<selectable>a pseudo-random pattern using the TSF’s RBG</selectable>
+												<selectable>zeroes</selectable>
+												<selectable>ones</selectable>
+												<selectable>a new value of a key</selectable>
+												<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
+											</selectables></selectable>
+										<selectable>removal of power to the memory</selectable>
+										<selectable>removal of all references to the key directly followed by a request for garbage
+											collection</selectable>
+									</selectables></h:li>
+									<h:li>For non-volatile memory 
+									<selectables linebreak="yes">
+										<selectable>that employs a wear-leveling algorithm, the destruction shall be executed by a
+											<selectables>
+												<selectable>single overwrite consisting of 
+													<selectables onlyone="yes">
+														<selectable>zeroes</selectable>
+														<selectable>ones</selectable>
+														<selectable>pseudo-random pattern</selectable>
+														<selectable>a new value of a key of the same size</selectable>
+														<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
+													</selectables></selectable>
+												<selectable>block erase</selectable>
+											</selectables></selectable>
+										<selectable>that does not employ a wear-leveling algorithm, the destruction shall be executed by a
+											<selectables linebreak="yes">
+												<selectable>
+													<selectables onlyone="yes">
+														<selectable>single</selectable>
+														<selectable><assignable>ST Author-defined multi-pass</assignable></selectable>
+													</selectables> overwrite consisting of 
+													<selectables>
+														<selectable>zeros</selectable>
+														<selectable>ones</selectable>
+														<selectable>pseudo-random pattern</selectable>
+														<selectable>a new value of a key of the same size</selectable>
+														<selectable><assignable>some value that does not contain any CSP</assignable></selectable>
+													</selectables> followed by a read-verify. If the read-verification of the overwritten data fails,
+													the process shall be repeated again up to <assignable>number of times to attempt overwrite</assignable> times, 
+													whereupon an error is returned</selectable>
+												<selectable>block erase</selectable>
+											</selectables></selectable>
+									</selectables></h:li></h:ul></h:i>]
+								that meets the following: [<h:i>no standard</h:i>].
+							</title>
+							<note role="application">
+								This SFR must be included in the ST if the TOE handles sensitive cryptographic keys or credentials.
+								In particular, if the TOE creates or stores keys, it must be able to destroy them. Specifically, this SFR
+								must be included in the ST if any of the following SFRs are claimed: FCS_CKM.1/AKG, FCS_CKM.1/SKG,
+								FCS_CKM.2, FCS_CKM_EXT.5, FCS_COP.1/KAT, FCS_STG_EXT.1, or FIA_AFL_EXT.1<h:p/>
+								The term “cryptographic keys” in this SFR includes
+								the authorization data that is the entry point to a key chain and all other cryptographic keys and
+								keying material (whether in plaintext or encrypted form). Examples of keys and key material include intermediate keys, 
+								encryption keys, signing keys, verification keys, authentication tokens, and submasks.
+								This SFR does not apply to the public
+								component of asymmetric key pairs, or to keys that are permitted to remain stored such as device
+								identification keys. The TOE will have mechanisms to destroy keys and key material when the keys and key material is 
+								no longer needed. Based on their implementations, vendors will explain when certain keys are no longer needed.<h:p/>
+								In the case of volatile memory, the selection “<h:i>removal of all references to the key directly followed
+								by a request for garbage collection</h:i>” is used in a situation where the TSF cannot address the
+								specific physical memory locations holding the data to be erased and therefore relies on
+								addressing logical addresses (which frees the relevant physical addresses holding the old data)
+								and then requesting the platform to ensure that the data in the physical addresses is no longer
+								available for reading (i.e. the “garbage collection” referred to in the SFR text).<h:p/>
+								The selection for destruction of data in non-volatile memory includes block erase as an option,
+								and this option applies only to flash memory. A block erase does not require a read verify, since 
+								the mappings of logical addresses to the erased memory locations are erased as well as the data
+								itself.<h:p/>
+								Some selections allow assignment of “some value that does not contain any CSP.” This means
+								that the TOE uses some specified data not drawn from an RBG meeting FCS_RBG
+								requirements, and not being any of the particular values listed as other selection options. The point
+								of the phrase “does not contain any sensitive data” is to ensure that the overwritten data is
+								carefully selected, and not taken from a general pool that might contain current or residual data
+								that itself requires confidentiality protection.<h:p/>
+								<h:p/>
+								<comment>From crypto catalog</comment>In the case of volatile memory, the selection “removal of all references to the key directly followed 
+								by a request for garbage collection” is used in a situation where the TSF cannot address the specific 
+								physical memory locations holding the data to be erased and therefore relies on addressing logical 
+								addresses (which frees the relevant physical addresses holding the old data) and then requesting the 
+								platform to ensure that the data in the physical addresses is no longer available for reading (i.e. 
+								the “garbage collection” referred to in the SFR text). <h:p/>
+
+								The selection for destruction of data in non-volatile memory includes block erase as an option, and 
+								this option applies only to flash memory.  A block erase does not require a read verify, since the
+								mappings of logical addresses to the erased memory locations are erased, as well as the data itself.<h:p/>
+
+								Some selections allow the assignment of “some value that does not contain any CSP.” This means that 
+								the TOE uses some specified data not drawn from an RBG meeting FCS_RBG requirements, and not being 
+								any of the values listed as other selection options.  The point of the phrase “does not contain any 
+								CSP” is to ensure that the overwritten data is carefully selected, and not taken from a general pool 
+								that might contain data that itself requires confidentiality protection. 
+							</note>
+							<aactivity>
+								<TSS>
+									The evaluator shall examine the TSS to ensure it lists all relevant keys and keying
+									material (describing the source of the data, all memory types in which the data is
+									stored (covering storage both during and outside of a session, and both plaintext and
+									non-plaintext forms of the data)), all relevant destruction situations (including the
+									point in time at which the destruction occurs; e.g. factory reset or device wipe
+									function, change of authorization data, change of DEK, completion of use of an
+									intermediate key) and the destruction method used in each case. The evaluator shall
+									confirm that the description of the data and storage locations is consistent with the
+									functions carried out by the TOE (e.g. that all keys in the key chain are accounted
+									for). (Where keys are stored encrypted or wrapped under another key then this may need to
+									be explained in order to allow the evaluator to confirm the consistency of the description 
+									of keys with the TOE functions). <h:p/>
+									The evaluator shall check that the TSS identifies any configurations or
+									circumstances that may not conform to the key destruction requirement (see further
+									discussion in the AGD section below). Note that reference may be made to the AGD
+									for description of the detail of such cases where destruction may be prevented or
+									delayed.<h:p/>
+									Where the ST specifies the use of “a value that does not contain any sensitive data”
+									to overwrite keys, the evaluator shall examine the TSS to ensure that it describes
+									how that pattern is obtained and used, and that this justifies the claim that the pattern
+									does not contain any sensitive data.
+								</TSS>
+								<Guidance>
+									A TOE may be subject to situations that could prevent or delay data destruction in
+									some cases. The evaluator shall check that the AGD identifies
+									configurations or circumstances that may not strictly conform to the key destruction
+									requirement, and that this description is consistent with the relevant parts of the TSS
+									(and KMD). The evaluator shall check that the AGD provides
+									guidance on situations where key destruction may be delayed at the physical layer,
+									identifying any additional mitigation actions for the user (e.g. there might be some
+									operation the user can invoke, or the user might be advised to retain control of the
+									device for some particular time to maximize the probability that garbage collection
+									has occurred).<h:p/>
+									For example, when the TOE does not have full access to the physical memory, it is
+									possible that the storage may implement wear-leveling and garbage collection. This
+									may result in additional copies of the data that are logically inaccessible but persist
+									physically. Where available, the TOE might then describe use of the TRIM
+									command	and garbage collection to destroy these persistent copies upon their
+									deletion (this would be explained in TSS and AGD). <h:p/>
+									Where TRIM is used then the TSS or AGD is also expected to describe how
+									the keys are stored such that they are not inaccessible to TRIM, (e.g. they would need not
+									to be contained in a file less than 982 bytes which would be completely contained in the
+									master file table.
+								</Guidance>
+								<CustomEA name="KMD">
+									The evaluator shall examine the KMD to verify that it identifies and describes the
+									interfaces that are used to service commands to read/write memory. The evaluator
+									shall examine the interface description for each different media type to ensure that
+									the interface supports the selections made by the ST Author.<h:p/>
+									The evaluator shall examine the KMD to ensure that all keys and keying material
+									identified in the TSS and KMD have been accounted for.<h:p/>
+									Note that where selections include "<h:i>destruction of reference to the key directly
+									followed by a request for garbage collection</h:i>" (for volatile memory) then the
+									evaluator shall examine the KMD to ensure that it explains the nature of the
+									destruction of the reference, the request for garbage collection, and of the garbage
+									collection process itself.
+								</CustomEA>
+								<Tests>
+									The following tests require the developer to provide access to a test platform that
+									provides the evaluator with tools that are typically not found on factory products.<h:p/>
+									The evaluator shall perform the following tests:
+									<testlist>
+										<test>
+											Applied to each key or keying material held as plaintext in volatile
+											memory and subject to destruction by overwrite by the TOE (whether or not the
+											plaintext value is subsequently encrypted for storage in volatile or non-volatile
+											memory).<h:p/>
+											The evaluator shall:<h:ol type="1">
+											<h:li>Record the value of the key or keying material.</h:li>
+											<h:li>Cause the TOE to dump the SDO/SDE memory of the TOE into a binary file.</h:li>
+											<h:li>Search the content of the binary file created in Step #2 to locate all
+												instances of the known key value from Step #1.<h:p/>
+												Note that the primary purpose of Step #3 is to demonstrate that appropriate
+												search commands are being used for Steps #8 and #9.</h:li>
+											<h:li>Cause the TOE to perform normal cryptographic processing with the key
+												from Step #1.</h:li>
+											<h:li>Cause the TOE to destroy the key.</h:li>
+											<h:li>Cause the TOE to stop execution but not exit.</h:li>
+											<h:li>Cause the TOE to dump the SDO/SDE memory of the TOE into a binary
+												file.</h:li>
+											<h:li>Search the content of the binary file created in Step #7 for instances of the
+												known key value from Step #1.</h:li>
+											<h:li>Break the key value from Step #1 into an evaluator-chosen set of
+												fragments and perform a search using each fragment. (Note that the
+												evaluator shall first confirm with the developer how the key is normally
+												stored, in order to choose fragment sizes that are the same or smaller than
+												any fragmentation of the data that may be implemented by the TOE. The
+												endianness or byte-order should also be taken into account in the search.)</h:li>
+											</h:ol><h:p/>
+											Steps #1-8 ensure that the complete key does not exist anywhere in volatile
+											memory. If a copy is found, then the test fails.<h:p/>
+											Step #9 ensures that partial key fragments do not remain in memory. If the
+											evaluator finds a 32-or-greater-consecutive-bit fragment, then fail immediately.
+											Otherwise, there is a chance that it is not within the context of a key (e.g., some
+											random bits that happen to match). If this is the case the test should be repeated
+											with a different key in Step #1. If a fragment is also found in this repeated run,
+											then the test fails unless the developer provides a reasonable explanation for the
+											collision, then the evaluator may give a pass on this test.<h:p/>
+										</test>
+										<test>
+											Applied to each key and keying material held in non-volatile memory and
+											subject to destruction by overwrite by the TOE.<h:ol type="1">
+											<h:li>Record the value of the key or keying material.</h:li>
+											<h:li>Cause the TOE to perform normal cryptographic processing with the key
+												from Step #1.</h:li>
+											<h:li>Search the non-volatile memory the key was stored in for instances of the
+												known key value from Step #1. <h:p/>
+												Note that the primary purpose of Step #3 is to demonstrate that appropriate
+												search commands are being used for Steps #5 and #6.</h:li>
+											<h:li>Cause the TOE to clear the key.</h:li>
+											<h:li>Search the non-volatile memory in which the key was stored for instances
+												of the known key value from Step #1. If a copy is found, then the test fails.</h:li>
+											<h:li>Break the key value from Step #1 into an evaluator-chosen set of
+												fragments and perform a search using each fragment. (Note that the
+												evaluator shall first confirm with the developer how the key is normally
+												stored, in order to choose fragment sizes that are the same or smaller than
+												any fragmentation of the data that may be implemented by the TOE. The
+												endianness or byte-order should also be taken into account in the search).</h:li>
+											</h:ol>
+											Step #6 ensures that partial key fragments do not remain in non-volatile memory.
+											If the evaluator finds a 32-or-greater-consecutive-bit fragment, then fail
+											immediately. Otherwise, there is a chance that it is not within the context of a key
+											(e.g., some random bits that happen to match). If this is the case the test should be
+											repeated with a different key in Step #1. If a fragment is also found in this
+											repeated run, then the test fails unless the developer provides a reasonable
+											explanation for the collision, then the evaluator may give a pass on this test.<h:p/>
+										</test>
+										<test>
+											Applied to each key and keying material held in non-volatile memory and
+											subject to destruction by overwrite by the TOE.<h:ol type="1">
+											<h:li>Record memory of the key or keying material.</h:li>
+											<h:li>Cause the TOE to perform normal cryptographic processing with the key
+												from Step #1.</h:li>
+											<h:li>Cause the TOE to clear the key. Record the value to be used for the
+												overwrite of the key. </h:li>
+											<h:li>Examine the memory from Step #1 to ensure the appropriate pattern
+												(recorded in Step #3) is used. </h:li>
+											</h:ol>
+											The test succeeds if correct pattern is found in the memory location. If the pattern
+											is not found, then the test fails.
+										</test>
+									</testlist>
+								</Tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>  <!-- FCS_CKM.6 -->
+<!-- QQQQ -->
 				<!-- FCS_CKM_EXT.7 Cryptographic Key Agreement -->
 				<f-component id="sfr-fcs-ckm-ext-7" cc-id="fcs_ckm_ext.7" name="Cryptographic Key Agreement">
 					<f-element id="fcs-ckm-ext-7e1">

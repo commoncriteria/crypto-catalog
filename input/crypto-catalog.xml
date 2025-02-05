@@ -2,14 +2,14 @@
 <?xml-stylesheet type="text/xsl" href="../transforms/cat2html.xsl"?>
 
 
-<SFRCatalog name="CCDB Crypto"
+<SFRCatalog name="CCDB Class FCS"
     xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     xmlns:h="http://www.w3.org/1999/xhtml"
     >
 
 	<CatReference>
-		<CatTitle>Specification of Functional Requirements for Cryptography (NIAP XML Version)</CatTitle>
+		<CatTitle>Functional Requirements for Cryptography - Class FCS (NIAP XML Version)</CatTitle>
         <CatVersion>1.0</CatVersion>
         <CatAuthor>CCDB Crypto Working Group/NIAP</CatAuthor>
         <CatPubDate>2025-01-31</CatPubDate>

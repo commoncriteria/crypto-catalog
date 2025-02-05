@@ -217,7 +217,43 @@
 		
 		<section title="Class FCS: Cryptographic Support" id="catsec-fcs">
 
+			<ext-comp-class class="FCS">
+				<description>
+					The TSF may employ cryptographic functionality to help satisfy several high-level security
+					objectives. These include, but are not limited to: identification and authentication,
+					nonrepudiation, trusted path, trusted channel, and data separation. This class is used when the
+					TOE implements cryptographic functions, the implementation of which can be in hardware,
+					firmware and/or software. <h:p/>
+					The FCS: Cryptographic support class is composed of five families. <h:ul>
+						<h:li>FCS_CKM: Cryptographic support</h:li>
+						<h:li>FCS_COP: Cryptographic operation</h:li>
+						<h:li>FCS_OTV: One-time value generation</h:li>
+						<h:li>FCS_RBG: Random bit generation</h:li>
+						<h:li>FCS_RNG: Random number generation</h:li>
+					</h:ul>
+				</description>
+			</ext-comp-class>			
+
 			<section title="Cryptographic Key Management (FCS_CKM)" id="catsec-fcs-ckm">
+			
+				<ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management (extended)(FCS_CKM_EXT)">
+					<fam-behavior>
+						This family defines requirements for management of cryptographic keys that are not addressed 
+						by FCS_CKM in CC Part 2.<h:p/>
+						Cryptographic keys must be managed throughout their life cycle. This family is intended to
+						support that lifecycle and consequently defines requirements for the following activities:<h:ul>
+						<h:li>cryptographic key generation;</h:li>
+						<h:li>cryptographic key distribution;</h:li>
+						<h:li>cryptographic key access;</h:li>
+						<h:li>cryptographic key derivation;</h:li>
+						<h:li>timing and event of cryptographic key destruction;</h:li>
+						<h:li>cryptographic key agreement;</h:li>
+						<h:li>password-based key derivation.</h:li></h:ul>
+						<h:p/>
+						This family should be included whenever there are functional requirements for the
+						management of cryptographic keys. 
+					</fam-behavior>					
+				</ext-comp-def>
 			
 				<section title="Catalog Guidance Notes for Family FCS_CKM" id="catsec-cgn-fam-fcs-ckm">
 					SFRs under FCS_CKM pertain to cryptographic keys. This includes key management activities
@@ -276,14 +312,6 @@
 					</section>
 				</section>
 				
-			
-				<!-- FCS_CKM_EXT -->
-<!--				<ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
-					<fam-behavior>This family defines requirements for management of cryptographic keys that are not 
-						addressed by FCS_CKM in CC Part 2.
-					</fam-behavior>
-				</ext-comp-def>
--->
 
 				<section title="FCS_CKM.1/AKG Cryptographic Key Generation - Asymmetric Keys" id="catsec-fcs-ckm-1-akg">
 					
@@ -306,10 +334,10 @@
 
 					<f-component id="sfr-fcs-ckm-1-akg" cc-id="fcs_ckm.1" iteration="AKG" 
 						name="Cryptographic Key Generation - Asymmetric Key">
-						
+
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
 									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
@@ -320,8 +348,9 @@
 									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
 								</or-dep>
 								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
+
 						<f-element id="fcs-ckm-1e1-akg">
 							<title>
 								The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
@@ -673,8 +702,8 @@
 						name="Cryptographic Key Generation - Symmetric Key">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
 									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
@@ -686,7 +715,7 @@
 									<sfr-cat-rep>FCS_RBG.1 Random bit generation</sfr-cat-ref>
 									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-ckm-1e1-skg">
@@ -740,8 +769,8 @@
 					<f-component id="sfr-fcs-ckm-2" cc-id="fcs_ckm.2" name="Cryptographic Key Distribution">
 				
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -756,7 +785,7 @@
 									<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-rep>
 									<sfr-cat-rep>FTP_PRO.1 Trusted Channel Protocol</sfr-cat-rep>
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-ckm-2e1">
@@ -798,12 +827,23 @@
 						of the TOE.  
 				
 					<!-- FCS_CKM_EXT.3 Cryptographic Key Access -->
-					<!-- This one will need ECD stuff -->
 					<f-component id="sfr-fcs-ckm-ext-3" cc-id="fcs_ckm_ext.3" name="Cryptographic Key Access">
 				
+						<ecd-info>
+							<comp-lev> requires access to cryptographic keys stored outside the TOE to be 
+								performed in accordance with a specified access method
+							</comp-lev>
+							<manageable-actions/>
+							<auditable-actions>
+								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
+								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</auditable-action>
+							</auditable-actions>
+						</ecd-info>
+						
 						<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref> 
 									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
@@ -816,7 +856,7 @@
 									<sfr-cat-rep>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-rep>
 									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data]</sfr-cat-rep>
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-ckm-ext-3e1">
@@ -865,8 +905,8 @@
 					<f-component id="sfr-fcs-ckm-5" cc-id="fcs_ckm.5" name="Cryptographic Key Derivation">
 					
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
 									<sfr-cat-ref>FCS_COP.1 Cryptographic Operation</sfr-cat-ref> 
@@ -879,7 +919,7 @@
 									<sfr-cat-rep>FCS_COP.1/SKC Cryptographic Operation - Symmetric key cryptography</sfr-cat-rep>
 									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</sfr-cat-rep>
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 					
 						<f-element id="fcs-ckm-5e1">
@@ -1140,8 +1180,8 @@
 					<f-component id="sfr-fcs-ckm-6" cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -1151,7 +1191,7 @@
 									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
 									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-ckm-6e1">
@@ -1435,9 +1475,22 @@
 					<!-- FCS_CKM_EXT.7 Cryptographic Key Agreement -->
 					<f-component id="sfr-fcs-ckm-ext-7" cc-id="fcs_ckm_ext.7" name="Cryptographic Key Agreement">
 
+						<ecd-info>
+							<comp-lev> requires cryptographic keys to be derived and shared between multiple
+								parties in accordance with a specified multi-party key derivation
+								method which can be based on an assigned standard. 
+							</comp-lev>
+							<manageable-actions/>
+							<auditable-actions>
+								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
+								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</auditable-action>
+							</auditable-actions>
+						</ecd-info>
+
 						<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -1458,7 +1511,7 @@
 									<sfr-cat-rep>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-rep>
 									<sfr-cat-rep>no other dependencies</sfr-cat-rep>									
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-ckm-ext-7e1">
@@ -1579,9 +1632,22 @@
 					<!-- FCS_CKM_EXT.8 Password-Based Key Derivation -->
 					<f-component id="sfr-fcs-ckm-ext-8" cc-id="fcs_ckm_ext.8" name="Password-Based Key Derivation">
 
+						<ecd-info>
+							<comp-lev> requires cryptographic keys to be derived from low-entropy password
+								input using specified cryptographic primitives which can be based on an assigned
+								standard. 
+							</comp-lev>
+							<manageable-actions/>
+							<auditable-actions>
+								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
+								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</auditable-action>
+							</auditable-actions>
+						</ecd-info>
+
 						<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<dependencies-to>
 								<or-dev>
 									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
 									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref> 
@@ -1589,7 +1655,7 @@
 								</or-dev>
 								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
 								<sfr-cat-ref>FCS_OTV_EXT.1 One-Time Value Generation</sfr-cat-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-ckm-ext-8e1">

@@ -3418,426 +3418,552 @@
 				
 			</section>   <!-- FCS_COP.1 -->
 
-			<section id="sec-fcs-otv" title="One-Time Value Generation">
+			<section id="sec-fcs-otv" title="One-Time Value Generation (FCS_OTV)">
 			
-				<!-- FCS_OTV_EXT.1 One-Time Value  -->
-				<f-component id="sfr-fcs-otv-ext-1" cc-id="fcs_otv_ext.1" name="One-Time Value">
-					<f-element id="fcs-otv-ext-1e1">
-						<title>
-							The TSF shall perform cryptographic one-time value generation for   
-							<selectables>
-								<tabularize id="fcs-otv-ext-sels" title="Recommended choices and guidance for FCS_OTV_EXT.1">
-									<selectcol>Algorithm or mode</selectcol>
-									<reqtext>using the output of a 
-										<selectables>
-											<selectable>random bit generator as defined in FCS_RBG.1</selectable>
-											<selectable>deterministic OTV construction</selectable>
-											<selectable><assignable>OTV construction method</assignable></selectable>
-										</selectables> and sizes of length that meet the following:
-									</reqtext>
-									<selectcol>List of standards</selectcol>
-									<textcol>Notes</textcol>
-									<reqtext><h:p/><h:p/>The following table provides the recommended choices for
-										completion of the selection operations of FCS_COP.1/XOF.</reqtext>
-								</tabularize>
-								
-								<selectable id="sel-fcs-otv-hmac">
-									<col>HMAC</col>
-									<col>FIPS PUB 198-1, NIST SP 800-56C Revision  2</col>
-									<col>Depending on the use case, salts can be secret or known, randomly generated or all 
-										zero. Secret IVs may be required, e.g., for key derivation.  Refer to the relevant
-										standards for your use case.</col>
-								</selectable>
-									
-								<selectable id="sel-fcs-otv-kmac">
-									<col>KMAC</col>
-									<col>NIST SP 800-185<h:br/>
-										 NIST SP 800-56C Revision  2
-									</col>
-									<col>Depending on the use case, salts can be secret or known, randomly generated or all zero.
-										Secret IVs may be required, e.g., for key derivation.  Refer to the relevant
-										standards for your use case.</col>
-								</selectable>
+				<section id="sec-fcs-otv-cg" title="Catalog Guidance Notes for Family FCS_OTV">
+					The lone SFR under FCS_OTV pertains to generation or derivation of one-time use values, such
+					as initialization vectors, nonces, tweak values, and salts. 
+
+					<section title="FCS_OTV_EXT.1 One-Time Value" id="catsec-fcs-otv-ext-1">
+
+						<h:b>Catalog Guidance Notes</h:b>
+						TSFs frequently generate cryptographic one-time values, often non-secret, such as nonces, IVs,
+						salts, and initial counters (sometimes called initial sequential nonces) using the output of an
+						RBG specified in FCS_RBG.1. If the TSF is generating OTVs, then this SFR is used.<h:p/>
+						Salts help protect against dictionary and other precomputation attacks. Systems often prepend or
+						append salts to passwords and other long-term, potentially guessable values to increase the size
+						of a dictionary an attacker must build to attack it. Salts, once associated with a password,
+						generally do not change for the life of that password. Salts should also be unique for each
+						password and should not be reused. Therefore, systems should randomly generate salts with
+						sufficient size such that the combined entropy of both the salt and the password meets the
+						minimal key strength sizes of the chosen algorithms.<h:p/>
+						Nonces help protect against replay attacks in cryptographic authentication protocols and some
+						encryption modes. A nonce should never repeat. Using a sequence of nonces with a counter
+						embedded in the value will ensure a nonce will never repeat. In protocol sessions that require
+						multiple nonces, using sequential nonces that increment for each message—the receiver can
+						check for and accept only an increase in the nonce value to verify that the message has not been
+						replayed. In some protocols, the initial sequential nonce needs only to be sent once at the
+						beginning of the session and the receiver can predict the remaining nonces in that session, which
+						saves transmission bandwidth. Randomly generated nonces protect against attacks against
+						sessions in which multiple keys are expected to be used. Therefore, nonces should be both
+						randomly generated and never repeat. However, sequential nonces may be predictable. NIST
+						provides additional guidance for the composition of a nonce in NIST SP 800-38c, NIST SP 800-
+						56A Revision 3, NIST SP 800-56B Revision 2, NIST SP 800-63B, and NIST SP 800-90A
+						Revision 1.<h:p/>
+						Initialization Vectors (IVs) help protect against attacks which depend on the reuse of static keys.
+						Certain encryption modes often require IVs. They should be randomly generated in a
+						nonpredictable way, cannot be sequential, and cannot repeat.<h:p/>
+						Each algorithm and mode have varying guidance on the lengths of the salts, nonces, and
+						initialization vectors used therein. Please consult the referenced standards documents for the
+						appropriate guidance for each. 						
+
+						<!-- FCS_OTV_EXT.1 One-Time Value  -->
+						<f-component id="sfr-fcs-otv-ext-1" cc-id="fcs_otv_ext.1" name="One-Time Value">
+
+							<comp-rel>
+								<hierarchical-to>No other components.</hierarchical-to>
+								<dependencies>
+									<sfr-cat-ref>FCS_RBG.1 Random Bit Generators</sfr-cat-ref> 
+									<or-dep>
+										<sfr-cat-ref>FCS_COP.1/HMAC Key Hash</sfr-cat-ref> 
+										<sfr-cat-ref>FCS_COP.1/SKC Symmetric key cryptography</sfr-cat-ref> 
+										<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
+										<sfr-cat-rep>FCS_CKM_EXT.8 Password-Based Key Derivation</sfr-cat-ref>
+										<sfr-cat-rep>FCS_COP.1/CMAC CMAC</sfr-cat-ref>
+										<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-ref>
+										<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</sfr-cat-ref>
+										<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
+									</or-dev>
+								</dependencies>
+							</comp-rel>
 			
-								<selectable id="sel-fcs-otv-kdf">
-									<col>KDF</col>
-									<col>NIST SP 800-108 Revision 1<h:br/>
-										 NIST SP 800-135 Revision 1<h:br/>
-										 ISO/IEC 11770-6:2016 (Subclause 7.3.2)							 
-									</col>
-									<col>Salts and IVs are generated as directed for HMAC, AES, and CAM cryptographic
-										algorithms.  Refer to the relevant standards.</col>
-								</selectable>
-			
-								<selectable id="sel-fcs-otv-pbkdf">
-									<col>PBKDF</col>
-									<col>NIST SP 800-132</col>
-									<col>Salts are generated and used as directed in PBKDFs.</col>
-								</selectable>
+							<f-element id="fcs-otv-ext-1e1">
+								<title>
+									The TSF shall perform cryptographic one-time value generation for   
+									<selectables>
+										<tabularize id="fcs-otv-ext-sels" title="Recommended choices and guidance for FCS_OTV_EXT.1">
+											<selectcol>Algorithm or mode</selectcol>
+											<reqtext>using the output of a 
+												<selectables>
+													<selectable>random bit generator as defined in FCS_RBG.1</selectable>
+													<selectable>deterministic OTV construction</selectable>
+													<selectable><assignable>OTV construction method</assignable></selectable>
+												</selectables> and sizes of length that meet the following:
+											</reqtext>
+											<selectcol>List of standards</selectcol>
+											<textcol>Notes</textcol>
+											<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+												completion of the selection operations of FCS_COP.1/XOF.</reqtext>
+										</tabularize>
+										
+										<selectable id="sel-fcs-otv-hmac">
+											<col>HMAC</col>
+											<col>FIPS PUB 198-1, NIST SP 800-56C Revision  2</col>
+											<col>Depending on the use case, salts can be secret or known, randomly generated or all 
+												zero. Secret IVs may be required, e.g., for key derivation.  Refer to the relevant
+												standards for your use case.</col>
+										</selectable>
+											
+										<selectable id="sel-fcs-otv-kmac">
+											<col>KMAC</col>
+											<col>NIST SP 800-185<h:br/>
+												 NIST SP 800-56C Revision  2
+											</col>
+											<col>Depending on the use case, salts can be secret or known, randomly generated or all zero.
+												Secret IVs may be required, e.g., for key derivation.  Refer to the relevant
+												standards for your use case.</col>
+										</selectable>
+					
+										<selectable id="sel-fcs-otv-kdf">
+											<col>KDF</col>
+											<col>NIST SP 800-108 Revision 1<h:br/>
+												 NIST SP 800-135 Revision 1<h:br/>
+												 ISO/IEC 11770-6:2016 (Subclause 7.3.2)							 
+											</col>
+											<col>Salts and IVs are generated as directed for HMAC, AES, and CAM cryptographic
+												algorithms.  Refer to the relevant standards.</col>
+										</selectable>
+					
+										<selectable id="sel-fcs-otv-pbkdf">
+											<col>PBKDF</col>
+											<col>NIST SP 800-132</col>
+											<col>Salts are generated and used as directed in PBKDFs.</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-ctr">
-									<col>CTR</col>
-									<col>NIST SP 800-38A</col>
-									<col>"Initial Counter" (nonce) shall be non-repeating. No counter value shall be 
-										repeated across multiple messages with the same secret key.</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-ctr">
+											<col>CTR</col>
+											<col>NIST SP 800-38A</col>
+											<col>"Initial Counter" (nonce) shall be non-repeating. No counter value shall be 
+												repeated across multiple messages with the same secret key.</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-cbc">
-									<col>CBC</col>
-									<col>NIST SP 800-38A Appendix C</col>
-									<col>Depending on the use case, IVs shall be unpredictable. Repeating IVs leak 
-										information about whether the first one or more blocks are shared between two
-										messages, so IVs should be non-repeating in such situations. Refer to the relevant 
-										standards for your use case.</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-cbc">
+											<col>CBC</col>
+											<col>NIST SP 800-38A Appendix C</col>
+											<col>Depending on the use case, IVs shall be unpredictable. Repeating IVs leak 
+												information about whether the first one or more blocks are shared between two
+												messages, so IVs should be non-repeating in such situations. Refer to the relevant 
+												standards for your use case.</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-ofb">
-									<col>OFB</col>
-									<col>NIST SP 800-38A</col>
-									<col>IVs shall be non-repeating and shall not be generated by invoking the cipher 
-										on another IV.  OFB may require the IV to be a nonce.</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-ofb">
+											<col>OFB</col>
+											<col>NIST SP 800-38A</col>
+											<col>IVs shall be non-repeating and shall not be generated by invoking the cipher 
+												on another IV.  OFB may require the IV to be a nonce.</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-cfb">
-									<col>CFB</col>
-									<col>NIST SP 800-38A</col>
-									<col>IVs should be non-repeating as repeating IVs leak information about the first
-										plaintext block and about common shared prefixes in messages</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-cfb">
+											<col>CFB</col>
+											<col>NIST SP 800-38A</col>
+											<col>IVs should be non-repeating as repeating IVs leak information about the first
+												plaintext block and about common shared prefixes in messages</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-xts">
-									<col>XTS</col>
-									<col>NIST SP 800-38E<h:br/>
-										IEEE Std 1619-2018</col>
-									<col>Tweak values shall be non-negative integers, assigned consecutively, and starting
-										at an arbitrary non-negative integer (i.e., sequential nonces).</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-xts">
+											<col>XTS</col>
+											<col>NIST SP 800-38E<h:br/>
+												IEEE Std 1619-2018</col>
+											<col>Tweak values shall be non-negative integers, assigned consecutively, and starting
+												at an arbitrary non-negative integer (i.e., sequential nonces).</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-cmac">
-									<col>CMAC</col>
-									<col>NIST SP 800-38B</col>
-									<col>IV is all zeroes</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-cmac">
+											<col>CMAC</col>
+											<col>NIST SP 800-38B</col>
+											<col>IV is all zeroes</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-kw">
-									<col>KW, KWP</col>
-									<col>NIST SP 800-38F</col>
-									<col>Depending on the use case, nonces may be required.  Please reference the relevant 
-										standards for your use case.</col>
-								</selectable>
+										<selectable id="sel-fcs-otv-kw">
+											<col>KW, KWP</col>
+											<col>NIST SP 800-38F</col>
+											<col>Depending on the use case, nonces may be required.  Please reference the relevant 
+												standards for your use case.</col>
+										</selectable>
 
-								<selectable id="sel-fcs-otv-ccm">
-									<col>CCM</col>
-									<col>NIST SP 800-38C</col>
-									<col>Nonces shall be non-repeating.</col>
-								</selectable>
-			
-								<selectable id="sel-fcs-otv-gcm">
-									<col>GCM</col>
-									<col>NIST SP 800-38D</col>
-									<col>For RBG-based IV construction (section 8.2.2) the number of invocations of GCM 
-										shall not exceed 2^32 for a given secret key. </col>
-								</selectable>
-								
-								<selectable id="sel-fcs-otv-oaep">
-									<col>RSA-OAEP</col>
-									<col>NIST SP 800-56B Revision 2</col>
-									<col>Mask for padding shall be randomly generated</col>
-								</selectable>
-							</selectables>
-						</title>
-						<note role="application">
-							See the algorithm- or mode-specific Notes above for guidance on completing the second selection.
-						</note>
-						<aactivity>
-							<no-tests>TBD</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-						
+										<selectable id="sel-fcs-otv-ccm">
+											<col>CCM</col>
+											<col>NIST SP 800-38C</col>
+											<col>Nonces shall be non-repeating.</col>
+										</selectable>
+					
+										<selectable id="sel-fcs-otv-gcm">
+											<col>GCM</col>
+											<col>NIST SP 800-38D</col>
+											<col>For RBG-based IV construction (section 8.2.2) the number of invocations of GCM 
+												shall not exceed 2^32 for a given secret key. </col>
+										</selectable>
+										
+										<selectable id="sel-fcs-otv-oaep">
+											<col>RSA-OAEP</col>
+											<col>NIST SP 800-56B Revision 2</col>
+											<col>Mask for padding shall be randomly generated</col>
+										</selectable>
+									</selectables>
+								</title>
+								<note role="application">
+									See the algorithm- or mode-specific Notes above for guidance on completing the second selection.
+								</note>
+								<aactivity>
+									<no-tests>TBD</no-tests>
+								</aactivity>
+							</f-element>
+							<audit-event/>
+						</f-component>
+					</section>   <!-- FCS_OTV_EXT.1 -->
+				</section>  <!-- FCS_OTV_EXT -->						
 			</section>  <!-- FCS_OTV -->
 
+
 			<section id="sec-fcs-rbg" title="Random Bit Generation (FCS_RBG)">
-			
 
-				<!-- FCS_RBG.1 Random Bit Generation -->
-				<!-- CC:2022 replacement for FCS_RBG_EXT.1 -->
-				<f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
-					<f-element id="fcs-rbg-1e1">
-						<title>
-							TSF shall perform deterministic random bit generation services using   
-							<selectables>
-								<tabularize id="fcs-rbg-1-sels" title="Recommended choices for FCS_RBG.1.1">
-									<textcol>Identifier</textcol>
-									<reqtext></reqtext>
-									<selectcol>DRBG Algorithm</selectcol>
-									<reqtext> in accordance with </reqtext>
-									<selectcol>List of standards</selectcol>
-									<reqtext>after initialization.<h:p/><h:p/>The following table provides the recommended choices for
-										completion of the selection operations of FCS_RBG.1.</reqtext>
-								</tabularize>
-								
-								<selectable id="sel-fcs-rbg-hash-drbg">
-									<col>HASH_DRBG</col>
-									<col>Hash_DRBG with <selectables>
-										<selectable>SHA-256</selectable>
-										<selectable>SHA-384</selectable>
-										<selectable>SHA-512</selectable>
-										<selectable>SHA3-256</selectable>
-										<selectable>SHA3-384</selectable>
-										<selectable>SHA3-512</selectable>
-									</selectables></col>
-									<col><selectables>
-										<selectable>ISO/IEC 18031: 2011 (Section C.2.2)</selectable>
-										<selectable>NIST SP 800-90A Revision 1 Section 10.1.1</selectable></selectables>
-									</col>
-								</selectable>
-			
-								<selectable id="sel-fcs-rbg-hmac-drbg">
-									<col>HMAC_DRBG</col>
-									<col>HMAC_DRBG with  <selectables>
-										<selectable>SHA-256</selectable>
-										<selectable>SHA-384</selectable>
-										<selectable>SHA-512</selectable>
-										<selectable>SHA3-256</selectable>
-										<selectable>SHA3-384</selectable>
-										<selectable>SHA3-512</selectable>
-									</selectables></col>
-									<col><selectables>
-										<selectable>ISO/IEC 18031: 2011 (Section C.2.3)</selectable>
-										<selectable>NIST SP 800-90A Revision 1 Section 10.1.2</selectable></selectables>
-									</col>
-								</selectable>
+				<section title="Catalog Guidance Notes for Family FCS_RBG" id="sec-fcs-rbg-cg">
+					The SFRs in FCS_RBG apply only to deterministic random bit generators and not to nondeterministic RBGs. Health tests for the RBG are specified in FPT_TST.1. In the context of
+					these FCS_RBG SFRs, the term noise source refers to both raw noise sources as well as
+					conditioned entropy sources, both of which must meet min-entropy requirements for initializing
+					DRBGs.<h:p/>
+					In the context of these FCS_RBG SFRs, the term seed is used to mean the collection of all
+					parameters used to initialize the DRBG. The term seeding has multiple meanings depending on
+					the context. For external seeding and internal seeding, we mean external entropy source and
+					internal entropy source. Otherwise, the term seeding means the process of initialization, which
+					is distinct from reseeding.<h:p/>
+					The following components are based on the FCS_RBG family of the CC:2022 Revision 1 Part 2
+					with proposed corrections and interpretations from the errata CCMB-2024-07-002 Version 1.1. 
+				</section>
 
-								<selectable id="sel-fcs-rbg-ctr-drbg">
-									<col>CTR_DRBG</col>
-									<col>CTR_DRBG  with  <selectables>
-										<selectable>AES-128</selectable>
-										<selectable>AES-192</selectable>
-										<selectable>AES-256</selectable>
-										<selectable>CAM-128</selectable>
-										<selectable>CAM-192</selectable>
-										<selectable>CAM-256</selectable>
-										<selectable>SEED-128</selectable>
-										<selectable>HIGHT-128</selectable>
-										<selectable>LEA-128</selectable>
-										<selectable>LEA-192</selectable>
-										<selectable>LEA-256</selectable>
-									</selectables></col>
-									<col><selectables>
-										<selectable>ISO/IEC 18031: 2011 (Section C.3.2)</selectable>
-										<selectable>NIST SP800-90A Revision 1 Section 10.2.1</selectable></selectables>
-									</col>
-								</selectable>
-							</selectables>
-						</title>
-						<aactivity level="element">
-							<no-tests>TBD</no-tests>
-						</aactivity>
-					</f-element>
-					<f-element id="fcs-rbg-1e2">
-						<title>
-							The TSF shall use a <selectables>
-								<selectable id="internal-seed">TSF noise source <assignable>name of noise source</assignable></selectable>
-								<selectable id="external-seed">TSF interface for seeding</selectable>
-							</selectables>
-							for initialization and reseeding.
-						</title>
-						<aactivity level="element">
-							<no-tests>
-								Documentation will be produced - and the evaluator shall perform the
-								activities - in accordance with <xref to="entropyappendix"/> and
-								the
-								<h:a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
-							</no-tests>
-						</aactivity>
-					</f-element>
-					
-					<f-element id="fcs-rbg-1e3">
-						<title>
-							The TSF shall update the DRBG state by <selectables>
-								<selectable>reseeding</selectable>
-								<selectable>uninstantiating and re-instantiating</selectable>
-							</selectables> using a <selectables>
-								<selectable>TSF entropy source <assignable>name of entropy source</assignable></selectable>
-								<selectable>TSF interface for obtaining entropy <assignable>name of the interface</assignable></selectable></selectables>
-							in the following situations: <selectables linebreak="yes">
-								<selectable>never</selectable>
-								<selectable>on demand</selectable>
-								<selectable>on the condition: <assignable>condition</assignable></selectable>
-								<selectable>after <assignable>time</assignable></selectable>
-							</selectables>
-							in accordance with <assignable>list of standards</assignable>.
-						</title>
-						<note role="application">
-							No rationale is acceptable for not satisfying one of these dependencies.<h:p/>
-							If a reseeding is selected in the first selection and something other than “never” is 
-							selected in the third selection of FCS_RBG.1.3, but reseeding is not feasible, the TSF will
-							uninstantiate RBGs, rather than produce output that is of insufficient quality.  The listed 
-							standards should specify the reseed interval and procedure for uninstantiating and reseeding. 
-							The remaining selection allows the PP Author to require application-specific conditions for 
-							reseeding.<h:p/>
-							"Uninstantiate” means that the internal state of the DRBG is no longer available for use. 
-							In the second selection of FCS_RBG.1.3, “on demand” means that a TOE presents an interface to 
-							reseed as a TSFI (e.g., an API call).  The interface causes the DRBG to reseed at the request 
-							of an authorized user, either with an internal source, an external source, or from input 
-							provided through the TSFI (e.g., the API call).
-						</note>
-						<aactivity level="element">              
-							<no-tests>TBD</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event>
-						<audit-event-descr>Failure of the randomization process</audit-event-descr>
-						<audit-event-info>None.</audit-event-info>
-					</audit-event>
-				</f-component>    
-			
-				<!-- FCS_RBG.2 Random Bit Generation (External Seeding) -->
-				<!-- Claimed from selection in RBG.1 -->
-				<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)">
-					<f-element id="fcs-rbg-2e1">
-						<title>
-							The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
-							from a TSF interface for the purpose of obtaining entropy.
-						</title>
-						<note role="application">
-							In order to maintain compliance with NIST SP 800-90A Revision 1, the TSF accepts enough 
-							bits of input from an external noise source to satisfy the entropy requirements of the DRBG.
-							The TSF should also protect the integrity and confidentiality of the entropy it receives from
-							the external noise source.<h:p/>
-							The TSF interface for the purpose of seeding here is the interface used to gather entropy 
-							for initializing the seed.
-						</note>
-						<aactivity>
-							<no-tests>
-								TBD
-							</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-					
-				<!-- FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source) -->
-				<!-- Claimed when FCS_RBG.1.2 selects "TSF noise source..." -->
-				<f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)">
-					<f-element id="fcs-rbg-3e1">
-						<title>
-							The TSF shall be able to seed the DRBG using a <selectables choose-one-of="yes">
-								<selectable>TSF software-based entropy source</selectable>
-								<selectable>TSF hardware-based entropy source <assignable>name of entropy source</assignable></selectable></selectables>
-							with <assignable>number of bits</assignable> bits of min-entropy.
-						</title>        
-						<note role="application">
-							If an ST Author wishes to use multiple internal noise sources, they iterate this requirement
-							for each noise source used by the TSF.<h:p/>
-							Hardware-based noise sources are entropy sources whose primary function is noise generation, 
-							such as ring oscillators, diodes, and thermal noise.  While a TOE may use software to collect
-							the noise from these hardware sources, these are not software-based.  Software-based noise 
-							sources are those sources that have some other primary function, and the noise is a byproduct 
-							of their normal operation.  Examples of software-based noise sources are user or system-based 
-							events, reading the least significant bits from an event timer, etc. <h:p/>
-							Hardware-based noise sources may be stochastically modelled, in which case the amount of 
-							entropy is well understood.  Software-based noise sources are usually less well understood 
-							and therefore will typically take a more conservative approach, gathering larger numbers of 
-							bits than required, then performing a compression function to derive the final output. 
-							Software-based noise sources often rely on an entropy estimator. 
-						</note>
-						<aactivity>
-							<no-tests>TBD
-							</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-			
-				<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
-				<!-- Claimed when FCS_RBG.1.2 selects "multiple TSF noise sources..." -->
-				<f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)">
-					<f-element id="fcs-rbg-4e1">
-						<title>
-							The TSF shall be able to seed the DRBG using <selectables>
-								<selectable><assignable>number</assignable> TSF software-based entropy source(s)</selectable>
-								<selectable><assignable>number</assignable> TSF hardware-based entropy source(s)</selectable>
-							</selectables>.
-						</title>
-						<aactivity>
-							<no-tests>TBD
-							</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>
-					
+				<section id="sec-fcs-rbg-1" title="FCS_RBG.1 Random Bit Generation (RBG)">
 
-				<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
-				<!-- Claimed when FCS_RBG.1.2 selects "multiple TSF noise sources..." -->
-				<f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Entropy Sources)">
-					<f-element id="fcs-rbg-5e1">
-						<title>
-							The TSF shall <selectables>
-								<selectable>hash</selectable>
-								<selectable>concatenate and hash</selectable>
-								<selectable>XOR</selectable>
-								<selectable>input into a linear feedback shift register</selectable>
-								<selectable><assignable>combining operation</assignable></selectable> </selectables>
+					<!-- FCS_RBG.1 Random Bit Generation -->
+					<f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
+
+						<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<or-dep>
+									<sfr-cat-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding Single Source)</sfr-cat-ref> 
+								</or-dev>
+								<sfr-cat-ref>FCS_COP.1/Hash Hashing</sfr-cat-ref> 
+								<sfr-cat-ref>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-ref> 
+								<sfr-cat-ref>FPT_FLS.1 Failure with preservation of secure state</sfr-cat-ref> 
+								<sfr-cat-ref>FPT_TST.1 TSF testing</sfr-cat-ref> 
+							</dependencies>
+						</comp-rel>
+
+						<f-element id="fcs-rbg-1e1">
+							<title>
+								TSF shall perform deterministic random bit generation services using   
 								<selectables>
-								<selectable>output from TSF entropy source(s)</selectable>
-								<selectable>input from TSF interface(s) for obtaining entropy</selectable></selectables>
-							resulting in a minimum of <assignable>number of bits</assignable>
-							bits of min-entropy to create the entropy input into the derivation function as defined in
-							<selectables>
-								<selectable>ISO/IEC 18031:2011</selectable>
-								<selectable>NIST SP 800-90A Revision 1</selectable>
-							</selectables>						
-						</title>        
-						<note role="application">
-							One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal noise sources 
-							(a.k.a. raw entropy) to confirm the min-entropy of the noise sources either in aggregate or 
-							individually.  One should not apply NIST SP 800-90B (or AIS-31) statistical tests against 
-							external noise sources since the TOE is unable to enforce entropy requirements or conditioning 
-							requirements against external sources of entropy.  However, the TSS may include estimates 
-							for min-entropy from external sources that contribute to the overall entropy requirements 
-							for either the DRBG or for FCS_OTV_EXT.1.<h:p/>
-							FCS_RBG.5 specifies the combining operation such that the combined min-entropy of all the 
-							internal sources and the estimated entropy of the external sources is greater than or equal 
-							to the desired entropy of the output of the combining operation.  The output could be used as 
-							a nonce or a seed for a DRBG.  The combining operation should avoid crushing the entropy of
-							the sources such that the desired entropy of the output cannot be met.<h:p/>
-							The TSF interface(s) for seeding here is the interface used to gather entropy for
-							initializing the seed.
-						</note>
-						<aactivity>
-							<no-tests>TBD
-							</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>  
-		
+									<tabularize id="fcs-rbg-1-sels" title="Recommended choices for FCS_RBG.1.1">
+										<textcol>Identifier</textcol>
+										<reqtext></reqtext>
+										<selectcol>DRBG Algorithm</selectcol>
+										<reqtext> in accordance with </reqtext>
+										<selectcol>List of standards</selectcol>
+										<reqtext>after initialization.<h:p/><h:p/>The following table provides the recommended choices for
+											completion of the selection operations of FCS_RBG.1.</reqtext>
+									</tabularize>
+									
+									<selectable id="sel-fcs-rbg-hash-drbg">
+										<col>HASH_DRBG</col>
+										<col>Hash_DRBG with <selectables>
+											<selectable>SHA-256</selectable>
+											<selectable>SHA-384</selectable>
+											<selectable>SHA-512</selectable>
+											<selectable>SHA3-256</selectable>
+											<selectable>SHA3-384</selectable>
+											<selectable>SHA3-512</selectable>
+										</selectables></col>
+										<col><selectables>
+											<selectable>ISO/IEC 18031: 2011 (Section C.2.2)</selectable>
+											<selectable>NIST SP 800-90A Revision 1 Section 10.1.1</selectable></selectables>
+										</col>
+									</selectable>
+				
+									<selectable id="sel-fcs-rbg-hmac-drbg">
+										<col>HMAC_DRBG</col>
+										<col>HMAC_DRBG with  <selectables>
+											<selectable>SHA-256</selectable>
+											<selectable>SHA-384</selectable>
+											<selectable>SHA-512</selectable>
+											<selectable>SHA3-256</selectable>
+											<selectable>SHA3-384</selectable>
+											<selectable>SHA3-512</selectable>
+										</selectables></col>
+										<col><selectables>
+											<selectable>ISO/IEC 18031: 2011 (Section C.2.3)</selectable>
+											<selectable>NIST SP 800-90A Revision 1 Section 10.1.2</selectable></selectables>
+										</col>
+									</selectable>
+										<selectable id="sel-fcs-rbg-ctr-drbg">
+										<col>CTR_DRBG</col>
+										<col>CTR_DRBG  with  <selectables>
+											<selectable>AES-128</selectable>
+											<selectable>AES-192</selectable>
+											<selectable>AES-256</selectable>
+											<selectable>CAM-128</selectable>
+											<selectable>CAM-192</selectable>
+											<selectable>CAM-256</selectable>
+											<selectable>SEED-128</selectable>
+											<selectable>HIGHT-128</selectable>
+											<selectable>LEA-128</selectable>
+											<selectable>LEA-192</selectable>
+											<selectable>LEA-256</selectable>
+										</selectables></col>
+										<col><selectables>
+											<selectable>ISO/IEC 18031: 2011 (Section C.3.2)</selectable>
+											<selectable>NIST SP800-90A Revision 1 Section 10.2.1</selectable></selectables>
+										</col>
+									</selectable>
+								</selectables>
+							</title>
+							<aactivity level="element">
+								<no-tests>TBD</no-tests>
+							</aactivity>
+						</f-element>
+						<f-element id="fcs-rbg-1e2">
+							<title>
+								The TSF shall use a <selectables>
+									<selectable id="internal-seed">TSF noise source <assignable>name of noise source</assignable></selectable>
+									<selectable id="external-seed">TSF interface for seeding</selectable>
+								</selectables>
+								for initialization and reseeding.
+							</title>
+							<aactivity level="element">
+								<no-tests>
+									Documentation will be produced - and the evaluator shall perform the
+									activities - in accordance with <xref to="entropyappendix"/> and
+									the
+									<h:a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
+								</no-tests>
+							</aactivity>
+						</f-element>
+						
+						<f-element id="fcs-rbg-1e3">
+							<title>
+								The TSF shall update the DRBG state by <selectables>
+									<selectable>reseeding</selectable>
+									<selectable>uninstantiating and re-instantiating</selectable>
+								</selectables> using a <selectables>
+									<selectable>TSF entropy source <assignable>name of entropy source</assignable></selectable>
+									<selectable>TSF interface for obtaining entropy <assignable>name of the interface</assignable></selectable></selectables>
+								in the following situations: <selectables linebreak="yes">
+									<selectable>never</selectable>
+									<selectable>on demand</selectable>
+									<selectable>on the condition: <assignable>condition</assignable></selectable>
+									<selectable>after <assignable>time</assignable></selectable>
+								</selectables>
+								in accordance with <assignable>list of standards</assignable>.
+							</title>
+							<note role="application">
+								No rationale is acceptable for not satisfying one of these dependencies.<h:p/>
+								If a reseeding is selected in the first selection and something other than “never” is 
+								selected in the third selection of FCS_RBG.1.3, but reseeding is not feasible, the TSF will
+								uninstantiate RBGs, rather than produce output that is of insufficient quality.  The listed 
+								standards should specify the reseed interval and procedure for uninstantiating and reseeding. 
+								The remaining selection allows the PP Author to require application-specific conditions for 
+								reseeding.<h:p/>
+								"Uninstantiate” means that the internal state of the DRBG is no longer available for use. 
+								In the second selection of FCS_RBG.1.3, “on demand” means that a TOE presents an interface to 
+								reseed as a TSFI (e.g., an API call).  The interface causes the DRBG to reseed at the request 
+								of an authorized user, either with an internal source, an external source, or from input 
+								provided through the TSFI (e.g., the API call).
+							</note>
+							<aactivity level="element">              
+								<no-tests>TBD</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event>
+							<audit-event-descr>Failure of the randomization process</audit-event-descr>
+							<audit-event-info>None.</audit-event-info>
+						</audit-event>
+					</f-component>    
+				</section>   <!-- FCS_RBG.1 -->
 
-				<!-- FCS_RBG.6 Random Bit Generation Service -->
-				<f-component cc-id="fcs_rbg.6" name="Random Bit Generation (Combining Entropy Sources)">
-					<f-element id="fcs-rbg-6e1">
-						<title>
-							The TSF shall provide a <selectables>
-								<selectable>hardware</selectable>
-								<selectable>software</selectable>
-								<selectable><assignable>other interface type</assignable></selectable> </selectables>
-							interface to make the DRBG output, as specified in FCS_RBG.1 Random Bit Generation (RBG), 
-							available as a service to entities outside of the TOE.
-						</title>        
-						<aactivity>
-							<no-tests>TBD
-							</no-tests>
-						</aactivity>
-					</f-element>
-					<audit-event/>
-				</f-component>  
+				<section id="sec-fcs-rbg-2" title="FCS_RBG.2 Random Bit Generation (External Seeding)">
+						<!-- FCS_RBG.2 Random Bit Generation (External Seeding) -->
+					<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)">
+							<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+							</dependencies>
+						</comp-rel>
 		
+						<f-element id="fcs-rbg-2e1">
+							<title>
+								The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
+								from a TSF interface for the purpose of obtaining entropy.
+							</title>
+							<note role="application">
+								In order to maintain compliance with NIST SP 800-90A Revision 1, the TSF accepts enough 
+								bits of input from an external noise source to satisfy the entropy requirements of the DRBG.
+								The TSF should also protect the integrity and confidentiality of the entropy it receives from
+								the external noise source.<h:p/>
+								The TSF interface for the purpose of seeding here is the interface used to gather entropy 
+								for initializing the seed.
+							</note>
+							<aactivity>
+								<no-tests>
+									TBD
+								</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>   <!-- FCS_RBG.2 -->
+				
+				<section id="sec-fcs-rbg-3" title="FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)">
+						<!-- FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source) -->
+					<f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)">
+							<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<sfr-cat-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</sfr-cat-ref> 
+							</dependencies>
+						</comp-rel>
+						
+						<f-element id="fcs-rbg-3e1">
+							<title>
+								The TSF shall be able to seed the DRBG using a <selectables choose-one-of="yes">
+									<selectable>TSF software-based entropy source</selectable>
+									<selectable>TSF hardware-based entropy source <assignable>name of entropy source</assignable></selectable></selectables>
+								with <assignable>number of bits</assignable> bits of min-entropy.
+							</title>        
+							<note role="application">
+								If an ST Author wishes to use multiple internal noise sources, they iterate this requirement
+								for each noise source used by the TSF.<h:p/>
+								Hardware-based noise sources are entropy sources whose primary function is noise generation, 
+								such as ring oscillators, diodes, and thermal noise.  While a TOE may use software to collect
+								the noise from these hardware sources, these are not software-based.  Software-based noise 
+								sources are those sources that have some other primary function, and the noise is a byproduct 
+								of their normal operation.  Examples of software-based noise sources are user or system-based 
+								events, reading the least significant bits from an event timer, etc. <h:p/>
+								Hardware-based noise sources may be stochastically modelled, in which case the amount of 
+								entropy is well understood.  Software-based noise sources are usually less well understood 
+								and therefore will typically take a more conservative approach, gathering larger numbers of 
+								bits than required, then performing a compression function to derive the final output. 
+								Software-based noise sources often rely on an entropy estimator. 
+							</note>
+							<aactivity>
+								<no-tests>TBD
+								</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>   <!-- FCS_RBG.3 -->
+					<section id="sec-fcs-rbg-4" title="FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)">
+						<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
+					<f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)">
+							<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<sfr-cat-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</sfr-cat-ref> 
+							</dependencies>
+						</comp-rel>
+				
+						<f-element id="fcs-rbg-4e1">
+							<title>
+								The TSF shall be able to seed the DRBG using <selectables>
+									<selectable><assignable>number</assignable> TSF software-based entropy source(s)</selectable>
+									<selectable><assignable>number</assignable> TSF hardware-based entropy source(s)</selectable>
+								</selectables>.
+							</title>
+							<aactivity>
+								<no-tests>TBD
+								</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>
+				</section>   <!-- FCS_RBG.4 -->
+					<section id="sec-fcs-rbg-5" title="FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)">
+						<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
+					<f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Entropy Sources)">
+							<comp-rel>
+							<hierarchical-to>No other components.</hierarchical-to>
+							<dependencies>
+								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<or-dep>
+									<sfr-cat-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</sfr-cat-ref> 
+									<sfr-cat-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</sfr-cat-ref> 
+									<sfr-cat-ref> FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</sfr-cat-ref> 									
+								</or-dev>
+							</dependencies>
+						</comp-rel>
+							<f-element id="fcs-rbg-5e1">
+							<title>
+								The TSF shall <selectables>
+									<selectable>hash</selectable>
+									<selectable>concatenate and hash</selectable>
+									<selectable>XOR</selectable>
+									<selectable>input into a linear feedback shift register</selectable>
+									<selectable><assignable>combining operation</assignable></selectable> </selectables>
+									<selectables>
+									<selectable>output from TSF entropy source(s)</selectable>
+									<selectable>input from TSF interface(s) for obtaining entropy</selectable></selectables>
+								resulting in a minimum of <assignable>number of bits</assignable>
+								bits of min-entropy to create the entropy input into the derivation function as defined in
+								<selectables>
+									<selectable>ISO/IEC 18031:2011</selectable>
+									<selectable>NIST SP 800-90A Revision 1</selectable>
+								</selectables>						
+							</title>        
+							<note role="application">
+								One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal noise sources 
+								(a.k.a. raw entropy) to confirm the min-entropy of the noise sources either in aggregate or 
+								individually.  One should not apply NIST SP 800-90B (or AIS-31) statistical tests against 
+								external noise sources since the TOE is unable to enforce entropy requirements or conditioning 
+								requirements against external sources of entropy.  However, the TSS may include estimates 
+								for min-entropy from external sources that contribute to the overall entropy requirements 
+								for either the DRBG or for FCS_OTV_EXT.1.<h:p/>
+								FCS_RBG.5 specifies the combining operation such that the combined min-entropy of all the 
+								internal sources and the estimated entropy of the external sources is greater than or equal 
+								to the desired entropy of the output of the combining operation.  The output could be used as 
+								a nonce or a seed for a DRBG.  The combining operation should avoid crushing the entropy of
+								the sources such that the desired entropy of the output cannot be met.<h:p/>
+								The TSF interface(s) for seeding here is the interface used to gather entropy for
+								initializing the seed.
+							</note>
+							<aactivity>
+								<no-tests>TBD
+								</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>  
+				</section>    <!-- FCS_RBG.5 -->
+	
+				<section id="sec-fcs-rbg-6" title="FCS_RBG.6 Random Bit Generation Service">
+					<!-- FCS_RBG.6 Random Bit Generation Service -->
+					<f-component cc-id="fcs_rbg.6" name="Random Bit Generation (Combining Entropy Sources)">
+						<comp-rel>
+						<hierarchical-to>No other components.</hierarchical-to>
+						<dependencies>
+								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+							</dependencies>
+						</comp-rel>
+							<f-element id="fcs-rbg-6e1">
+							<title>
+								The TSF shall provide a <selectables>
+									<selectable>hardware</selectable>
+									<selectable>software</selectable>
+									<selectable><assignable>other interface type</assignable></selectable> </selectables>
+								interface to make the DRBG output, as specified in FCS_RBG.1 Random Bit Generation (RBG), 
+								available as a service to entities outside of the TOE.
+							</title>        
+							<aactivity>
+								<no-tests>TBD
+								</no-tests>
+							</aactivity>
+						</f-element>
+						<audit-event/>
+					</f-component>  
+				</section>   <!-- FCS_RBG.6 -->
 			</section>   <!-- FCS_RBG -->
-
 		</section>  <!-- FCS -->
 	</section>  <!-- SFRs -->
 	

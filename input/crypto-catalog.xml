@@ -1489,7 +1489,7 @@
 						</ecd-info>
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
+							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
@@ -1646,7 +1646,7 @@
 						</ecd-info>
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
+							<hierarchical-to/>
 							<dependencies-to>
 								<or-dev>
 									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
@@ -1746,8 +1746,8 @@
 					<f-component id="sfr-fcs-cop-1-aead" cc-id="fcs_cop.1" iteration="AEAD" name="Cryptographic Operation – Authenticated Encryption with Associated Data">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -1758,7 +1758,7 @@
 								</or-dev>
 								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
 								<sfr-cat-ref>FCS_OTV_EXT.1 One-Time Value Generation</sfr-cat-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-cop-1e1-aead">
@@ -1950,8 +1950,8 @@
 					<f-component id="sfr-fcs-cop-1-cmac" cc-id="fcs_cop.1" iteration="CMAC" name="Cryptographic Operation - CMAC">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -1961,7 +1961,7 @@
 									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
 								</or-dev>
 								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-cop-1e1-cmac">
@@ -2025,8 +2025,8 @@
 					<f-component id="sfr-fcs-cop-1-hash" cc-id="fcs_cop.1" iteration="Hash" name="Cryptographic Operation - Hashing)">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>No dependencies.</dependencies>
+							<hierarchical-to/>
+							<dependencies-to/>
 						</comp-rel>
 
 						<f-element id="fcs-cop-1e1-hash">
@@ -2077,8 +2077,8 @@
 					<f-component id="sfr-fcs-cop-1-keyedhash" cc-id="fcs_cop.1" iteration="KeyedHash" name="Cryptographic Operation - Keyed Hash">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -2092,7 +2092,7 @@
 									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
 									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
 								</or-dev>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-cop-1e1-keyedhash">
@@ -2234,8 +2234,8 @@
 					<f-component id="sfr-fcs-cop-1-keyencap" cc-id="fcs_cop.1" iteration="KeyEncap" name="Cryptographic Operation - Key Encapsulation">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -2249,7 +2249,7 @@
 									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
 									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
 								</or-dev>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-cop-1e1-keyencap">
@@ -2318,8 +2318,8 @@
 					<f-component id="sfr-fcs-cop-1-siggen" cc-id="fcs_cop.1" iteration="SigGen" name="Cryptographic Operation - Signature Generation">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -2332,7 +2332,7 @@
 								</or-dev>
 								<sfr-cat-ref>FCS_OTV_EXT.1</sfr-cat-ref> 
 								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 		
 						<f-element id="fcs-cop-1e1-siggen">
@@ -2626,8 +2626,8 @@
 					<f-component id="sfr-fcs-cop-1-sigver" cc-id="fcs_cop.1" iteration="SigVer" name="Cryptographic Operation - Signature Verification">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -2639,7 +2639,7 @@
 									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
 									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
 								</or-dev>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-cop-1e1-sigver">
@@ -2941,8 +2941,8 @@
 					<f-component id="sfr-fcs-cop-1-kw" cc-id="fcs_cop.1" iteration="KeyWrap" name="Cryptographic Operation - Key Wrapping">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -2953,7 +2953,7 @@
 								</or-dev>
 								<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
 								<sfr-cat-rep>FCS_COP.1/SKC Symmetric key cryptography</sfr-cat-rep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 			
 						<f-element id="fcs-cop-1e1-kw">
@@ -3077,8 +3077,8 @@
 					<f-component id="sfr-fcs-cop-1-skc" cc-id="fcs_cop.1" iteration="SKC" name="Cryptographic Operation - Symmetric Key Cryptography">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
@@ -3089,7 +3089,7 @@
 								</or-dev>
 								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref>
 								<sfr-cat-rep>FCS_OTV_EXT.1 One Time Value</sfr-cat-rep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 	
 						<f-element id="fcs-cop-1e1-skc">
@@ -3405,15 +3405,15 @@
 					<f-component id="sfr-fcs-cop-1-xof" cc-id="fcs_cop.1" iteration="XOF" name="Cryptographic Operation - Extendable-Output Function">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
 									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
 									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
 									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
 								</or-dev>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-cop-1e1-xof">
@@ -3485,10 +3485,17 @@
 			</section>   <!-- FCS_COP.1 -->
 
 			<section id="sec-fcs-otv" title="One-Time Value Generation (FCS_OTV)">
-			
-				<section id="sec-fcs-otv-cg" title="Catalog Guidance Notes for Family FCS_OTV">
+
+				<section id="sec-fcs-otv-cg" title="Catalog Guidance Notes for Family FCS_OTV_EXT">
 					The lone SFR under FCS_OTV pertains to generation or derivation of one-time use values, such
 					as initialization vectors, nonces, tweak values, and salts. 
+
+					<ext-comp-def fam-id="FCS_CKM_EXT" title="One-Time value generation (extended) (FCS_OTV)">
+						<fam-behavior>
+							Cryptographic operations often require one-time values such as nonces, IVs, salts,
+							and initial counters. These values are often non-secret.
+						</fam-behavior>					
+					</ext-comp-def>
 
 					<section title="FCS_OTV_EXT.1 One-Time Value" id="catsec-fcs-otv-ext-1">
 
@@ -3525,6 +3532,18 @@
 
 						<!-- FCS_OTV_EXT.1 One-Time Value  -->
 						<f-component id="sfr-fcs-otv-ext-1" cc-id="fcs_otv_ext.1" name="One-Time Value">
+
+							<ecd-info>
+								<comp-lev> requires that values such as salts, nonces, IVs, and initial counters
+									be generated using random bit generation. 
+								</comp-lev>
+								<manageable-actions/>
+								<auditable-actions>
+									<auditable-action>minimal: Success and failure of the activity;</auditable-action>
+									<auditable-action>basic: The object attribute(s), and object value(s) excluding 
+										any sensitive information.</auditable-action>
+								</auditable-actions>
+							</ecd-info>
 
 							<comp-rel>
 								<hierarchical-to>No other components.</hierarchical-to>

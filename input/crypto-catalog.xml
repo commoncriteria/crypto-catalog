@@ -434,8 +434,8 @@
 
 									<!-- XMSS(TM) -->
 									<selectable id="sel-fcs-ckm-ak-xmssmt">
-										<col>XMSS<sup>MT</sup></col>
-										<col>XMSS<sup>MT</sup></col>
+										<col>XMSS<h:sup>MT</h:sup></col>
+										<col>XMSS<h:sup>MT</h:sup></col>
 										<col>Private key size = <selectables>
 											<selectable>192 bits with <selectables>
 												<selectable>SHA-256/192</selectable>
@@ -457,7 +457,7 @@
 												<selectable>(60, 12)</selectable>
 											</selectables>
 										</col>
-										<col>RFC 8391 [XMSS<sup>MT</sup>]<h:p/>
+										<col>RFC 8391 [XMSS<h:sup>MT</h:sup>]<h:p/>
 											 NIST SP 800-208 [parameters]
 										</col>
 									</selectable>
@@ -497,7 +497,7 @@
 								different for each level.  For HSS, within each level, the same tree height 
 								must be used but can be different for each level.
 							</note>
-							<aactivity/>
+							<aactivity><no-tests>TBD</no-tests></aactivity>
 						</f-element>
 						<audit-event/>
 					</f-component>
@@ -651,13 +651,13 @@
 								performed in accordance with a specified access method
 							</comp-lev>
 							<manageable-actions/>
-							<auditable-actions>
-								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
-								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
-									any sensitive information.</auditable-action>
-							</auditable-actions>
+							<action-descrs>
+								<action-descr>minimal: Success and failure of the activity;</action-descr>
+								<action-descr>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</action-descr>
+							</action-descrs>
 						</ecd-info>
-						
+
 						<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies-to>
@@ -1299,9 +1299,9 @@
 							</comp-lev>
 							<manageable-actions/>
 							<auditable-actions>
-								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
-								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
-									any sensitive information.</auditable-action>
+								<action-descr>minimal: Success and failure of the activity;</action-descr>
+								<action-descr>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</action-descr>
 							</auditable-actions>
 						</ecd-info>
 
@@ -1456,9 +1456,9 @@
 							</comp-lev>
 							<manageable-actions/>
 							<auditable-actions>
-								<auditable-action>minimal: Success and failure of the activity;</auditable-action>
-								<auditable-action>basic: The object attribute(s), and object value(s) excluding 
-									any sensitive information.</auditable-action>
+								<action-descr>minimal: Success and failure of the activity;</action-descr>
+								<action-descr>basic: The object attribute(s), and object value(s) excluding 
+									any sensitive information.</action-descr>
 							</auditable-actions>
 						</ecd-info>
 
@@ -3356,9 +3356,9 @@
 								</comp-lev>
 								<manageable-actions/>
 								<auditable-actions>
-									<auditable-action>minimal: Success and failure of the activity;</auditable-action>
-									<auditable-action>basic: The object attribute(s), and object value(s) excluding 
-										any sensitive information.</auditable-action>
+									<action-descr>minimal: Success and failure of the activity;</action-descr>
+									<action-descr>basic: The object attribute(s), and object value(s) excluding 
+										any sensitive information.</action-descr>
 								</auditable-actions>
 							</ecd-info>
 

@@ -162,7 +162,7 @@
 								</or-dep>
 								<or-dep>
 									<comp-ref>FCS_RBG.1 Random bit generation</comp-ref>
-									<comp-ref>FCS_RNG.1 Generation of random numbers</comp-rep>
+									<comp-ref>FCS_RNG.1 Generation of random numbers</comp-ref>
 								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 							</dependencies-to>

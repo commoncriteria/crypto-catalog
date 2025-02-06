@@ -31,8 +31,6 @@
 	
 	<!-- 1.0 Security Functional Requirements -->
 	<section title="Security Functional Requirements" id="catsec-sfrs">
-	
-		This is the section with all the requirements. They are listed alphabetically by class and family.
 		
 		<section title="Class FCS: Cryptographic Support" id="catsec-fcs">
 
@@ -158,15 +156,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref>
+									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref> 
+									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref>
 								</or-dep>
 								<or-dep>
-									<sfr-cat-rep>FCS_RBG.1 Random bit generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
+									<comp-ref>FCS_RBG.1 Random bit generation</comp-ref>
+									<comp-ref>FCS_RNG.1 Generation of random numbers</comp-rep>
 								</or-dep>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 							</dependencies-to>
 						</comp-rel>
 
@@ -524,15 +522,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref>
+									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref> 
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</comp-ref> 
+									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref>
 								</or-dep>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 								<or-dep>
-									<sfr-cat-rep>FCS_RBG.1 Random bit generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_RNG.1 Generation of random numbers</sfr-cat-rep>
+									<comp-ref>FCS_RBG.1 Random bit generation</comp-ref>
+									<comp-ref>FCS_RNG.1 Generation of random numbers</comp-ref>
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -591,18 +589,18 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM_EXT.3 Cryptographic Key Access</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref> 
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref> 
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref> 
+									<comp-ref>FCS_CKM_EXT.3 Cryptographic Key Access</comp-ref>
 								</or-dep>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 								<or-dep>
-									<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-rep>
-									<sfr-cat-rep>FTP_PRO.1 Trusted Channel Protocol</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/KeyEncap Key Encapsulation</comp-ref>
+									<comp-ref>FCS_COP.1/KeyWrap Key Wrapping</comp-ref>
+									<comp-ref>FTP_PRO.1 Trusted Channel Protocol</comp-ref>
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -664,16 +662,16 @@
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref> 
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref> 
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref> 
 								</or-dep>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 								<or-dep>
-									<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data]</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/KeyEncap Key Encapsulation</comp-ref>
+									<comp-ref>FCS_COP.1/KeyWrap Key Wrapping</comp-ref>
+									<comp-ref>FCS_COP.1/SKC Symmetric Key Cryptography</comp-ref>
+									<comp-ref>FCS_COP.1/AEAD Authenticated Encryption with Associated Data]</comp-ref>
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -727,16 +725,16 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_COP.1 Cryptographic Operation</sfr-cat-ref> 
+									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
+									<comp-ref>FCS_COP.1 Cryptographic Operation</comp-ref> 
 								</or-dep>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 								<or-dep>
-									<sfr-cat-rep>FCS_COP.1/CMAC Cryptographic Operation - CMAC</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/Hash Cryptographic Operation - Hashing</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/KeyedHash Cryptographic Operation - Keyed hash</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/SKC Cryptographic Operation - Symmetric key cryptography</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/CMAC Cryptographic Operation - CMAC</comp-ref>
+									<comp-ref>FCS_COP.1/Hash Cryptographic Operation - Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/KeyedHash Cryptographic Operation - Keyed hash</comp-ref>
+									<comp-ref>FCS_COP.1/SKC Cryptographic Operation - Symmetric key cryptography</comp-ref>
+									<comp-ref>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</comp-ref>
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -1002,13 +1000,13 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.3 Cryptographic key access</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.3 Cryptographic key access</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -1311,24 +1309,24 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
 								<or-dev>
-									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref> 
+									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
+									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref> 
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 								<or-dev>
-									<sfr-cat-rep>FCS_COP.1/AEAD Authenticated encryption with associated data</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/CMAC CMAC</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/KeyedHash, Keyed Hashing</sfr-cat-rep>
-									<sfr-cat-rep>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-rep>
-									<sfr-cat-rep>no other dependencies</sfr-cat-rep>									
+									<comp-ref>FCS_COP.1/AEAD Authenticated encryption with associated data</comp-ref>
+									<comp-ref>FCS_COP.1/CMAC CMAC</comp-ref>
+									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/KeyedHash, Keyed Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/SKC Symmetric Key Cryptography</comp-ref>
+									<comp-ref>no other dependencies</comp-ref>									
 								</or-dep>
 							</dependencies-to>
 						</comp-rel>
@@ -1468,12 +1466,12 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dev>
-									<sfr-cat-ref>FCS_CKM.2 Cryptographic key distribution</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_COP.1 Cryptographic operation</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</sfr-cat-ref> 
+									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
+									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref> 
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</comp-ref> 
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_OTV_EXT.1 One-Time Value Generation</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
+								<comp-ref>FCS_OTV_EXT.1 One-Time Value Generation</comp-ref> 
 							</dependencies-to>
 						</comp-rel>
 
@@ -1568,15 +1566,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_OTV_EXT.1 One-Time Value Generation</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
+								<comp-ref>FCS_OTV_EXT.1 One-Time Value Generation</comp-ref> 
 							</dependencies-to>
 						</comp-rel>
 
@@ -1772,14 +1770,14 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 							</dependencies-to>
 						</comp-rel>
 
@@ -1899,17 +1897,17 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 								<or-dev>
-									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
 								</or-dev>
 							</dependencies-to>
 						</comp-rel>
@@ -2056,17 +2054,17 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-rep>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-rep>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 								<or-dev>
-									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
 								</or-dev>
 							</dependencies-to>
 						</comp-rel>
@@ -2140,17 +2138,17 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1/AKG Asymmetric cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1/AKG Asymmetric cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 								</or-dev>
 								<or-dev>
-									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
 								</or-dev>
-								<sfr-cat-ref>FCS_OTV_EXT.1</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref> 
+								<comp-ref>FCS_OTV_EXT.1</comp-ref> 
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 							</dependencies-to>
 						</comp-rel>
 		
@@ -2448,15 +2446,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>No other components</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>No other components</comp-ref>
 								</or-dev>
 								<or-dev>
-									<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
-									<sfr-cat-rep>FCS_COP.1/XOF Extendable-Output Function</sfr-cat-rep>
+									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
 								</or-dev>
 							</dependencies-to>
 						</comp-rel>
@@ -2763,15 +2761,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-rep>FCS_COP.1/Hash Hashing</sfr-cat-ref>
-								<sfr-cat-rep>FCS_COP.1/SKC Symmetric key cryptography</sfr-cat-rep>
+								<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
+								<comp-ref>FCS_COP.1/SKC Symmetric key cryptography</comp-ref>
 							</dependencies-to>
 						</comp-rel>
 			
@@ -2899,15 +2897,15 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.7 Cryptographic key agreement</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM_EXT.8 Password-based key derivation</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
+									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
 								</or-dev>
-								<sfr-cat-rep>FCS_CKM.6 Timing and event of cryptographic key destruction</sfr-cat-ref>
-								<sfr-cat-rep>FCS_OTV_EXT.1 One Time Value</sfr-cat-rep>
+								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
+								<comp-ref>FCS_OTV_EXT.1 One Time Value</comp-ref>
 							</dependencies-to>
 						</comp-rel>
 	
@@ -3227,10 +3225,10 @@
 							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
-									<sfr-cat-ref>FDP_ITC.1 Import of user data without security attributes</sfr-cat-ref> 
-									<sfr-cat-ref>FDP_ITC.2 Import of user data with security attributes</sfr-cat-ref> 
-									<sfr-cat-rep>FCS_CKM.1 Cryptographic key generation</sfr-cat-ref>
-									<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
+									<comp-ref>FDP_ITC.1 Import of user data without security attributes</comp-ref> 
+									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
+									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
+									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 								</or-dev>
 							</dependencies-to>
 						</comp-rel>
@@ -3367,16 +3365,16 @@
 							<comp-rel>
 								<hierarchical-to>No other components.</hierarchical-to>
 								<dependencies>
-									<sfr-cat-ref>FCS_RBG.1 Random Bit Generators</sfr-cat-ref> 
+									<comp-ref>FCS_RBG.1 Random Bit Generators</comp-ref> 
 									<or-dep>
-										<sfr-cat-ref>FCS_COP.1/HMAC Key Hash</sfr-cat-ref> 
-										<sfr-cat-ref>FCS_COP.1/SKC Symmetric key cryptography</sfr-cat-ref> 
-										<sfr-cat-rep>FCS_CKM.5 Cryptographic key derivation</sfr-cat-ref>
-										<sfr-cat-rep>FCS_CKM_EXT.8 Password-Based Key Derivation</sfr-cat-ref>
-										<sfr-cat-rep>FCS_COP.1/CMAC CMAC</sfr-cat-ref>
-										<sfr-cat-rep>FCS_COP.1/KeyWrap Key Wrapping</sfr-cat-ref>
-										<sfr-cat-rep>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</sfr-cat-ref>
-										<sfr-cat-rep>FCS_COP.1/KeyEncap Key Encapsulation</sfr-cat-ref>
+										<comp-ref>FCS_COP.1/HMAC Key Hash</comp-ref> 
+										<comp-ref>FCS_COP.1/SKC Symmetric key cryptography</comp-ref> 
+										<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
+										<comp-ref>FCS_CKM_EXT.8 Password-Based Key Derivation</comp-ref>
+										<comp-ref>FCS_COP.1/CMAC CMAC</comp-ref>
+										<comp-ref>FCS_COP.1/KeyWrap Key Wrapping</comp-ref>
+										<comp-ref>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</comp-ref>
+										<comp-ref>FCS_COP.1/KeyEncap Key Encapsulation</comp-ref>
 									</or-dev>
 								</dependencies>
 							</comp-rel>
@@ -3544,13 +3542,13 @@
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies>
 								<or-dep>
-									<sfr-cat-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding Single Source)</sfr-cat-ref> 
+									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
+									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding Single Source)</comp-ref> 
 								</or-dev>
-								<sfr-cat-ref>FCS_COP.1/Hash Hashing</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_COP.1/SKC Symmetric Key Cryptography</sfr-cat-ref> 
-								<sfr-cat-ref>FPT_FLS.1 Failure with preservation of secure state</sfr-cat-ref> 
-								<sfr-cat-ref>FPT_TST.1 TSF testing</sfr-cat-ref> 
+								<comp-ref>FCS_COP.1/Hash Hashing</comp-ref> 
+								<comp-ref>FCS_COP.1/SKC Symmetric Key Cryptography</comp-ref> 
+								<comp-ref>FPT_FLS.1 Failure with preservation of secure state</comp-ref> 
+								<comp-ref>FPT_TST.1 TSF testing</comp-ref> 
 							</dependencies>
 						</comp-rel>
 
@@ -3690,7 +3688,7 @@
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies>
-								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 							</dependencies>
 						</comp-rel>
 		
@@ -3723,8 +3721,8 @@
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies>
-								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</sfr-cat-ref> 
+								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
+								<comp-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</comp-ref> 
 							</dependencies>
 						</comp-rel>
 						
@@ -3764,8 +3762,8 @@
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies>
-								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
-								<sfr-cat-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</sfr-cat-ref> 
+								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
+								<comp-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</comp-ref> 
 							</dependencies>
 						</comp-rel>
 				
@@ -3790,11 +3788,11 @@
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
 							<dependencies>
-								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 								<or-dep>
-									<sfr-cat-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</sfr-cat-ref> 
-									<sfr-cat-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</sfr-cat-ref> 
-									<sfr-cat-ref> FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</sfr-cat-ref> 									
+									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
+									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</comp-ref> 
+									<comp-ref> FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</comp-ref> 									
 								</or-dev>
 							</dependencies>
 						</comp-rel>
@@ -3847,7 +3845,7 @@
 						<comp-rel>
 						<hierarchical-to>No other components.</hierarchical-to>
 						<dependencies>
-								<sfr-cat-ref>FCS_RBG.1 Random Bit Generation (RBG)</sfr-cat-ref> 
+								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 							</dependencies>
 						</comp-rel>
 							<f-element id="fcs-rbg-6e1">

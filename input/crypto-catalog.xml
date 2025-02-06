@@ -3540,8 +3540,8 @@
 					<f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<or-dep>
 									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
 									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding Single Source)</comp-ref> 
@@ -3550,7 +3550,7 @@
 								<comp-ref>FCS_COP.1/SKC Symmetric Key Cryptography</comp-ref> 
 								<comp-ref>FPT_FLS.1 Failure with preservation of secure state</comp-ref> 
 								<comp-ref>FPT_TST.1 TSF testing</comp-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 
 						<f-element id="fcs-rbg-1e1">
@@ -3687,10 +3687,10 @@
 						<!-- FCS_RBG.2 Random Bit Generation (External Seeding) -->
 					<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)">
 							<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 		
 						<f-element id="fcs-rbg-2e1">
@@ -3720,11 +3720,11 @@
 						<!-- FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source) -->
 					<f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)">
 							<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 								<comp-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</comp-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 						
 						<f-element id="fcs-rbg-3e1">
@@ -3763,11 +3763,11 @@
 					<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
 					<f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)">
 							<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 								<comp-ref>FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)</comp-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 				
 						<f-element id="fcs-rbg-4e1">
@@ -3791,15 +3791,15 @@
 					<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
 					<f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Entropy Sources)">
 							<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
-							<dependencies>
+							<hierarchical-to/>
+							<dependencies-to>
 								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
 								<or-dep>
 									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
 									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</comp-ref> 
 									<comp-ref> FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</comp-ref> 									
 								</or-dep>
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 							<f-element id="fcs-rbg-5e1">
 							<title>
@@ -3848,10 +3848,10 @@
 					<!-- FCS_RBG.6 Random Bit Generation Service -->
 					<f-component cc-id="fcs_rbg.6" name="Random Bit Generation (Combining Entropy Sources)">
 						<comp-rel>
-						<hierarchical-to>No other components.</hierarchical-to>
-						<dependencies>
+						<hierarchical-to/>
+						<dependencies-to>
 								<comp-ref>FCS_RBG.1 Random Bit Generation (RBG)</comp-ref> 
-							</dependencies>
+							</dependencies-to>
 						</comp-rel>
 							<f-element id="fcs-rbg-6e1">
 							<title>

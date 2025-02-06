@@ -3515,8 +3515,7 @@
 							<audit-event/>
 						</f-component>
 					</section>   <!-- FCS_OTV_EXT.1 -->
-				</section>  <!-- FCS_OTV_EXT -->						
-			</section>  <!-- FCS_OTV -->
+				</section>  <!-- FCS_OTV -->						
 
 
 			<section id="sec-fcs-rbg" title="Random Bit Generation (FCS_RBG)">
@@ -3758,8 +3757,10 @@
 						<audit-event/>
 					</f-component>
 				</section>   <!-- FCS_RBG.3 -->
-					<section id="sec-fcs-rbg-4" title="FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)">
-						<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
+				
+				<section id="sec-fcs-rbg-4" title="FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)">
+
+					<!-- FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources) -->
 					<f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)">
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
@@ -3784,8 +3785,10 @@
 						<audit-event/>
 					</f-component>
 				</section>   <!-- FCS_RBG.4 -->
-					<section id="sec-fcs-rbg-5" title="FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)">
-						<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
+				
+				<section id="sec-fcs-rbg-5" title="FCS_RBG.5 Random Bit Generation (Combining Entropy Sources)">
+
+					<!-- FCS_RBG.5 Random Bit Generation (Combining Noise Sources) -->
 					<f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Entropy Sources)">
 							<comp-rel>
 							<hierarchical-to>No other components.</hierarchical-to>
@@ -3872,34 +3875,3 @@
 	</section>  <!-- SFRs -->
 	
 </SFRCatalog>
-
-
-
-
-<!--
-[FIPS-HMAC] National Institute of Standards and Technology. Federal Information Processing Standard Publication (FIPS-PUB) 198-1, The Keyed-Hash Message Authentication Code (HMAC), National Institute of Standards and Technology, July 2008 
-
-[FIPS-SHA] National Institute of Standards and Technology. Federal Information Processing Standard Publication 
-(FIPS-PUB) 180-4, Secure Hash Standard (SHS), National Institute of Standards and Technology, March 2012. 
-
-[ISO-RBG] SO/IEC. ISO/IEC 18031:2011 Information Technology – Security Techniques - Random Bit Generation, ISO/IEC, November 2011
-
-[ISO-CIPH] ISO/IEC. ISO/IEC 18033-3:2010 Information Technology – Security Techniques – Encryption Algorithms – Part 3: Block Ciphers, ISO/IEC, December 2012
-
-[ISO-CMAC] ISO/IEC. ISO/IEC 9797-1 Information Technology – Security Techniques – Message Authentication Codes (MACs) – Part 1: Mechanisms Using a Block Cipher, ISO/IEC, December 1999
-
-[ISO-HASH] ISO/IEC. ISO/IEC 10118-3:2018 IT Security Techniques – Hash-Functions – Part 3: Dedicated Hash-Functions, ISO/IEC, October 2018
-
-[ISO-HMAC] ISO/IEC. ISO/IEC 9797-2:2011 Information Technology – Security Techniques – Message Authentication Codes (MACs) – Part 2: Mechanisms Using a Dedicated Hash-Function
-
-[NIST-CMAC] Dworkin, Morris. National Institute of Standards and Technology (NIST) Special Publication 800-38B, Recommendation for Block Cipher Modes of Operation: The CMAC Mode for Authentication, National Institute of Standards and Technology, December 2012.
-
-[NIST-ENT] Turan, Meltem Sõnmez, Elaine Barket, John Kelsey, Kerry A. McKay, Mary L. Baish, Mike Boyle, NIST Special Publication 800-90B Recommendation for the Entropy Sources Used for Random Bit Generation, January 2018.
-
-[NIST-KDRV] Barker, Elaine, Lily Chen, and Rich Davis. NIST Special Publication 800-56C, Recommendation for Key-Derivation Methods in Key-Establishment Schemes, National Institute of Standards and Technology, April 2018.
-
-[NIST-KDV] Kelsey, John, Shu-jen Chang, and Ray Perlner. NIST Special Publication 800-185 SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash, National Institute of Standards and Technology, December 2016.
-
-[NIST-ROTM] Chen, Lily, Joshua Franklin, and Andrew Regenscheid. National Institute of Standards and Technology (NIST) Special Publication 800-164 (Draft), Guidelines on Hardware Rooted Security in Mobile Devices (Draft), National Institute of Standards and Technology, October 2012.
-
--->

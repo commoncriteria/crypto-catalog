@@ -3365,8 +3365,8 @@
 							</ecd-info>
 
 							<comp-rel>
-								<hierarchical-to>No other components.</hierarchical-to>
-								<dependencies>
+								<hierarchical-to/>
+								<dependencies-to>
 									<comp-ref>FCS_RBG.1 Random Bit Generators</comp-ref> 
 									<or-dep>
 										<comp-ref>FCS_COP.1/HMAC Key Hash</comp-ref> 
@@ -3378,7 +3378,7 @@
 										<comp-ref>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</comp-ref>
 										<comp-ref>FCS_COP.1/KeyEncap Key Encapsulation</comp-ref>
 									</or-dep>
-								</dependencies>
+								</dependencies-to>
 							</comp-rel>
 			
 							<f-element id="fcs-otv-ext-1e1">

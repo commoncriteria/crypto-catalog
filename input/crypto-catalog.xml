@@ -3303,16 +3303,18 @@
 
 			<section id="sec-fcs-otv" title="One-Time Value Generation (FCS_OTV)">
 
+				<ext-comp-def fam-id="FCS_CKM_EXT" title="One-Time value generation (extended) (FCS_OTV)">
+					<fam-behavior>
+						Cryptographic operations often require one-time values such as nonces, IVs, salts,
+						and initial counters. These values are often non-secret.
+					</fam-behavior>					
+				</ext-comp-def>
+
 				<section id="sec-fcs-otv-cg" title="Catalog Guidance Notes for Family FCS_OTV_EXT">
 					The lone SFR under FCS_OTV pertains to generation or derivation of one-time use values, such
 					as initialization vectors, nonces, tweak values, and salts. 
-
-					<ext-comp-def fam-id="FCS_CKM_EXT" title="One-Time value generation (extended) (FCS_OTV)">
-						<fam-behavior>
-							Cryptographic operations often require one-time values such as nonces, IVs, salts,
-							and initial counters. These values are often non-secret.
-						</fam-behavior>					
-					</ext-comp-def>
+				</section>
+				
 
 					<section title="FCS_OTV_EXT.1 One-Time Value" id="catsec-fcs-otv-ext-1">
 

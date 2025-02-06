@@ -75,9 +75,9 @@
 				<section title="Catalog Guidance Notes for Family FCS_CKM" id="catsec-cgn-fam-fcs-ckm">
 					SFRs under FCS_CKM pertain to cryptographic keys. This includes key management activities
 					that occur during the typical lifecycle of a key. This section includes key generation, key
-					derivation, key distribution, key agreement, key access, and key destruction. 
+					derivation, key distribution, key agreement, key access, and key destruction. <h:p/>
 				
-					<section title="Key Generation and Key Derivation" id="catsec-cgn-fam-fcs-ckm-kgkd">
+					<h:b>Key Generation and Key Derivation</h:b><h:p/>
 						This catalog distinguishes key generation from key derivation. <h:i>Key generation</h:i> refers to those
 						instances in which a new key is created from a source of entropy. Those instances in which a
 						reproducible process derives a key from other material that are themselves reasonable sources of
@@ -89,9 +89,9 @@
 						introduces FCS_CKM_EXT.8 Password-Based Key Derivation to add constraints, work, or
 						more entropy for the instances in which one or more components of the derivation material may
 						contain limited entropy. 
-					</section>
+					<h:p/>
 
-					<section title="Key Establishment, Key Distribution/Transport, and Key Agreement" id="catsec-cgn-fam-fcs-ckm-keetc">
+					<h:b>Key Establishment, Key Distribution/Transport, and Key Agreement</h:b><h:p/>
 						NIST SP 800-56A Revision 3 explains that “[a] key-establishment scheme can be characterized
 						as either a key-agreement scheme or a key-transport scheme.” <h:i>Key agreement</h:i> schemes refer to
 						cases in which two or more parties want to establish a single key between them, and all parties
@@ -107,9 +107,9 @@
 						Encryption Scheme (ECIES), consult the ECIES standards such as those from ISO, IEEE, ANSI,
 						and SECG. Each has slight variations, but the key agreement primitives can be found in
 						FCS_CKM_EXT.7 and the KDF primitives in FCS_CKM.5. 
-					</section>
+					<h:p/>
 
-					<section title="Key Access" id="catsec-cgn-fam-fcs-ckm-keacc">
+					<h:b>Key Access</h:b><h:p/>
 						Cryptographic key access applies primarily to the storage of keys for future use and retrieval of
 						keys for immediate use by the TOE. The end goal here is to protect the confidentiality and
 						authenticity of the keys while in storage. <h:p/>
@@ -126,7 +126,7 @@
 						<h:b>Cryptographic key recovery</h:b> – This refers to the retrieval of cryptographic keys from either
 						archival, backup, or escrow locations. In each case, the TOE uses the agreed upon cryptographic
 						key access method. 
-					</section>
+					<h:p/>
 				</section>
 				
 
@@ -1521,7 +1521,7 @@
 					encryption/decryption, digital signature generation/verification, and hashing. In this catalog,
 					these operations are specified in eleven iterations of FCS_COP.1. 
 					
-					<section id="sec-fcs-cop-1-cg-dea" title="Data Encryption and Authentication">
+					<h:b>Data Encryption and Authentication</h:b><h:p/>
 						For data encryption without built-in authentication, include FCS_COP.1/SKC: Symmetric-Key
 						Encryption. This SFR covers the CBC, CTR, XTS, CFB, OFB modes of symmetric-key
 						cryptographic algorithms.<h:p/>
@@ -1531,25 +1531,25 @@
 						FCS_COP.1/KeyedHash.<h:p/>
 						For authentication without encryption, include FCS_COP1/CMAC. This SFR covers the CMAC
 						mode of symmetric-key cryptographic algorithms. 
-					</section>
+					<h:p/>
 
-					<section id="sec-fcs-cop-1-cg-ke" title="Key Encryption">
+					<h:b>Key Encryption</h:b><h:p/>
 						For key encryption using asymmetric algorithms such as RSA, include FCS_COP.1/KeyEncap.<h:p/>
 						For key encryption using symmetric algorithms, include FCS_COP.1/KeyWrap. This SFR
 						covers KW and KWP modes of symmetric cryptographic algorithms, as well as CCM and GCM
 						modes when used for key encryption. 
-					</section>
+					<h:p/>
 
-					<section id="sec-fcs-cop-1-cg-hash" title="Hashing">
+					<h:b>Hashing</h:b><h:p/>
 						For SHA and SHA3 hashes, include FCS_COP.1/Hash.<h:p/>
 						For Keyed Hashes, include FCS_COP.1/KeyedHash. This SFR covers HMAC and KMAC.<h:p/>
 						For extended hash output, include FCS_COP.1/XOF: Extendable-Output Functions. This SFR
 						covers the SHAKE and KMACXOF algorithms. 
-					</section>
+					<h:p/>
 
-					<section id="sec-fcs-cop-1-cg-ds" title="Digital Signature Generation/Verification">
+					<h:b>Digital Signature Generation/Verification</h:b><h:p/>
 						For digital signature operations, include FCS_COP.1/SigGen and FCS_COP.1/SigVer.  
-					</section>
+					<h:p/>
 				</section>	
 
 				<section title="FCS_COP.1/AEAD Cryptograpic Operation - Authenticated Encryption with Associated Data " id="catsec-fcs-cop-1-aead">

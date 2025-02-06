@@ -651,15 +651,15 @@
 								performed in accordance with a specified access method
 							</comp-lev>
 							<manageable-actions/>
-							<action-descrs>
+							<auditable-actions>
 								<action-descr>minimal: Success and failure of the activity;</action-descr>
 								<action-descr>basic: The object attribute(s), and object value(s) excluding 
 									any sensitive information.</action-descr>
-							</action-descrs>
+							</auditable-actions>
 						</ecd-info>
 
 						<comp-rel>
-							<hierarchical-to>No other components.</hierarchical-to>
+							<hierarchical-to/>
 							<dependencies-to>
 								<or-dep>
 									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref> 
@@ -1176,7 +1176,7 @@
 									to be contained in a file less than 982 bytes which would be completely contained in the
 									master file table.
 								</Guidance>
-								<CustomEA name="KMD">
+								<KMD>
 									The evaluator shall examine the KMD to verify that it identifies and describes the
 									interfaces that are used to service commands to read/write memory. The evaluator
 									shall examine the interface description for each different media type to ensure that
@@ -1188,7 +1188,7 @@
 									evaluator shall examine the KMD to ensure that it explains the nature of the
 									destruction of the reference, the request for garbage collection, and of the garbage
 									collection process itself.
-								</CustomEA>
+								</KMD>
 								<Tests>
 									The following tests require the developer to provide access to a test platform that
 									provides the evaluator with tools that are typically not found on factory products.<h:p/>
@@ -1314,13 +1314,13 @@
 									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
-								<or-dev>
+								</or-dep>
+								<or-dep>
 									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
 									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref> 
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
-								<or-dev>
+								<or-dep>
 									<comp-ref>FCS_COP.1/AEAD Authenticated encryption with associated data</comp-ref>
 									<comp-ref>FCS_COP.1/CMAC CMAC</comp-ref>
 									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
@@ -1465,11 +1465,11 @@
 						<comp-rel>
 							<hierarchical-to/>
 							<dependencies-to>
-								<or-dev>
+								<or-dep>
 									<comp-ref>FCS_CKM.2 Cryptographic key distribution</comp-ref> 
 									<comp-ref>FCS_COP.1 Cryptographic operation</comp-ref> 
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic Key Agreement</comp-ref> 
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 								<comp-ref>FCS_OTV_EXT.1 One-Time Value Generation</comp-ref> 
 							</dependencies-to>
@@ -1572,7 +1572,7 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 								<comp-ref>FCS_OTV_EXT.1 One-Time Value Generation</comp-ref> 
 							</dependencies-to>
@@ -1776,7 +1776,7 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 							</dependencies-to>
 						</comp-rel>
@@ -1903,12 +1903,12 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
-								<or-dev>
+								<or-dep>
 									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
 									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
-								</or-dev>
+								</or-dep>
 							</dependencies-to>
 						</comp-rel>
 				
@@ -2060,12 +2060,12 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
-								<or-dev>
+								<or-dep>
 									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
 									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
-								</or-dev>
+								</or-dep>
 							</dependencies-to>
 						</comp-rel>
 				
@@ -2142,11 +2142,11 @@
 									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
 									<comp-ref>FCS_CKM.1/AKG Asymmetric cryptographic key generation</comp-ref>
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
-								</or-dev>
-								<or-dev>
+								</or-dep>
+								<or-dep>
 									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
 									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_OTV_EXT.1</comp-ref> 
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref> 
 							</dependencies-to>
@@ -2451,11 +2451,11 @@
 									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>No other components</comp-ref>
-								</or-dev>
-								<or-dev>
+								</or-dep>
+								<or-dep>
 									<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
 									<comp-ref>FCS_COP.1/XOF Extendable-Output Function</comp-ref>
-								</or-dev>
+								</or-dep>
 							</dependencies-to>
 						</comp-rel>
 
@@ -2767,7 +2767,7 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_COP.1/Hash Hashing</comp-ref>
 								<comp-ref>FCS_COP.1/SKC Symmetric key cryptography</comp-ref>
 							</dependencies-to>
@@ -2903,7 +2903,7 @@
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
 									<comp-ref>FCS_CKM_EXT.7 Cryptographic key agreement</comp-ref>
 									<comp-ref>FCS_CKM_EXT.8 Password-based key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_CKM.6 Timing and event of cryptographic key destruction</comp-ref>
 								<comp-ref>FCS_OTV_EXT.1 One Time Value</comp-ref>
 							</dependencies-to>
@@ -3229,7 +3229,7 @@
 									<comp-ref>FDP_ITC.2 Import of user data with security attributes</comp-ref> 
 									<comp-ref>FCS_CKM.1 Cryptographic key generation</comp-ref>
 									<comp-ref>FCS_CKM.5 Cryptographic key derivation</comp-ref>
-								</or-dev>
+								</or-dep>
 							</dependencies-to>
 						</comp-rel>
 				
@@ -3375,7 +3375,7 @@
 										<comp-ref>FCS_COP.1/KeyWrap Key Wrapping</comp-ref>
 										<comp-ref>FCS_COP.1/AEAD Authenticated Encryption with Associated Data</comp-ref>
 										<comp-ref>FCS_COP.1/KeyEncap Key Encapsulation</comp-ref>
-									</or-dev>
+									</or-dep>
 								</dependencies>
 							</comp-rel>
 			
@@ -3544,7 +3544,7 @@
 								<or-dep>
 									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
 									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding Single Source)</comp-ref> 
-								</or-dev>
+								</or-dep>
 								<comp-ref>FCS_COP.1/Hash Hashing</comp-ref> 
 								<comp-ref>FCS_COP.1/SKC Symmetric Key Cryptography</comp-ref> 
 								<comp-ref>FPT_FLS.1 Failure with preservation of secure state</comp-ref> 
@@ -3793,7 +3793,7 @@
 									<comp-ref>FCS_RBG.2 Random Bit Generation (External Seeding)</comp-ref> 
 									<comp-ref>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</comp-ref> 
 									<comp-ref> FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</comp-ref> 									
-								</or-dev>
+								</or-dep>
 							</dependencies>
 						</comp-rel>
 							<f-element id="fcs-rbg-5e1">

@@ -26,6 +26,7 @@
 	<CatPreferences>
 <!--		<display-audit-with-sfrs/>  
 		<audit-events-in-sfrs/>   -->
+           <display-comp-rel-in-sfrs/>
 	</CatPreferences>
 	
 	

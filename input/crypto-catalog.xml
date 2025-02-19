@@ -8,12 +8,12 @@
     xmlns:h="http://www.w3.org/1999/xhtml"
     >
 
-	<CatReference>
-		<CatTitle>Functional Requirements for Cryptography - Class FCS (NIAP XML Version)</CatTitle>
-        <CatVersion>1.0</CatVersion>
-        <CatAuthor>CCDB Crypto Working Group/NIAP</CatAuthor>
-        <CatPubDate>2025-01-31</CatPubDate>
-	</CatReference>
+	<PPReference>
+		<PPTitle>Functional Requirements for Cryptography - Class FCS (NIAP XML Version)</CatTitle>
+        <PPVersion>1.0</CatVersion>
+        <PPAuthor>CCDB Crypto Working Group/NIAP</CatAuthor>
+        <PPPubDate>2025-01-31</CatPubDate>
+	</PPReference>
 
 	<RevisionHistory>
 		<entry>
@@ -23,11 +23,11 @@
 		</entry>
 	</RevisionHistory>	
 
-	<CatPreferences>
+	<pp-preferences>
 <!--		<display-audit-with-sfrs/>  
 		<audit-events-in-sfrs/>    -->
            <display-comp-rel-in-sfrs/>
-	</CatPreferences>
+	</pp-preferences>
 	
 	
 	<!-- 1.0 Security Functional Requirements -->

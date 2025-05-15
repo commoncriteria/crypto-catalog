@@ -7,7 +7,7 @@ A catalog of crypto requirements.
 
 ## Working Draft
 
-[Common Criteria Crypto Catalog](https://commoncriteria.github.io/pp/crypto-catalog/crypto-catalog-release.html)
+[Common Criteria Crypto Catalog](https://commoncriteria.github.io/crypto-catalog/master/crypto-catalog-release.html)
 
 
 ## Change Log

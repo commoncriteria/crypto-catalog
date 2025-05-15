@@ -1016,33 +1016,6 @@
 						
 						Note: The number of test cases is limited due to the extreme amount of time it can
 						take to generate XMSS trees.<h:p/>
-						
-						<h:br/><h:b>ML-KEM Key Generation</h:b><h:p/>
-						<h:table border="1">
-							<h:tr class="header" bgcolor="#cccccc">
-								<h:td valign="top">Identifier</h:td>
-								<h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
-								<h:td valign="top">Cryptographic Algorithm Parameters</h:td>
-								<h:td valign="top">List of Standards</h:td>
-							</h:tr>
-							<h:tr>
-								<h:td valign="top">ML-KEM</h:td>
-								<h:td valign="top">ML-KEM Key Generation</h:td>
-								<h:td valign="top">Parameter set = [<h:b>selection:</h:b> ML-KEM-512, ML-KEM-768, ML-KEM-1024]</h:td>
-								<h:td valign="top">NIST FIPS PUB 203 (Section 7.1)</h:td>
-							</h:tr>
-						</h:table><h:p/>						
-							To test the TOE’s ability to generate asymmetric cryptographic keys using ML-KEM,
-							the evaluator shall perform the Algorithm Functional Test using the following 
-							input parameters:<h:ul>
-							<h:li>Parameter set [ML-KEM-512, ML-KEM-768, ML-KEM-1024]</h:li>
-							<h:li>Random seed d [32 bytes]</h:li>
-							<h:li>Random seed z [32 bytes]</h:li></h:ul><h:p/>
-							<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
-							For each supported parameter set the evaluator shall require the implementation under test to
-							generate 25 key pairs using 25 different randomly generated pairs of 32-byte seed values (<h:i>d, z</h:i>).
-							To determine correctness, the evaluator shall compare the resulting key pairs (<h:i>ek, dk</h:i>) with those
-							generated using a known-good implementation using the same inputs.<h:p/>
 
 						<h:br/><h:b>ML-DSA Key Generation</h:b><h:p/>
 						<h:table border="1">
@@ -1059,17 +1032,46 @@
 								<h:td valign="top">NIST FIPS PUB 204 (Section 5.1)</h:td>
 							</h:tr>
 						</h:table><h:p/>						
-							To test the TOE’s ability to generate asymmetric cryptographic keys using ML-DSA, 
-							the evaluator shall perform the Algorithm Functional Test using the following
-							input parameters:<h:ul>
-							<h:li>Parameter set [ML-DSA-44, ML-DSA-65, ML-DSA-87]</h:li>
-							<h:li>Random seed [32 bytes]</h:li></h:ul><h:p/>
-							<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
-							For each supported parameter set the evaluator shall require the implementation 
-							under test to generate 25 key pairs using 25 different randomly generated 32-byte 
-							seed values. To determine correctness, the evaluator shall compare the resulting
-							key pairs with those generated using a known-good implementation using the same 
-							inputs.<h:p/>							
+						To test the TOE’s ability to generate asymmetric cryptographic keys using ML-DSA, 
+						the evaluator shall perform the Algorithm Functional Test using the following
+						input parameters:<h:ul>
+						<h:li>Parameter set [ML-DSA-44, ML-DSA-65, ML-DSA-87]</h:li>
+						<h:li>Random seed [32 bytes]</h:li></h:ul><h:p/>
+						<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
+						For each supported parameter set the evaluator shall require the implementation 
+						under test to generate 25 key pairs using 25 different randomly generated 32-byte 
+						seed values. To determine correctness, the evaluator shall compare the resulting
+						key pairs with those generated using a known-good implementation using the same 
+						inputs.<h:p/>							
+
+						
+						<h:br/><h:b>ML-KEM Key Generation</h:b><h:p/>
+						<h:table border="1">
+							<h:tr class="header" bgcolor="#cccccc">
+								<h:td valign="top">Identifier</h:td>
+								<h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
+								<h:td valign="top">Cryptographic Algorithm Parameters</h:td>
+								<h:td valign="top">List of Standards</h:td>
+							</h:tr>
+							<h:tr>
+								<h:td valign="top">ML-KEM</h:td>
+								<h:td valign="top">ML-KEM Key Generation</h:td>
+								<h:td valign="top">Parameter set = [<h:b>selection:</h:b> ML-KEM-512, ML-KEM-768, ML-KEM-1024]</h:td>
+								<h:td valign="top">NIST FIPS PUB 203 (Section 7.1)</h:td>
+							</h:tr>
+						</h:table><h:p/>						
+						To test the TOE’s ability to generate asymmetric cryptographic keys using ML-KEM,
+						the evaluator shall perform the Algorithm Functional Test using the following 
+						input parameters:<h:ul>
+						<h:li>Parameter set [ML-KEM-512, ML-KEM-768, ML-KEM-1024]</h:li>
+						<h:li>Random seed d [32 bytes]</h:li>
+						<h:li>Random seed z [32 bytes]</h:li></h:ul><h:p/>
+						<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
+						For each supported parameter set the evaluator shall require the implementation under test to
+						generate 25 key pairs using 25 different randomly generated pairs of 32-byte seed values (<h:i>d, z</h:i>).
+						To determine correctness, the evaluator shall compare the resulting key pairs (<h:i>ek, dk</h:i>) with those
+						generated using a known-good implementation using the same inputs.<h:p/>
+
 					</Tests>				
 				</aactivity>
 			</f-element>
@@ -1109,73 +1111,73 @@
 							</dependencies-to>
 						</comp-rel>
 
-			<f-element id="fcs-ckm-1e1-skg">
-				<title>
-					The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with
-					a specified cryptographic key generation algorithm<selectables>
-						<tabularize id="fcs-ckm-1-skg-sels" title="Recommended choices for FCS_CKM.1/SKG">
-							<textcol>Identifier</textcol>
-							<selectcol>Cryptographic Key Generation Algorithm</selectcol>
-							<reqtext>and specified cryptographic key sizes</reqtext>
-							<selectcol>Cryptographic Key Sizes</selectcol>
-							<reqtext>that meet the following: </reqtext>
-							<selectcol>List of standards</selectcol>
-							<reqtext><h:p/><h:p/>The following table provides the recommended choices for
-										completion of the selection operations of FCS_CKM.1/SKG.</reqtext>
-						</tabularize>
+						<f-element id="fcs-ckm-1e1-skg">
+							<title>
+								The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with
+								a specified cryptographic key generation algorithm<selectables>
+									<tabularize id="fcs-ckm-1-skg-sels" title="Recommended choices for FCS_CKM.1/SKG">
+										<textcol>Identifier</textcol>
+										<selectcol>Cryptographic Key Generation Algorithm</selectcol>
+										<reqtext>and specified cryptographic key sizes</reqtext>
+										<selectcol>Cryptographic Key Sizes</selectcol>
+										<reqtext>that meet the following: </reqtext>
+										<selectcol>List of standards</selectcol>
+										<reqtext><h:p/><h:p/>The following table provides the recommended choices for
+													completion of the selection operations of FCS_CKM.1/SKG.</reqtext>
+									</tabularize>
 
-						<!-- RSK -->
-						<selectable id="sel-fcs-ckm-sk-rsk">
-							<col>RSK</col>
-							<col>Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</col>
-							<col><selectables>
-								<selectable id="sel-exp-skg-128">123</selectable>
-								<selectable id="sel-exp-skg-256">256</selectable>
-								<selectable id="sel-exp-skg-512">512</selectable></selectables> bits
-							</col>
-							<col>NIST SP 800-133 Revision 2 (Section 6.1)[Direct generation of symmetric keys]</col>
-						</selectable>
-					</selectables>
-				</title>
-				<note role="application">
-					This SFR must be included in the ST if it is a service provided by the TOE to tenant software,
-					or if it is used by the TOE itself to support or implement PP-specified security functionality.<h:p/> 
-					This SFR must be included in the ST if "<h:i>causing the TOE to generate [symmetric] keys/secrets</h:i>"
-					is selected in FCS_STG_EXT.1.2.<h:p/>
-					If this SFR is included in the ST, then FCS_CKM.6 and FCS_RBG.1 must also be claimed.
-				</note>
-				<aactivity>
-					<TSS>
-						The evaluator shall examine the TSS to verify that it describes how the TOE obtains a symmetric
-						cryptographic key through direct generation from a random bit generator as specified in
-						FCS_RBG.1. The evaluator shall review the TSS to verify that it describes how the functionality
-						described by FCS_RBG.1 is invoked.<h:p/>
-						The evaluator shall examine the TSS to verify that it identifies the usage, and key lifecycle for
-						keys generated using each selected algorithm.<h:p/>
-						If the TOE uses the generated key in a key chain/hierarchy then the evaluator shall verify that the
-						TSS describes how the key is used as part of the key chain/hierarchy.
-					</TSS>
-					<Guidance>
-						The evaluator shall verify that the AGD instructs the administrator how to configure the TOE to
-						use the RBG to generate symmetric keys for all uses identified in the ST.
-					</Guidance>
-					<Tests>
-						The following tests are conditional based upon the selections made in the SFR.
-						The evaluator shall perform the following test or witness respective tests 
-						executed by the developer. The tests must be executed on a platform that is as 
-						close as practically possible to the operational platform (but which may be 
-						instrumented in terms of, for example, use of a debug mode). Where the test 
-						is not carried out on the TOE itself, the test platform shall be identified and
-						the differences between test environment and TOE execution environment shall be
-						described.<h:p/>
-						To test the TOE’s ability to generate symmetric cryptographic keys using a 
-						random bit generator, the evaluator shall configure the asymmetric cryptographic 
-						key generation capability for each claimed key size. The evaluator shall use the
-						description of the RBG interface to verify that the TOE requests and receives an
-						amount of RBG output greater than or equal to the requested key size.
-					</Tests>				
-				</aactivity>
-			</f-element>
+									<!-- RSK -->
+									<selectable id="sel-fcs-ckm-sk-rsk">
+										<col>RSK</col>
+										<col>Direct Generation from a Random Bit Generator as specified in FCS_RBG.1</col>
+										<col><selectables>
+											<selectable id="sel-exp-skg-128">123</selectable>
+											<selectable id="sel-exp-skg-256">256</selectable>
+											<selectable id="sel-exp-skg-512">512</selectable></selectables> bits
+										</col>
+										<col>NIST SP 800-133 Revision 2 (Section 6.1)[Direct generation of symmetric keys]</col>
+									</selectable>
+								</selectables>
+							</title>
+							<note role="application">
+								This SFR must be included in the ST if it is a service provided by the TOE to tenant software,
+								or if it is used by the TOE itself to support or implement PP-specified security functionality.<h:p/> 
+								This SFR must be included in the ST if "<h:i>causing the TOE to generate [symmetric] keys/secrets</h:i>"
+								is selected in FCS_STG_EXT.1.2.<h:p/>
+								If this SFR is included in the ST, then FCS_CKM.6 and FCS_RBG.1 must also be claimed.
+							</note>
+							<aactivity>
+								<TSS>
+									The evaluator shall examine the TSS to verify that it describes how the TOE obtains a symmetric
+									cryptographic key through direct generation from a random bit generator as specified in
+									FCS_RBG.1. The evaluator shall review the TSS to verify that it describes how the functionality
+									described by FCS_RBG.1 is invoked.<h:p/>
+									The evaluator shall examine the TSS to verify that it identifies the usage, and key lifecycle for
+									keys generated using each selected algorithm.<h:p/>
+									If the TOE uses the generated key in a key chain/hierarchy then the evaluator shall verify that the
+									TSS describes how the key is used as part of the key chain/hierarchy.
+								</TSS>
+								<Guidance>
+									The evaluator shall verify that the AGD instructs the administrator how to configure the TOE to
+									use the RBG to generate symmetric keys for all uses identified in the ST.
+								</Guidance>
+								<Tests>
+									The following tests are conditional based upon the selections made in the SFR.
+									The evaluator shall perform the following test or witness respective tests 
+									executed by the developer. The tests must be executed on a platform that is as 
+									close as practically possible to the operational platform (but which may be 
+									instrumented in terms of, for example, use of a debug mode). Where the test 
+									is not carried out on the TOE itself, the test platform shall be identified and
+									the differences between test environment and TOE execution environment shall be
+									described.<h:p/>
+									To test the TOE’s ability to generate symmetric cryptographic keys using a 
+									random bit generator, the evaluator shall configure the asymmetric cryptographic 
+									key generation capability for each claimed key size. The evaluator shall use the
+									description of the RBG interface to verify that the TOE requests and receives an
+									amount of RBG output greater than or equal to the requested key size.
+								</Tests>				
+							</aactivity>
+						</f-element>
 						<audit-event/>
 					</f-component>
 					
@@ -1214,41 +1216,41 @@
 							</dependencies-to>
 						</comp-rel>
 				
-			<f-element id="fcs-ckm-2e1">
-				<title>The TSF shall distribute cryptographic keys in accordance with a specified cryptographic 
-					key distribution method <selectables>
-						<selectable>key encapsulation</selectable>
-						<selectable>key wrapping</selectable>
-						<selectable>encrypted channels</selectable>
-					</selectables> that meets the following: [none].
-				</title>
-				<note role="application">
-					If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed, which specifies 
-					the relevant list of standards.  <h:p/>
-					If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed, which specifies the 
-					relevant list of standards.<h:p/>
-					If “encrypted channels” is selected, FTP_PRO.1 must be claimed, which specifies the relevant 
-					list of standards.
-				</note>
-				<aactivity>
-					<TSS>
-						The evaluator shall ensure that the TSS documents that the security strength supported by
-						the selected key distribution methods is sufficient for the security strength of the keys
-						distributed through those methods.<h:p/>
-						It is not necessary to identify the services that use each key distribution method here. That
-						information should be documented in the requirements for the individual services and
-						protocols that invoke key distribution.
-					</TSS>
-					<Guidance>
-						The evaluator shall verify that the AGD guidance instructs the administrator
-						how to configure the TOE to use the selected key distribution methods.
-					</Guidance>
-					<Tests>
-						Specific testing for this component is covered by testing for the claimed components in
-						FCS_COP.1/KeyEncap, FCS_COP.1/KeyWrap, or FTP_PRO.1.
-					</Tests>
-				</aactivity>
-			</f-element>
+						<f-element id="fcs-ckm-2e1">
+							<title>The TSF shall distribute cryptographic keys in accordance with a specified cryptographic 
+								key distribution method <selectables>
+									<selectable>key encapsulation</selectable>
+									<selectable>key wrapping</selectable>
+									<selectable>encrypted channels</selectable>
+								</selectables> that meets the following: [none].
+							</title>
+							<note role="application">
+								If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed, which specifies 
+								the relevant list of standards.  <h:p/>
+								If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed, which specifies the 
+								relevant list of standards.<h:p/>
+								If “encrypted channels” is selected, FTP_PRO.1 must be claimed, which specifies the relevant 
+								list of standards.
+							</note>
+							<aactivity>
+								<TSS>
+									The evaluator shall ensure that the TSS documents that the security strength supported by
+									the selected key distribution methods is sufficient for the security strength of the keys
+									distributed through those methods.<h:p/>
+									It is not necessary to identify the services that use each key distribution method here. That
+									information should be documented in the requirements for the individual services and
+									protocols that invoke key distribution.
+								</TSS>
+								<Guidance>
+									The evaluator shall verify that the AGD guidance instructs the administrator
+									how to configure the TOE to use the selected key distribution methods.
+								</Guidance>
+								<Tests>
+									Specific testing for this component is covered by testing for the claimed components in
+									FCS_COP.1/KeyEncap, FCS_COP.1/KeyWrap, or FTP_PRO.1.
+								</Tests>
+							</aactivity>
+						</f-element>
 						<audit-event/>
 					</f-component>
 				</section>     <!-- FCS_CKM.2 -->
@@ -1300,43 +1302,43 @@
 							</dependencies-to>
 						</comp-rel>
 				
-			<f-element id="fcs-ckm-ext-3e1">
-				<title>The TSF shall use specified cryptographic key access methods <selectables>
-						<selectable>key encapsulation</selectable>
-						<selectable>key wrapping</selectable>
-						<selectable>key encryption</selectable>
-					</selectables> to access keys when performing <selectables>
-						<selectable>cryptographic key archival</selectable>
-						<selectable>cryptographic key backup</selectable>
-						<selectable>cryptographic key escrow</selectable>
-						<selectable>cryptographic key recovery</selectable>
-						<selectable>cryptographic key import</selectable>
-						<selectable>cryptographic key export</selectable>
-					</selectables>
-				</title>
-				<note role="application">
-					If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed. <h:p/>
-					If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed.<h:p/>
-					If “key encryption” is selected, FCS_COP.1/SKC or FCS_COP.1/AEAD must be claimed. 
-				</note>
-				<aactivity>
-					<TSS>
-						The evaluator shall ensure that the TSS documents that the security strength 
-						supported by the selected key access methods are sufficient for the security
-						strength of the keys accessed through those methods.<h:p/>
-						The evaluator shall ensure that the TSS identifies the key management services
-						implemented by the TOE and the key access methods used for each service.
-					</TSS>
-					<Guidance>
-						The evaluator shall ensure that the AGD instructs the admnistrator how to configure
-						the TOE to use the selected key access methods.
-					</Guidance>
-					<Tests>
-						Specific testing for this component is covered by testing for the claimed components
-						in FCS_COP.1/KeyEncap, FCS_COP.1/KeyWrap, FCS_COP.1/AEAD, and FCS_COP.1/SKC.
-					</Tests>
-				</aactivity>
-			</f-element>
+						<f-element id="fcs-ckm-ext-3e1">
+							<title>The TSF shall use specified cryptographic key access methods <selectables>
+									<selectable>key encapsulation</selectable>
+									<selectable>key wrapping</selectable>
+									<selectable>key encryption</selectable>
+								</selectables> to access keys when performing <selectables>
+									<selectable>cryptographic key archival</selectable>
+									<selectable>cryptographic key backup</selectable>
+									<selectable>cryptographic key escrow</selectable>
+									<selectable>cryptographic key recovery</selectable>
+									<selectable>cryptographic key import</selectable>
+									<selectable>cryptographic key export</selectable>
+								</selectables>
+							</title>
+							<note role="application">
+								If “key encapsulation” is selected, FCS_COP.1/KeyEncap must be claimed. <h:p/>
+								If “key wrapping” is selected, FCS_COP.1/KeyWrap must be claimed.<h:p/>
+								If “key encryption” is selected, FCS_COP.1/SKC or FCS_COP.1/AEAD must be claimed. 
+							</note>
+							<aactivity>
+								<TSS>
+									The evaluator shall ensure that the TSS documents that the security strength 
+									supported by the selected key access methods are sufficient for the security
+									strength of the keys accessed through those methods.<h:p/>
+									The evaluator shall ensure that the TSS identifies the key management services
+									implemented by the TOE and the key access methods used for each service.
+								</TSS>
+								<Guidance>
+									The evaluator shall ensure that the AGD instructs the admnistrator how to configure
+									the TOE to use the selected key access methods.
+								</Guidance>
+								<Tests>
+									Specific testing for this component is covered by testing for the claimed components
+									in FCS_COP.1/KeyEncap, FCS_COP.1/KeyWrap, FCS_COP.1/AEAD, and FCS_COP.1/SKC.
+								</Tests>
+							</aactivity>
+						</f-element>
 						<audit-event/>
 					</f-component>
 				</section>     <!-- FCS_CKM_EXT.3 -->
@@ -1559,7 +1561,11 @@
 						<!-- KDF-MAC-2S -->
 						<selectable id="sel-fcs-ckm-5-kdf-mac-2S">
 							<col>KDF-MAC-2S</col>  
-							<col>Shared secret, salt, IV, output length, fixed information</col>
+							<col>Shared secret, salt, IV, output length, fixed information, and
+								<selectables>
+									<selectable>auxiliary shared secret</selectable>
+									<selectable exclusive="yes">no other parameters</selectable>
+								</selectables></col>
 							<col>MAC Step <selectables>
 								<selectable>AES-128-CMAC</selectable>
 								<selectable>AES-192-CMAC</selectable>
@@ -1573,18 +1579,7 @@
 								as randomness extraction and; KDF Step <selectables>
 								<selectable>KDF-CTR</selectable>
 								<selectable>KDF-FB</selectable>
-								<selectable>KDF-DPI</selectable></selectables>
-								using <selectables>	
-								<selectable>AES-128-CMAC</selectable>
-								<selectable>AES-192-CMAC</selectable>
-								<selectable>AES-256-CMAC</selectable>
-								<selectable>Camillia-128-CMAC</selectable>
-								<selectable>Camillia-192-CMAC</selectable>
-								<selectable>Camillia-256-CMAC</selectable>
-								<selectable>HMAC-SHA-1</selectable>
-								<selectable>HMAC-SHA-256</selectable>
-								<selectable>HMAC-SHA-512</selectable></selectables>
-								as PRF.</col>
+								<selectable>KDF-DPI</selectable></selectables>.</col>
 							<col><selectables>
 								<selectable>128</selectable>
 								<selectable>192</selectable>
@@ -1621,33 +1616,36 @@
 				</note>
 				<aactivity>
 					<TSS>
-						The evaluator shall ensure that the TSS documents that the security strength of the
-						auxiliary functions in the below key derivation methods are sufficient for the security
-						strength of the keys derived through those methods.<h:p/>
-					
-						The evaluator shall ensure that the TSS identifies the purposes for which each of the 
-						claimed key derivation functions are used.<h:p/>
-						TBD
-
-						The evaluator shall examine the TSS to ensure that:<h:ul>
-						<h:li>The TSS describes the complete key derivation chain and the description
-							must be consistent with the description in the TSS. For all key derivations the
-							TOE must use a method as described in the PP table. There should be no
-							uncertainty about how a key is derived from another in the chain.</h:li>
-						<h:li>The length of the key derivation key is defined by the PRF. The evaluator
-							should check whether the key derivation key length is consistent with the
-							length provided by the selected PRF.</h:li>
-						<h:li>If a key is used as an input to several KDFs, each invocation must use a
-							distinct context string. If the output of a KDF execution is used for multiple
-							cryptographic keys, those keys must be disjoint segments of the output.</h:li>
-						<h:li>If keys are combined, the ST Author shall describe which method of combination is used in order
-							to justify that the effective entropy of each factor is preserved.</h:li>
+						The evaluator shall verify that the TSS describes and documents:<h:ul>
+						<h:li>that the security strengths of the Pseudo-Random functions for the key 
+							derivation methods are sufficient for the security strength of the keys derived through those
+							methods.</h:li>
+						<h:li>that the security strengths of the input parameters are sufficient for the security
+							strength of the keys derived through these methods.</h:li>
+						<h:li>that, if concatenated keys or intermediary keys are input parameters, the TSS describes
+							the sources of the keys, and the order in which they are concatenated, along with any
+							other values that are concatenated with them. This may occur in instances when input
+							keying material for the KDF comes from two independent sources, for example, a client
+							and a server.</h:li>
+						<h:li>that, if KDF-XOR is selected the TSS describes this method as there is no standard that
+							specifies how to derive a key from two keys using only XOR.</h:li>
+						<h:li>that, if KDF-ENC is selected, the TSS documents the encryption algorithm used from
+							FCS_COP.1/SKC or FCS_COP.1/AEAD, and describes which of the inputs is the
+							plaintext and which is the key. There are no standards that specify how to derive a key
+							from two keys using encryption (KDF-ENC).</h:li>
+						<h:li>that, for KDF-MAC-1S, KDF-MAC-2S, and KDF-KMAC, the TSS documents that for
+							each invocation of a KDF that reuses the same input shared secret or key, each invocation
+							must use a distinct context string, IV, or salt. The TSS must also describe the composition
+							and sizes of these input parameters.</h:li>
+						<h:li>that, if the TOE uses the derived key in a key chain/hierarchy, that TSS describes how the
+							key is used as part of the key chain/hierarchy.</h:li>
 						</h:ul>
-
 					</TSS>
 					<Guidance>
-						The evaluator shall verify that the AGD instructs the administrator how
-						to configure the TOE to use the selected key derivation functions for all uses identified in the ST.
+						The evaluator shall verify that the AGD instructs the administrator how to set any configurable
+						parameters, such as context strings, salts, and IVs.<h:p/>
+						The evaluator shall verify that the AGD instructs the administrator how to configure the TOE to
+						choose specific PRFs, modes, and parameters.
 					</Guidance>
 					
 					<Tests>
@@ -1859,7 +1857,7 @@
 						<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
 						For each supported fixed information pattern and combination of the above input
 						parameters the evaluator shall require the implementation under test to derive
-						five keys using random data for a shared secret that is the same size as the 
+						15 keys using random data for a shared secret that is the same size as the 
 						derived key. The evaluator shall compare the resulting keys with keys derived
 						using a known-good implementation using the same fixed information patterns and
 						input parameters.<h:p/>
@@ -1895,7 +1893,7 @@
 						<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
 						For each supported fixed information pattern and combination of the above input
 						parameters the evaluator shall require the implementation under test to derive
-						five keys using random data for a shared secret. The evaluator shall compare 
+						15 keys using random data for a shared secret. The evaluator shall compare 
 						the resulting keys with keys derived using a known-good implementation using the 
 						same fixed information patterns and input parameters.<h:p/>
 
@@ -1911,39 +1909,42 @@
 							</h:tr>
 							<h:tr>
 								<h:td valign="top">KDF-MAC-2S</h:td>
-								<h:td valign="top">Shared secret, salt, IV, output length, fixed information</h:td>
+								<h:td valign="top">Shared secret, salt, IV, output length, 
+									fixed information, and [<h:b>selection:</h:b> auxiliary shared secret, 
+									no other parameters]</h:td>
 								<h:td valign="top">MAC Step [<h:b>selection:</h:b> 
 									AES-128-CMAC; AES-192-CMAC; AES-256-CMAC; 
 									Camellia-128-CMAC; Camellia-192-CMAC; Camellia-256-CMAC;
 									HMAC-SHA-1; HMAC-SHA-256; HMAC-SHA-512] as randomness extraction and; 
 									KDF Step [<h:b>selection:</h:b> 
-									KDF-CTR, KDF-FB, KDF-DPI] using [<h:b>selection:</h:b> 
-									AES-128-CMAC; AES-192-CMAC; AES-256-CMAC; 
-									Camellia-128-CMAC; Camellia-192-CMAC; Camellia-256-CMAC;
-									HMAC-SHA-1; HMAC-SHA-256; HMAC-SHA-512] as PRF</h:td>
+									KDF-CTR, KDF-FB, KDF-DPI]</h:td>
 								<h:td valign="top">[<h:b>selection:</h:b> 128, 192, 256, 512] bits</h:td>
 								<h:td valign="top">NIST SP 800-56C Revision 2 (Section 5) [Two-Step Key Derivation]</h:td>
 							</h:tr>
 						</h:table><h:p/>			
-						<comment>Catalog EA not finalized</comment>
-						To test the TOE’s ability to derive cryptographic keys using Two-Step MAC-based
-						Key Derivation, the evaluator shall perform the Algorithm Functional Test using the following input parameters:<h:ul>
+						To test the TOE’s ability to derive cryptographic keys using Two-Step MAC-based Key Derivation,
+						the evaluator shall perform the Algorithm Functional Test using the following input
+						parameters:<h:ul>
 						<h:li>MAC mode [AES-128-CMAC; AES-192-CMAC; AES-256-CMAC; Camellia-128-CMAC;
 							Camellia-192-CMAC; Camellia-256-CMAC; HMAC-SHA-1; HMAC-SHA-256; HMAC-SHA-512]</h:li>
-						<h:li>KDF Mode [Counter, feedback, Double Pipeline iteration]</h:li>
+						<h:li>KDF Mode [Counter, feedback, Double Pipeline Iteration]</h:li>
 						<h:li>Salt [0s, random]</h:li>
 						<h:li>Length of shared secret [224-65535]</h:li>
-						<h:li>Hybrid shared secret ???, aux Shared Secret length??</h:li>
+						<h:li>Length of Auxiliary Shared Secret [0, 112-65535]</h:li>
 						<h:li>Derived key length [128, 192, 256, 512] bits</h:li>
 						<h:li>Fixed information pattern </h:li>
 						<h:li>Counter location [none, before fixed data, after fixed data, before iterator]</h:li>
 						<h:li>Counter length [0, 8, 16, 24, 32]</h:li></h:ul><h:p/>		
 						<h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
-						For each supported fixed information pattern and combination of the above input 
-						parameters the evaluator shall require the implementation under test to derive 
-						five keys using random data for a shared secret. The evaluator shall compare the
-						resulting keys with keys derived using a known-good implementation using the 
-						same fixed information patterns and input parameters.<h:p/>
+						The evaluator shall define a test group for each supported combination of KDF mode, MAC
+						mode, fixed information pattern, derived key length, counter location, counter length, salt
+						method, and five random pairs of shared secrets &amp; auxiliary secrets (if supported) such that
+						collectively the minimum length, maximum length and three random lengths of each are
+						included in each test group. For each test group, the evaluator shall require the implementation
+						under test to derive 25 keys using random data for a shared secret, either a random salt or a salt
+						of all 0s, and, if supported, an auxiliary shared secret consisting of random data. The evaluator
+						shall compare the resulting keys with keys derived using a known-good implementation using
+						the same input parameters.<h:p/>
 
 						<!-- KMAC KDF -->
 						<h:br/><h:b>KMAC KDF</h:b><h:p/>

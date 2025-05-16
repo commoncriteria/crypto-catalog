@@ -5419,7 +5419,7 @@
 						<h:li><h:i>Hash of keys</h:i> is computed by SHA-256(<h:i>pk</h:i>||<h:i>sk</h:i>)</h:li>
 						<h:li><h:i>Message</h:i> is the message to be signed</h:li>
 						<h:li><h:i>Hash of sig</h:i> is computed by SHA-256(<h:i>sig</h:i>)</h:li></h:ul>
-						<h:p/><h:b>ML-DSA-44 Test Cases for Rejection Cases</h:b><h:p>
+						<h:p/><h:b>ML-DSA-44 Test Cases for Rejection Cases</h:b><h:p/>
 						<h:pre>
 						Test case 44-RC-01
 						Seed: 			60741F331BDAAB37AE0F58025ABE08D669CD1B276F25B6F667BF45FAED651D9F
@@ -5481,7 +5481,7 @@
 						Message: 		9F27CCC8C8A4F0D8ECEB53EA330570D0DE2245B1E4E889885045DB120B4487DD
 						Hash of sig: 	51191A1AF574F09C4D956C9CBACA99AC09DEE3DC6FAA79EA58723E6D758DD81D
 						</h:pre>
-						<h:p/><h:b>ML-DSA-65 Test Cases for Rejection Cases</h:b><h:p>
+						<h:p/><h:b>ML-DSA-65 Test Cases for Rejection Cases</h:b><h:p/>
 						<h:pre>
 						Test case 65-RC-01
 						Seed: 			E389E94FCE4372FBCB11B993F3CC3CFE40D650F8B37DA98E079F3685B90BD384
@@ -5543,7 +5543,7 @@
 						Message: 		1363800FD215CDFEF6A92938050BAC4B7448D9799EB36919AF3E1AEEFD128F68
 						Hash of sig:	 0290F8783D624B015679962D73192CDF09CCEC57E2B7FF092908C40B0BB67753						
 						</h:pre>
-						<h:p/><h:b>ML-DSA-87 Test Cases for Rejection Cases</h:b><h:p>
+						<h:p/><h:b>ML-DSA-87 Test Cases for Rejection Cases</h:b><h:p/>
 						<h:pre>
 						Test case 87-RC-01
 						Seed: 			E4F5AFCF697E0EC3C1BDEB66FAA903221E803902F9C3F716E1056A63D77DC250
@@ -5610,7 +5610,7 @@
 						For each supported parameter set, the evaluator shall cause the TOE to generate signatures using
 						the data below and a deterministic seed of all 0’s. Correctness is determined by
 						comparing the hash of the resulting signature with the hash of the signature.<h:p/>
-						<h:p/><h:b>ML-DSA-44 Test Cases for Total Rejection Count</h:b><h:p>
+						<h:p/><h:b>ML-DSA-44 Test Cases for Total Rejection Count</h:b><h:p/>
 						<h:pre>
 						Test case 44-LN-01
 						Seed: 			B4538783E83DC305CB54A3D54872DC978A989802856025286A078E206175C8E9
@@ -5673,7 +5673,7 @@
 						Hash of sig: 	AC08C2C7DB1E3C3806A042AB71E65975923C9A71B1ADE8FCCF4F6E6A628590B0
 						</h:pre>
 
-						<h:p/><h:b>ML-DSA-65 Test Cases for Total Rejection Count</h:b><h:p>
+						<h:p/><h:b>ML-DSA-65 Test Cases for Total Rejection Count</h:b><h:p/>
 						<h:pre>
 						Test case 65-LN-01
 						Seed: 			E3DC925F36D9C06BFAA180A33349E1287BC1F6337FEFE727578842FC9675350C
@@ -5736,7 +5736,7 @@
 						Hash of sig: 	AE0D34B8D0375CD47272C00FB6D33EA2CE16932BAE6299CA8E774C3DD5F532E3
 						</h:pre>
 
-						<h:p/><h:b>ML-DSA-87 Test Cases for Total Rejection Count</h:b><h:p>
+						<h:p/><h:b>ML-DSA-87 Test Cases for Total Rejection Count</h:b><h:p/>
 						<h:pre>
 						Test case 87-LN-01
 						Seed: 			98B6298051D92BF37293C93C97370747BF527B87B71F6C4264182F45155ADE4C

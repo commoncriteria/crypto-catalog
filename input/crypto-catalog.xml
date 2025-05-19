@@ -5918,9 +5918,14 @@
 								<selectable>NIST P-521</selectable>
 								<selectable>brainpoolP512r1</selectable>
 							</selectables> using hash or XOF <selectables>
+								<selectable>SHA-1</selectable>
+								<selectable>SHA-224</selectable>
+								<selectable>SHA-512/224</selectable>
 								<selectable>SHA-256</selectable>
+								<selectable>SHA-512/256</selectable>
 								<selectable>SHA-384</selectable>
 								<selectable>SHA-512</selectable>
+								<selectable>SHA3-224</selectable>
 								<selectable>SHA3-256</selectable>
 								<selectable>SHA3-384</selectable>
 								<selectable>SHA3-512</selectable>
@@ -6168,9 +6173,7 @@
 					dependencies required for generating or destroying cryptographic keys.
 				</note>
 				<aactivity>
-				<TSS>
-					TBD.
-				</TSS>
+				<TSS/>
 				<Guidance/>
 				<Tests>
 					The following tests are conditional based upon the selections made in the SFR. The evaluator
@@ -6206,9 +6209,16 @@
 						<h:li>Hash algorithm [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:li></h:ul><h:p/>
 						<h:br/><h:b>Generated Data Test</h:b><h:p/>
 						For each supported combination of the above parameters, the evaluator shall cause the TOE to
-						generate three test cases using a random message and its signature. A certain number of these
-						must be modified so that the verification fails. [How many? How modified?] The TOE must
-						correctly verify the unmodified signatures and fail to verify the modified signatures.<h:p/>
+						generate six test cases using a random message and its signature such that the test cases are
+						modified as follows:<h:p/><h:ul>
+						<h:li>One test case is left unmodified</h:li>
+						<h:li>For one test case the Message is modified</h:li>
+						<h:li>For one test case the Signature is modified</h:li>
+						<h:li>For one test case the exponent (<h:i>e</h:i>) is modified</h:li>
+						<h:li>For one test case the IR is moved</h:li>
+						<h:li>For one test case the Trailer is moved</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
 
 						<!-- RSA-PSS Signature Verification    -->
 						<h:br/><h:b>RSA-PSS Signature Verification </h:b><h:p/>
@@ -6234,13 +6244,19 @@
 						<h:li>Modulus size [2048, 3072, 4096] bits</h:li>
 						<h:li>Hash or XOF algorithm [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-
 							512, SHAKE128, SHAKE256]</h:li>
-						<h:li>Salt length [0-hash length] bits Is this paired with hash alg?</h:li>
+						<h:li>Salt length [0-hash length]</h:li>
 						<h:li>Mask function [MGF1, SHAKE128, SHAKE256]</h:li></h:ul><h:p/>
 						<h:br/><h:b>Generated Data Test</h:b><h:p/>
 						For each supported combination of the above parameters, the evaluator shall cause the TOE to
-						generate three test cases using random data. . A certain number of these must be modified so that
-						the verification fails. [How many? How modified?] The TOE must correctly verify the
-						unmodified signatures and fail to verify the modified signatures.<h:p/>
+						generate six test cases using random data such that the test cases are modified as follows:<h:p/><h:ul>
+						<h:li>One test case is left unmodified</h:li>
+						<h:li>For one test case the Message is modified</h:li>
+						<h:li>For one test case the Signature is modified</h:li>
+						<h:li>For one test case the exponent (<h:i>e</h:i>) is modified</h:li>
+						<h:li>For one test case the IR is moved</h:li>
+						<h:li>For one test case the Trailer is moved</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
 
 						<!-- DSA Signature Verification    -->
 						<h:br/><h:b>DSA Signature Verification </h:b><h:p/>
@@ -6266,9 +6282,15 @@
 							SHA-512/224, SHA-512/256]</h:li></h:ul><h:p/>
 						<h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
 						For each supported combination of the above parameters, the evaluator shall cause the TOE to
-						generate 15 test cases consisting of messages and signatures. A certain number of these must be
-						modified so that the verification fails. [How many? How modified?] The TOE must correctly
-						verify the unmodified signatures and fail to verify the modified signatures.<h:p/>
+						generate 15 test cases consisting of messages and signatures such that the 15 test cases are
+						modified as follows:<h:p/><h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Message is modified</h:li>
+						<h:li>For three test cases the key is modified</h:li>
+						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
+						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
 
 						<!-- ECDSA Signature Verification  -->
 						<h:br/><h:b>ECDSA Signature Verification </h:b><h:p/>
@@ -6283,9 +6305,8 @@
 								<h:td valign="top">ECDSA</h:td>
 								<h:td valign="top">ECDSA</h:td>
 								<h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> P-256, brainpoolP256r1, P-384,
-									brainpoolP384r1, P-521, brainpoolP512r1], per-message secret number generation
-									[<h:b>selection:</h:b> extra random bits, rejection sampling, deterministic] 
-									and hash or XOF function using [<h:b>selection:</h:b> SHA256, SHA-384, SHA-512,
+									brainpoolP384r1, P-521, brainpoolP512r1] and hash or XOF function using [<h:b>selection:</h:b> 
+									SHA-1, SHA-224, SHA-512/224, SHA-256, SHA-512/256, SHA-384, SHA-512, SHA3-224,
 									SHA3-256, SHA3-384, SHA3-512, SHAKE-128, SHAKE256] </h:td>
 								<h:td valign="top">[<h:b>selection:</h:b> ISO/IEC 14888-3:2018 (Subclause 6.6),
 									NIST FIPS PUB 186-5 (Sections 6.3.1, 6.4.1] [ECDSA]<h:p/>
@@ -6297,13 +6318,93 @@
 						perform the Algorithm Functional Test using the following input parameters:<h:ul>
 						<h:li>Elliptic Curve [P-256, brainpoolP256r1, P-384, brainpoolP384r1, P-521,
 							brainpoolP512r1]</h:li>
-						<h:li>Hash algorithm [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512,
-							SHAKE-128, SHAKE-256]</h:li></h:ul><h:p/>
+						<h:li>Hash algorithm [SHA-1, SHA-224, SHA-512/224, SHA-256, SHA-512/256, SHA-384, SHA-512, 
+							SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE-128, SHAKE-256]</h:li></h:ul><h:p/>
 						<h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
 						For each supported combination of the above parameters, the evaluator shall cause the TOE to
-						generate 10 test cases consisting of messages and signatures. A certain number of these must be
-						modified so that the verification fails. [How many? How modified?] The TOE must correctly
-						verify the unmodified signatures and fail to verify the modified signatures.<h:p/>
+						generate 21 test cases consisting of messages and signatures such that the 21 test cases are
+						modified as follows:<h:p/><h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Message is modified</h:li>
+						<h:li>For three test cases the key is modified</h:li>
+						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
+						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li>
+						<h:li>For three test cases the value <h:i>r</h:i> is zeroed</h:li>
+						<h:li>For three test cases the value <h:i>s</h:i> is zeroed</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
+
+						<!-- KCDSA Signature Verification    -->
+						<h:br/><h:b>KCDSA Signature Verification </h:b><h:p/>
+						<h:table border="1">
+							<h:tr class="header" bgcolor="#cccccc">
+								<h:td valign="top">Identifier</h:td>
+								<h:td valign="top">Cryptogrphic Algorithm Parameters</h:td>
+								<h:td valign="top">Cryptographic Key Sizes</h:td>
+								<h:td valign="top">List of Standards</h:td>
+							</h:tr>
+							<h:tr>
+								<h:td valign="top">KCDSA</h:td>
+								<h:td valign="top">KCDSA</h:td>
+								<h:td valign="top">Hash function using [<h:b>selection:</h:b> 
+									SHA-224, SHA-256, SHA-384, SHA-512]</h:td>
+								<h:td valign="top">ISO/IEC 14888-3:2018 (Subclause 6.3) [KCDSA]</h:td>
+							</h:tr>
+						</h:table><h:p/>	
+						To test the TOE’s ability to perform KCDSA Digital Signature Verification, the evaluator shall
+						perform the Algorithm Functional Test using the following input parameters:<h:ul>
+						<h:li>(L, N) = (2048, 224), (2048, 256), (3072, 256)</h:li>
+						<h:li>Hash algorithm [SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224,
+							SHA-512/256]</h:li></h:ul><h:p/>
+						<h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
+						For each supported combination of the above parameters, the evaluator shall cause the TOE to
+						generate 15 test cases consisting of messages and signatures such that the 15 test cases are
+						modified as follows:<h:p/><h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Message is modified</h:li>
+						<h:li>For three test cases the key is modified</h:li>
+						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
+						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
+
+						<!-- EC-KCDSA Signature Verification  -->
+						<h:br/><h:b>ECDSA Signature Verification </h:b><h:p/>
+						<h:table border="1">
+							<h:tr class="header" bgcolor="#cccccc">
+								<h:td valign="top">Identifier</h:td>
+								<h:td valign="top">Cryptogrphic Algorithm Parameters</h:td>
+								<h:td valign="top">Cryptographic Key Sizes</h:td>
+								<h:td valign="top">List of Standards</h:td>
+							</h:tr>
+							<h:tr>
+								<h:td valign="top">EC-KCDSA</h:td>
+								<h:td valign="top">EC-KCDSA</h:td>
+								<h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> P-224,
+									P-256, B-233, B-283, K-233, K-283]] using hash [<h:b>selection:</h:b> 
+									[selection: SHA-224, SHA-256, SHA-384, SHA-512] </h:td>
+								<h:td valign="top">ISO/IEC 14888-3:2018 (Subclause 6.7) [EC-KCDSA]<h:p/>
+									NIST SP-800 186 (Section 3) [NIST Curves]</h:td>
+							</h:tr>
+						</h:table><h:p/>	
+						To test the TOE’s ability to perform EC-KCDSA Digital Signature Verification, the evaluator
+						shall perform the Algorithm Functional Test using the following input parameters:<h:ul>
+						<h:li>Elliptic Curve [P-224, P-256, B-233, B-283, K-233, K-283]</h:li>
+						<h:li>Hash algorithm [SHA-224, SHA-256, SHA-384, SHA-512]</h:li></h:ul><h:p/>
+						<h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
+						For each supported combination of the above parameters, the evaluator shall cause the TOE to
+						generate 21 test cases consisting of messages and signatures such that the 21 test cases are
+						modified as follows:<h:p/><h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Message is modified</h:li>
+						<h:li>For three test cases the key is modified</h:li>
+						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
+						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li>
+						<h:li>For three test cases the value <h:i>r</h:i> is zeroed</h:li>
+						<h:li>For three test cases the value <h:i>s</h:i> is zeroed</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
+
 
 						<!-- EdDSA Signature Verification  -->
 						<h:br/><h:b>EdDSA Signature Verification </h:b><h:p/>
@@ -6325,12 +6426,19 @@
 						</h:table><h:p/>	
 						To test the TOE’s ability to perform EdDSA Digital Signature Verification, the evaluator shall
 						perform the Algorithm Functional Test using the following input parameters:<h:ul>
-						<h:li>Elliptic Curve [Edwards25519, Edwards448]</h:li></h:ul><h:p/>
+						<h:li>Elliptic Curve [Edwards25519, Edwards448]</h:li>
+						<h:li>Supports [Pure EdDSA, PreHash EdDSA]</h:li></h:ul><h:p/>
 						<h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
 						For each supported combination of the above parameters, the evaluator shall cause the TOE to
-						generate 10 test cases consisting of a signed message and signing key. A certain number of these
-						must be modified so that the verification fails. [How many? How modified?] ?] The TOE must
-						correctly verify the unmodified signatures and fail to verify the modified signatures.<h:p/>
+						generate 15 test cases consisting of a signed message and signing key such that the 15 test cases
+						are modified as follows:<h:p/><h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Message is modified</h:li>
+						<h:li>For three test cases the key is modified</h:li>
+						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
+						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li></h:ul><h:p/>
+						The TOE must correctly verify the unmodified signatures and fail to verify the modified
+						signatures.<h:p/>
 
 						<!-- LMS and HSS Signature Verification  -->
 						<h:br/><h:b>LMS and HSS Signature Verification </h:b><h:p/>
@@ -6508,16 +6616,15 @@
 						For each combination of supported parameter set and capabilities, the evaluator shall require the
 						implementation under test to validate 15 signatures. For HashML-DSA testing, each supported
 						and permitted hash or XOF need appear in only one of each group of 15 test cases.<h:p/>
-						For each group of 15 test cases, at least three tests must be modified in each of the following
-						manners:<h:ul>
-						<h:li>No modification. Signature is valid.</h:li>
-						<h:li>Signed message is modified. The signature is not valid.</h:li>
-						<h:li>A component of the signature, the bytes that commit the signer to the message, is
-							modified. The signature is not valid.</h:li>
-						<h:li>A component of the signature, the bytes that allow the verifier to construct the vector z, is
-							modified. The signature is not valid.</h:li>
-						<h:li>A component of the signature, the bytes that allow the verifier to construct the hint array,
-							is modified. The signature is not valid.</h:li></h:ul><h:p/>
+						For each group of 15 test cases is modified as follows:<h:ul>
+						<h:li>Three test cases are left unmodified</h:li>
+						<h:li>For three test cases the Signed message is modified</h:li>
+						<h:li>For three test cases the component of the signature that commits the signer to the message is
+							modified</h:li>
+						<h:li>For three test cases the component of the signature that allows the verifier to construct the vector z is
+							modified</h:li>
+						<h:li>For three test cases the component of the signature that allows the verifier to construct the hint array
+							is modified</h:li></h:ul><h:p/>
 						The TOE must correctly verify the unmodified signatures and fail to verify the modified
 						signatures.	
 				</Tests>

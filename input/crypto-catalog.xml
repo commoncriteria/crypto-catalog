@@ -6972,41 +6972,12 @@
 				</note>
 				<aactivity>
 					<TSS>
-						The evaluator shall check that the TSS includes a description of encryption
-						functions used for symmetric key encryption. The evaluator should check that this
-						description of the selected encryption function includes the key sizes and modes of
-						operations as specified in <xref to="fcs-cop-skc-sels"/>.<h:p/>
-						The evaluator shall check that the TSS describes the means by which the TOE
-						satisfies constraints on algorithm parameters included in the selections made for
-						"cryptographic algorithm" and "list of standards."
+						The evaluator shall examine the TSS to ensure that it describes the construction of any IVs,
+						tweak values, and counters.<h:p/>
+						If XTS-AES is claimed then the evaluator shall examine the TSS to verify that the TOE creates
+						full-length keys by methods that ensure that the two key halves are different and independent.
 					</TSS>
-					<Guidance>
-						If the product supports multiple modes, the evaluator shall examine the AGD
-						to determine that the method of choosing a specific mode/key size
-						is described.
-					</Guidance>
-					<CustomEA name="KMD">
-						The evaluator shall examine the KMD to ensure that the points at which symmetric
-						key encryption and decryption occurs are described, and that the complete data path
-						for symmetric key encryption is described. The evaluator checks that this
-						description is consistent with the relevant parts of the TSS.<h:p/>
-						Assessment of the complete data path for symmetric key encryption includes
-						confirming that the KMD describes the data flow from the device’s host interface
-						to the device’s non-volatile memory storing the data, and gives information
-						enabling the user data path to be distinguished from those situations in which
-						data bypasses the data encryption engine (e.g. read-write operations to an
-						unencrypted Master Boot Record area). The evaluator shall ensure that the
-						documentation of the data path is detailed enough that it thoroughly describes the
-						parts of the TOE that the data passes through (e.g. different memory types,
-						processors and co-processors), its encryption state (i.e. encrypted or unencrypted)
-						in each part, and any places where the data is stored. For example, any caching or
-						buffering of the data should be identified and distinguished from the final
-						destination in non-volatile memory (the latter represents the location from which
-						the host will expect to retrieve the data in future).<h:p/>
-						If support for AES-CTR is claimed and the counter value source is internal to the
-						TOE, the evaluator shall verify that the KMD describes the internal counter
-						mechanism used to ensure that it provides unique counter block values.
-					</CustomEA>
+					<Guidance/>
 					<Tests>
 						The following tests require the developer to provide access to a test platform that
 						provides the evaluator with tools that are typically not found on factory products.<h:p/>
@@ -7091,11 +7062,8 @@
 		If ( keylen = 256 )
 			Key[i+1] = Key[i] xor (MSB(CT[j-1], 128) || MSB(CT[j], 128))
 		</h:pre><h:p/>
+						The above pseudocode is for encryption. For decryption, swap all instances of CT and PT.<h:p/>
 						The initial IV, key, and plaintext/ciphertext should be random.<h:p/>
-						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
-						the 100 3-tuples for each selected key size. This result shall be compared to the
-						result of running 1000 iterations with the same values using a known good
-						implementation.<h:p/>
 						The evaluator shall test the decrypt functionality using the same test as above,
 						exchanging CT and PT, and replacing AES-CBC-Encrypt with AES-CBC-Decrypt.<h:p/>
 
@@ -7212,6 +7180,8 @@
 										NIST SP 800-38A] [CBC]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						<h:mark>To test the encrypt and decrypt functionality of Camellia in CBC mode, the evaluator shall
+						perform the tests as specified in 10.2.1.2 of ISO/IEC 18367:2016.</h:mark><h:p/>
 
 						<!-- CAM-CFB -->
 						<h:br/><h:b>CAM-CFB</h:b><h:p/>
@@ -7231,6 +7201,7 @@
 										NIST SP 800-38A] [CFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						<h:mark>???</h:mark><h:p/>
 
 						<!-- CAM-OFB -->
 						<h:br/><h:b>CAM-OFB</h:b><h:p/>
@@ -7250,6 +7221,7 @@
 										NIST SP 800-38A] [OFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						<h:mark>???</h:mark><h:p/>
 
 						<!-- XTS-CAM -->
 						<h:br/><h:b>XTS-CAM</h:b><h:p/>
@@ -7271,6 +7243,33 @@
 										NIST SP 800-38E] [XTS]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						These tests are intended to be equivalent to those described in the IPA document, ATR-01-B,
+						“Specifications of Cryptographic Algorithm Implementation Testing — Symmetric-Key
+						Cryptography“, found at
+						https://www.ipa.go.jp/security/jcmvp/jcmvp_e/documents/atr/atr01b_en.pdf.<h:p/>
+						The evaluator shall generate test values as follows:<h:p/>
+						For each supported key size (256 bit (for Camellia-128) and 512 bit (for Camellia-256) keys), the
+						evaluator shall provide up to five data lengths:<h:ul>
+						<h:li>Two data lengths divisible by the 128-bit block size, If data unit lengths of
+							complete block sizes are supported</h:li>
+						<h:li>Two data lengths not divisible by the 128-bit block size, if data unit
+							lengths of partial block sizes are supported.</h:li>
+						<h:li>The largest data length supported by the implementation, or 2<h:sup>16</h:sup> (65536), 
+							whichever is larger.</h:li></h:ul><h:p/>
+						The evaluator shall specify whether the implementation supports tweak values of 128-bit
+						hexadecimal strings or a data unit sequence numbers, or both.<h:p/>
+						For each combination of key size and data length, the evaluator shall provide 100 sets of input
+						data and obtain the ciphertext that results from XTS-Camellia encryption. If both kinds of tweak
+						values are supported, 50 of each 100 sets of input data shall use each type of tweak value. The
+						resulting ciphertext shall be compared to the results of a known-good implementation.<h:p/>
+						<h:mark>As a prerequisite for this test, the evaluator shall perform the test for encrypt functionality of
+						Camellia in ECB mode as specified in 10.2.1.2 of ISO/IEC 18367:2016.</h:mark><h:p/>
+						The evaluator shall test the decrypt functionality of XTS-Camellia using the same test as for
+						encrypt, replacing plaintext values with ciphertext values and XTS-Camellia encrypt with XTS-
+						Camellia decrypt.<h:p/>
+						<h:mark>As a prerequisite for this test, the evaluator shall perform the test for decrypt functionality of
+						Camellia in ECB mode as specified in 10.2.1.2 of ISO/IEC 18367:2016.</h:mark><h:p/>					
+						
 
 						<!-- CAM-CTR -->
 						<h:br/><h:b>CAM-CTR</h:b><h:p/>
@@ -7292,6 +7291,8 @@
 										NIST SP 800-38A] [CTR]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						<h:mark>???</h:mark><h:p/>
+
 
 						<!-- SEED-CBC -->
 						<h:br/><h:b>SEED-CBC</h:b><h:p/>
@@ -7311,6 +7312,71 @@
 										NIST SP 800-38A] [CBC]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of SEED in CBC mode, the evaluator shall perform
+						the SEED-CBC Known-Answer Tests, SEED-CBC Multi-Block Message Tests, and the SEED-
+						CBC Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>SEED-CBC Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CBC, the evaluator shall supply a set of 128-bit keys
+						(as described below) and obtain the ciphertext value that results from SEED encryption of an all-
+						zeros plaintext using each key and an IV of all zeros. Key i in each set shall have the leftmost i
+						bits set to ones and the remaining bits to zeros, for values of i from 1 to 128. To determine
+						correctness, the evaluator shall compare the resulting values to those obtained by submitting the
+						same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CBC, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>SEED-CBC Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CBC, the evaluator shall supply a set of 128-bit
+						plaintext values (as described below) and obtain the ciphertext values that result from SEED-
+						CBC encryption of each plaintext value using a 128-bits key and IV consisting of all zeros.
+						Plaintext value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CBC, use the plaintext values from above as ciphertext
+						input, and SEED-CBC decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and an IV of all zeros.<h:p/>
+						<h:br/><h:b><h:i>SEED-CBC Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using SEED-CBC. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using SEED-CBC. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>SEED-CBC Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of SEED-CBC
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = SEED_CBC_ENCRYPT(Key[i], IV[i], PT[j])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = SEED_CBC_ENCRYPT(Key[i], PT[j])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing SEED-CBC-Encrypt with SEED-CBC-Decrypt.<h:p/>
 
 						<!-- SEED-CFB -->
 						<h:br/><h:b>SEED-CFB</h:b><h:p/>
@@ -7330,6 +7396,71 @@
 										NIST SP 800-38A] [CFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of SEED in CFB mode, the evaluator shall perform
+						the SEED-CFB Known-Answer Tests, SEED-CFB Multi-Block Message Tests, and the SEED-
+						CFB Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>SEED-CFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CFB, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from SEED encryption of
+						an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>SEED-CFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from SEED-CFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CFB, use the IV values from above as ciphertext input,
+						and SEED-CFB decrypt each ciphertext value using a 128-bits key consisting of all zeros and a
+						plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>SEED-CFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using SEED-CFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using SEED-CFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>		
+						<h:br/><h:b><h:i>SEED-CFB Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of SEED-CFB encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = PT[j] XOR SEED_CFB_ENCRYPT(Key[i], IV[i])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = PT[j] XOR SEED_CFB_ENCRYPT(Key[i], CT[j-1])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing SEED-CFB-Encrypt with SEED-CFB-Decrypt.<h:p/>
+	
 
 						<!-- SEED-OFB -->
 						<h:br/><h:b>SEED-OFB</h:b><h:p/>
@@ -7349,6 +7480,73 @@
 										NIST SP 800-38A] [OFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of SEED in OFB mode, the evaluator shall perform
+						the SEED-OFB Known-Answer Tests, SEED-OFB Multi-Block Message Tests, and the SEED-
+						OFB Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>SEED-OFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-OFB, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from SEED encryption of
+						an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-OFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>SEED-OFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-OFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from SEED-OFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-OFB, use the IV values from above as ciphertext
+						input, and SEED-OFB decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and a plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>SEED-OFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using SEED-OFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using SEED-OFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>		
+						<h:br/><h:b><h:i>SEED-OFB Monte Carlo Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of SEED-OFB encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									OT[j] = SEED_OFB_ENCRYPT(Key[i], IV[i])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = IV[i]
+								} else {
+									OT[j] = SEED_OFB_ENCRYPT(Key[i], OT[j-1])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing SEED-OFB-Encrypt with SEED-OFB-Decrypt.<h:p/>
+
 
 						<!-- SEED-CTR -->
 						<h:br/><h:b>SEED-CTR</h:b><h:p/>
@@ -7368,6 +7566,67 @@
 										NIST SP 800-38A] [CTR]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of SEED in CTR mode, the evaluator shall perform
+						the SEED-CTR Known-Answer Tests, SEED-CTR Multi-Block Message Tests, and the SEED-
+						CTR Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and counters.<h:p/>
+						<h:br/><h:b><h:i>SEED-CTR Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CTR, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from SEED encryption of
+						an all-zeros plaintext using each key and a counter of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CTR, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>SEED-CTR Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of SEED-CTR, the evaluator shall supply a set of 128-bit
+						counter values (as described below) and obtain the ciphertext values that result from SEED-CFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each counter.<h:p/>
+						Counter value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of SEED-CTR, use the counter values from above as ciphertext
+						input, and SEED-CTR decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and a plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>SEED-CTR Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a
+						plaintext message of length i blocks, and encrypt the message using SEED-CTR. The resulting
+						ciphertext values shall be compared to the results of encrypting the plaintext messages using a
+						known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a
+						ciphertext message of length i blocks, and decrypt the message using SEED-CTR. The resulting
+						plaintext values shall be compared to the results of decrypting the ciphertext messages using a
+						known good implementation.<h:p/>		
+						<h:br/><h:b><h:i>SEED-CTR Monte Carlo Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, counters, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, counter, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of SEED-CTR encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								CT[j] = PT[j] XOR SEED_CTR_ENCRYPT(Key[i], CTR[0])
+								CTR[0] = (CTR[0] + 1) MOD 2^*128
+								PT[j+1] = CT[j]							}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] XOR CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing SEED-CTR-Encrypt with SEED-CTR-Decrypt.<h:p/>
+						
 
 						<!-- HIGHT-CBC -->
 						<h:br/><h:b>HIGHT-CBC</h:b><h:p/>
@@ -7387,6 +7646,71 @@
 										NIST SP 800-38A] [CBC]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of HIGHT in CBC mode, the evaluator shall perform
+						the HIGHT-CBC Known-Answer Tests, HIGHT-CBC Multi-Block Message Tests, and the HIGHT-
+						CBC Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CBC Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CBC, the evaluator shall supply a set of 128-bit keys
+						(as described below) and obtain the ciphertext value that results from HIGHT encryption of an all-
+						zeros plaintext using each key and an IV of all zeros. Key i in each set shall have the leftmost i
+						bits set to ones and the remaining bits to zeros, for values of i from 1 to 128. To determine
+						correctness, the evaluator shall compare the resulting values to those obtained by submitting the
+						same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CBC, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CBC Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CBC, the evaluator shall supply a set of 128-bit
+						plaintext values (as described below) and obtain the ciphertext values that result from HIGHT-
+						CBC encryption of each plaintext value using a 128-bits key and IV consisting of all zeros.
+						Plaintext value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CBC, use the plaintext values from above as ciphertext
+						input, and HIGHT-CBC decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and an IV of all zeros.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CBC Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using HIGHT-CBC. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using HIGHT-CBC. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CBC Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of HIGHT-CBC
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = HIGHT_CBC_ENCRYPT(Key[i], IV[i], PT[j])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = HIGHT_CBC_ENCRYPT(Key[i], PT[j])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing HIGHT-CBC-Encrypt with HIGHT-CBC-Decrypt.<h:p/>
 
 						<!-- HIGHT-CFB -->
 						<h:br/><h:b>HIGHT-CFB</h:b><h:p/>
@@ -7405,7 +7729,72 @@
 									[<h:b>selection:</h:b>  ISO/IEC 10116:2017 (Clause 8), 
 										NIST SP 800-38A] [CFB]</h:td>
 							</h:tr>
-						</h:table><h:p/>	
+						</h:table><h:p/>
+						To test the encrypt and decrypt functionality of HIGHT in CFB mode, the evaluator shall perform
+						the HIGHT-CFB Known-Answer Tests, HIGHT-CFB Multi-Block Message Tests, and the HIGHT-
+						CFB Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CFB, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from HIGHT encryption of
+						an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-CFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from HIGHT-CFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CFB, use the IV values from above as ciphertext input,
+						and HIGHT-CFB decrypt each ciphertext value using a 128-bits key consisting of all zeros and a
+						plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-CFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using HIGHT-CFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using HIGHT-CFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>		
+						<h:br/><h:b><h:i>HIGHT-CFB Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of HIGHT-CFB encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = PT[j] XOR HIGHT_CFB_ENCRYPT(Key[i], IV[i])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = PT[j] XOR HIGHT_CFB_ENCRYPT(Key[i], CT[j-1])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing HIGHT-CFB-Encrypt with HIGHT-CFB-Decrypt.<h:p/>
+						
 
 						<!-- HIGHT-OFB -->
 						<h:br/><h:b>HIGHT-OFB</h:b><h:p/>
@@ -7424,7 +7813,74 @@
 									[<h:b>selection:</h:b>  ISO/IEC 10116:2017 (Clause 9), 
 										NIST SP 800-38A] [OFB]</h:td>
 							</h:tr>
-						</h:table><h:p/>	
+						</h:table><h:p/>
+						To test the encrypt and decrypt functionality of HIGHT in OFB mode, the evaluator shall perform
+						the HIGHT-OFB Known-Answer Tests, HIGHT-OFB Multi-Block Message Tests, and the HIGHT-
+						OFB Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and IVs.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-OFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-OFB, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from HIGHT encryption of
+						an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-OFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-OFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-OFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from HIGHT-OFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-OFB, use the IV values from above as ciphertext
+						input, and HIGHT-OFB decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and a plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-OFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using HIGHT-OFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using HIGHT-OFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>		
+						<h:br/><h:b><h:i>HIGHT-OFB Monte Carlo Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of HIGHT-OFB encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									OT[j] = HIGHT_OFB_ENCRYPT(Key[i], IV[i])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = IV[i]
+								} else {
+									OT[j] = HIGHT_OFB_ENCRYPT(Key[i], OT[j-1])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] xor CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing HIGHT-OFB-Encrypt with HIGHT-OFB-Decrypt.<h:p/>
+						
 
 						<!-- HIGHT-CTR -->
 						<h:br/><h:b>HIGHT-CTR</h:b><h:p/>
@@ -7444,6 +7900,67 @@
 										NIST SP 800-38A] [CTR]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of HIGHT in CTR mode, the evaluator shall perform
+						the HIGHT-CTR Known-Answer Tests, HIGHT-CTR Multi-Block Message Tests, and the HIGHT-
+						CTR Monte Carlo Test using 128-bit keys and a block size of 128 bits for plaintext, ciphertext,
+						and counters.<h:p/>
+						<h:br/><h:b><h:i>HIGHT-CTR Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CTR, the evaluator shall supply a set of 128-bit
+						keys(as described below) and obtain the ciphertext value that results from HIGHT encryption of
+						an all-zeros plaintext using each key and a counter of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CTR, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-CTR Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of HIGHT-CTR, the evaluator shall supply a set of 128-bit
+						counter values (as described below) and obtain the ciphertext values that result from HIGHT-CFB
+						encryption of a plaintext value consisting of all zeros using a 128-bits key and each counter.<h:p/>
+						Counter value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of HIGHT-CTR, use the counter values from above as ciphertext
+						input, and HIGHT-CTR decrypt each ciphertext value using a 128-bits key consisting of all zeros
+						and a plaintext value consisting of all zeros.<h:p/>						
+						<h:br/><h:b><h:i>HIGHT-CTR Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a
+						plaintext message of length i blocks, and encrypt the message using HIGHT-CTR. The resulting
+						ciphertext values shall be compared to the results of encrypting the plaintext messages using a
+						known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for a 128-
+						bits key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a
+						ciphertext message of length i blocks, and decrypt the message using HIGHT-CTR. The resulting
+						plaintext values shall be compared to the results of decrypting the ciphertext messages using a
+						known good implementation.<h:p/>		
+						<h:br/><h:b><h:i>HIGHT-CTR Monte Carlo Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, counters, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for 128-bits key. This 3-
+						tuple of plaintext, counter, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of HIGHT-CTR encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								CT[j] = PT[j] XOR HIGHT_CTR_ENCRYPT(Key[i], CTR[0])
+								CTR[0] = (CTR[0] + 1) MOD 2^*128
+								PT[j+1] = CT[j]							}
+							}
+							Output CT[j]
+							Key[i+1] = Key[i] XOR CT[j]
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for a 128-bit key. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing HIGHT-CTR-Encrypt with HIGHT-CTR-Decrypt.<h:p/>
+						
 
 						<!-- LEA-CBC -->
 						<h:br/><h:b>LEA-CBC</h:b><h:p/>
@@ -7463,6 +7980,75 @@
 										NIST SP 800-38A] [CBC]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of LEA in CBC mode, the evaluator shall perform
+						the LEA-CBC Known-Answer Tests, LEA-CBC Multi-Block Message Tests, and the LEA-CBC
+						Monte Carlo Test using keys of 128, 192, and 256 bits and a block size of 128 bits for plaintext,
+						ciphertext, and IVs.<h:p/>
+						<h:br/><h:b><h:i>LEA-CBC Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CBC, the evaluator shall supply a set of keys for each
+						selected key size (as described below) and obtain the ciphertext value that results from LEA
+						encryption of an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, 
+						for values of i from 1 to key size. To determine correctness, the evaluator shall compare the resulting values to those obtained by
+						submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CBC, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>LEA-CBC Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CBC, for each selected key size, the evaluator shall
+						supply a set of 128-bit plaintext values (as described below) and obtain the ciphertext values that
+						result from LEA-CBC encryption of each plaintext value using keys of each selected size and an
+						IV consisting of all zeros. Plaintext value i shall have the leftmost i bits set to ones and the
+						remaining bits set to zeros, for values of i from 1 to 128. To determine correctness, the evaluator
+						shall compare the resulting values to those obtained by submitting the same inputs to a known-
+						good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CBC, use the plaintext values from above as ciphertext
+						input, and LEA-CBC decrypt each ciphertext value using keys of each selected size and an IV of
+						all zeros.<h:p/>
+						<h:br/><h:b><h:i>LEA-CBC Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using LEA-CBC. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using LEA-CBC. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>LEA-CBC Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of LEA-CBC
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = LEA_CBC_ENCRYPT(Key[i], IV[i], PT[j])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = LEA_CBC_ENCRYPT(Key[i], PT[j])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							If (KeySize==128) Key[i+1]=Key[i] XOR CT[j]
+							If (KeySize==192) Key[i+1]=Key[i] XOR (last 64 bits of CT[j-1||CT[j]]
+							If (KeySize==256) Key[i+1]=Key[i] XOR (CT[j-1||CT[j]]							
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for each selected key size. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing LEA-CBC-Encrypt with LEA-CBC-Decrypt.<h:p/>
+						
 
 						<!-- LEA-CFB -->
 						<h:br/><h:b>LEA-CFB</h:b><h:p/>
@@ -7482,6 +8068,74 @@
 										NIST SP 800-38A] [CFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of LEA in CFB mode, the evaluator shall perform
+						the LEA-CFB Known-Answer Tests, LEA-CFB Multi-Block Message Tests, and the LEA-CFB
+						Monte Carlo Test using the selected key sizes and a block size of 128 bits for plaintext,
+						ciphertext, and IVs.<h:p/>
+						<h:br/><h:b><h:i>LEA-CFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CFB, the evaluator shall supply a set of keys for each
+						selected key size (as described below) and obtain the ciphertext value that results from LEA
+						encryption of an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to key size. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>LEA-CFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from LEA-CFB
+						encryption of a plaintext value consisting of all zeros using a key of each size and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to IV size. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CFB, use the IV values from above as ciphertext input,
+						and LEA-CFB decrypt each ciphertext value using a key of each selected key size consisting of
+						all zeros and a plaintext value consisting of all zeros.<h:p/>
+						<h:br/><h:b><h:i>LEA-CFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using LEA-CFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using LEA-CFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>LEA-CFB Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of LEA-CFB
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									CT[j] = PT[j] XOR LEA_CFB_ENCRYPT(Key[i], IV[i])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = PT[j] XOR LEA_CFB_ENCRYPT(Key[i], CT[j-1])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							If (KeySize==128) Key[i+1]=Key[i] XOR CT[j]
+							If (KeySize==192) Key[i+1]=Key[i] XOR (last 64 bits of CT[j-1||CT[j]]
+							If (KeySize==256) Key[i+1]=Key[i] XOR (CT[j-1||CT[j]]							
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for each selected key size. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing LEA-CFB-Encrypt with LEA-CFB-Decrypt.<h:p/>
+						
 
 						<!-- LEA-OFB -->
 						<h:br/><h:b>LEA-OFB</h:b><h:p/>
@@ -7501,6 +8155,75 @@
 										NIST SP 800-38A] [OFB]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of LEA in OFB mode, the evaluator shall perform
+						the LEA-OFB Known-Answer Tests, LEA-OFB Multi-Block Message Tests, and the LEA-OFB
+						Monte Carlo Test using the selected key sizes and a block size of 128 bits for plaintext,
+						ciphertext, and IVs.<h:p/>
+						<h:br/><h:b><h:i>LEA-OFB Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CFB, the evaluator shall supply a set of keys for each
+						selected key size (as described below) and obtain the ciphertext value that results from LEA
+						encryption of an all-zeros plaintext using each key and an IV of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to key size. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-OFB, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>LEA-OFB Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-OFB, the evaluator shall supply a set of 128-bit IV
+						values (as described below) and obtain the ciphertext values that result from LEA-OFB
+						encryption of a plaintext value consisting of all zeros using a key of each size and each IV.<h:p/>
+						IV value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for values
+						of i from 1 to IV size. To determine correctness, the evaluator shall compare the resulting values to
+						those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-OFB, use the IV values from above as ciphertext input,
+						and LEA-OFB decrypt each ciphertext value using a key of each selected key size consisting of
+						all zeros and a plaintext value consisting of all zeros.<h:p/>
+						<h:br/><h:b><h:i>LEA-OFB Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a plaintext
+						message of length i blocks, and encrypt the message using LEA-CFB. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext
+						message of length i blocks, and decrypt the message using LEA-CFB. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>LEA-OFB Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, IVs, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size. This 3-
+						tuple of plaintext, IV, and key is provided as input to the below algorithm to generate the
+						remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of LEA-OFB
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								If ( j=0 ) {
+									OT[j] = LEA_OFB_ENCRYPT(Key[i], IV[i])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = IV[i]
+								} else {
+									OT[j] = LEA_OFB_ENCRYPT(Key[i], CT[j-1])
+									CT[j] = PT[j] XOR OT[j]
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							If (KeySize==128) Key[i+1]=Key[i] XOR CT[j]
+							If (KeySize==192) Key[i+1]=Key[i] XOR (last 64 bits of CT[j-1||CT[j]]
+							If (KeySize==256) Key[i+1]=Key[i] XOR (CT[j-1||CT[j]]							
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for each selected key size. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing LEA-OFB-Encrypt with LEA-OFB-Decrypt.<h:p/>
 
 						<!-- LEA-CTR -->
 						<h:br/><h:b>LEA-CTR</h:b><h:p/>
@@ -7520,6 +8243,68 @@
 										NIST SP 800-38A] [CTR]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
+						To test the encrypt and decrypt functionality of LEA in CTR mode, the evaluator shall perform
+						the LEA-CTR Known-Answer Tests, LEA-CTR Multi-Block Message Tests, and the LEA-CTR
+						Monte Carlo Test using the selected key sizes and a block size of 128 bits for plaintext,
+						ciphertext, and counters.<h:p/>
+						<h:br/><h:b><h:i>LEA-CTR Known Answer Test (Variable Key)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CTR, the evaluator shall supply a set of keys for each
+						selected key size (as described below) and obtain the ciphertext value that results from LEA
+						encryption of an all-zeros plaintext using each key and a counter of all zeros.<h:p/>
+						Key i in each set shall have the leftmost i bits set to ones and the remaining bits to zeros, for
+						values of i from 1 to key size. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CTR, the evaluator shall use the same keys as above to
+						decrypt the ciphertext results from above. Each decryption should result in an all-zeros plaintext.<h:p/>
+						<h:br/><h:b><h:i>LEA-CTR Known Answer Test (Variable Plaintext)</h:i></h:b><h:p/>
+						To test the encrypt functionality of LEA-CTR, the evaluator shall supply a set of 128-bit counter
+						values (as described below) and obtain the ciphertext values that result from LEA-CTR
+						encryption of a plaintext value consisting of all zeros using a key of each size and each counter.<h:p/>
+						Counter value i shall have the leftmost i bits set to ones and the remaining bits set to zeros, for
+						values of i from 1 to 128. To determine correctness, the evaluator shall compare the resulting
+						values to those obtained by submitting the same inputs to a known-good implementation.<h:p/>
+						To test the decrypt functionality of LEA-CTR, use the counter values from above as ciphertext
+						input, and LEA-CTR decrypt each ciphertext value using a key of each selected key size
+						consisting of all zeros and a plaintext value consisting of all zeros.<h:p/>
+						<h:br/><h:b><h:i>LEA-CTR Multi-Block Message Tests</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality by encrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a plaintext
+						message of length i blocks, and encrypt the message using LEA-CTR. The resulting ciphertext
+						values shall be compared to the results of encrypting the plaintext messages using a known good
+						implementation.<h:p/>
+						The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected 
+						key size, for 2 &#8804; i &#8804; 10. For each test, the evaluator shall supply a key, a counter, and a ciphertext
+						message of length i blocks, and decrypt the message using LEA-CTR. The resulting plaintext
+						values shall be compared to the results of decrypting the ciphertext messages using a known
+						good implementation.<h:p/>
+						<h:br/><h:b><h:i>LEA-CTR Monte Carlo Test</h:i></h:b><h:p/>
+						The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of
+						pseudo-random values for plaintext, counters, and keys.<h:p/>
+						The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size.
+						This 3-tuple of plaintext, counter, and key is provided as input to the below algorithm to generate
+						the remaining 99 3-tuples, and to run each 3-tuple through 1000 iterations of LEA-CTR
+						encryption.<h:p/>
+						<h:pre>
+						Key[0] = KEY, IV[0] = IV, PT[0] = PT
+						For i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							For j = 0 to 999 {
+								CT[j] = PT[j] XOR LEA_CTR_ENCRYPT(Key[i], CTR[0])
+								CTR[0] = (CTR[0] + 1) MOD 2^128
+								PT[j+1] = CT[j]
+							}
+							Output CT[j]
+							If (KeySize==128) Key[i+1]=Key[i] XOR CT[j]
+							If (KeySize==192) Key[i+1]=Key[i] XOR (last 64 bits of CT[j-1||CT[j]]
+							If (KeySize==256) Key[i+1]=Key[i] XOR (CT[j-1||CT[j]]							
+							PT[0] = CT[j-1]
+						}						
+						</h:pre>
+						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of the 100 3-
+						tuples for each selected key size. This result shall be compared to the result of running 1000 iterations
+						with the same values using a known good implementation.<h:p/>
+						The evaluator shall test the decrypt functionality using the same test as above, exchanging CT
+						and PT, and replacing LEA-CTR-Encrypt with LEA-CTR-Decrypt.<h:p/>		
 					</Tests>
 				</aactivity>
 			</f-element>

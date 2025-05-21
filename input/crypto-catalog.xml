@@ -8399,7 +8399,7 @@
 							<h:tr>
 								<h:td valign="top">cSHAKE</h:td>
 								<h:td valign="top">Function = [<h:b>selection:</h:b> cSHAKE128, cSHAKE256]</h:td>
-								<h:td valign="top">NIST SP 800-185 Section 3 [cSHAKE], Section 6.2 [SHAKE]</h:td>
+								<h:td valign="top">NIST SP 800-185 Section 3 [cSHAKE]</h:td>
 							</h:tr>
 						</h:table><h:p/>	
 						To test the TOE’s implementation of the cSHAKE Extendable Output Function the evaluator
@@ -8853,7 +8853,64 @@
 								</selectables>
 							</title>
 							<aactivity level="element">
-								<no-tests>TBD</no-tests>
+								<TSS>
+									The evaluator shall verify that this statement is consistent with the selection made in
+									FCS_RBG.1.2 for the seeding of the DRBG. If the ST specifies more than one DRBG, the
+									evaluator shall examine the TSS to verify that it identifies the usage of each DRBG mechanism.
+								</TSS>
+								<Guidance>
+									The evaluator shall verify that the AGD instructs the administrator how to configure
+									the TOE to use the selected DRBG mechanism(s), if necessary, and provides information
+									regarding how to instantiate/call the DRBG for RBG services needed in this cPP.
+								</Guidance>
+								<Tests>
+									The following tests are conditional based upon the selections made in the SFR. The evaluator
+									shall perform the following test or witness respective tests executed by the developer. The tests
+									must be executed on a platform that is as close as practically possible to the operational platform
+									(but which may be instrumented in terms of, for example, use of a debug mode). Where the test
+									is not carried out on the TOE itself, the test platform shall be identified and the differences
+									between test environment and TOE execution environment shall be described. <h:p/>
+									
+									<!-- HASH_DRBG -->
+									<h:br/><h:b>HASH_DRBG</h:b><h:p/>
+									<h:table border="1">
+										<h:tr class="header" bgcolor="#cccccc">
+											<h:td valign="top">Identifier</h:td>
+											<h:td valign="top">RBG Algorithm</h:td>
+											<h:td valign="top">List of Standards</h:td>
+										</h:tr>
+										<h:tr>
+											<h:td valign="top">HASH_DRBG</h:td>
+											<h:td valign="top">Hash_DRBG with [<h:b>selection:</h:b> SHA-256, SHA-384,
+												SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:td>
+											<h:td valign="top">[<h:b>selection:</h:b> ISO/IEC 18031:2011 (Section C.2.2),
+												NIST SP 800-90A Revision 1 (Section 10.1.1)]</h:td>
+										</h:tr>
+									</h:table><h:p/>	
+									To test the TOE’s ability to generate random bits using Hash_DRBG, the evaluator shall perform
+									the Algorithm Functional Test using the following input parameters:<h:ul>
+									<h:li>Function [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:li>
+									<h:li>Prediction resistance [on, off]</h:li>
+									<h:li>Reseed [on, off]</h:li>
+									<h:li>Max security strength [256] bits</h:li>
+									<h:li>Entropy length [256-65536] bits</h:li>
+									<h:li>Max Personalization String size [65536] bits</h:li>
+									<h:li>Max additional string [65536] bits</h:li>
+									<h:li>Nonce length [128-65536] bits</h:li>
+									<h:li>Min returned bits length [256, 384, 512]</h:li></h:ul><h:p/>
+									<h:br/><h:b><h:i>Algorithm Functional Test</h:i></h:b><h:p/>
+									The evaluator shall generate 16 test groups for each claimed function. Eight with prediction
+									resistance enabled, and eight with prediction resistance turned off. For each of the eight test
+									groups, four must have reseed enabled and four must have reseed turned off.<h:p/>
+									Each test group within the core sets of four test groups shall consist of 15 test cases each, such
+									that minimum lengths and maximum lengths for the above parameters are used at least once
+									across the four groups, and the rest are random lengths.<h:p/>
+									Correctness is determined by comparing the results from a known-good implementation using
+									the same input parameters.<h:p/>
+									
+									<!- QQQQQ -->
+
+								</Tests>
 							</aactivity>
 						</f-element>
 						<f-element id="fcs-rbg-1e2">

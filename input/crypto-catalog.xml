@@ -3770,7 +3770,7 @@
 
 						<selectable id="sel-fcs-cop-keyedhash-kmac">
 							<col>KMAC</col>
-							<col>TBD</col>
+							<col><assignable>integer &lt; 2<h:sup>2040</h:sup></assignable></col>
 							<col><selectables>
 								<selectable>ISO/IEC 9797-2:2021 (Section 9 “MAC Algorithm 4”)</selectable>
 								<selectable>NIST SP 800-185 (Section 4 “KMAC”)</selectable></selectables>
@@ -3779,7 +3779,7 @@
 
 						<selectable id="sel-fcs-cop-keyedhash-kmacxof">
 							<col>KMACXOF</col>
-							<col><assignable>integer 256 &#8804; <h:i>Lk</h:i> &lt; 2<h:sup>2040</h:sup></assignable></col>
+							<col><assignable>integer &lt; 2<h:sup>2040</h:sup></assignable></col>
 							<col><selectables>
 								<selectable>ISO/IEC 9797-2:2021 (Section 9 “MAC Algorithm 4”)</selectable>
 								<selectable>NIST SP 800-185 (Section 4 “KMAC”)</selectable></selectables>
@@ -3873,14 +3873,14 @@
 							</h:tr>
 							<h:tr>
 								<h:td valign="top">KMAC</h:td>
-								<h:td valign="top">TBD</h:td>
+								<h:td valign="top">[<h:b>assignment:</h:b><h:i>integer &lt; 2<h:sup>2040</h:sup></h:i>]</h:td>
 								<h:td valign="top">
 									[<h:b>selection:</h:b> ISO/IEC 9797-2:2021 (Section 9 “MAC Algorithm 4”),
 										NIST SP 800-185 (Section 4 “KMAC”)]  </h:td>
 							</h:tr>
 							<h:tr>
 								<h:td valign="top">KMACXOF</h:td>
-								<h:td valign="top">[<h:b>assignment:</h:b> <h:i>integer 256 &#8804; <h:i>Lk</h:i> &lt; 2<h:sup>2040</h:sup></h:i>]</h:td>
+								<h:td valign="top">[<h:b>assignment:</h:b><h:i>integer &lt; 2<h:sup>2040</h:sup></h:i>]</h:td>
 								<h:td valign="top">
 									[<h:b>selection:</h:b> ISO/IEC 9797-2:2021 (Section 9 “MAC Algorithm 4”),
 										NIST SP 800-185 (Section 4 “KMAC”)]  </h:td>
@@ -6129,7 +6129,7 @@
 						<!-- HashML-DSA Signature Verification -->
 						<selectable id="sel-fcs-cop-sigver-hmldsa">
 							<col>HashML-DSA</col>
-							<col>HashML-DSA Signature Generation</col>
+							<col>HashML-DSA Signature Verification</col>
 							<col>Perameter set = <selectables>
 								<selectable>ML-DSA-44</selectable>
 								<selectable>ML-DSA-65</selectable>
@@ -6327,8 +6327,8 @@
 						<h:li>Three test cases are left unmodified</h:li>
 						<h:li>For three test cases the Message is modified</h:li>
 						<h:li>For three test cases the key is modified</h:li>
-						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
-						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li>
+						<h:li>For three test cases the first signature component (<h:i>r</h:i>) is modified</h:li>
+						<h:li>For three test cases the second signature component (<h:i>s</h:i>) is modified</h:li>
 						<h:li>For three test cases the value <h:i>r</h:i> is zeroed</h:li>
 						<h:li>For three test cases the value <h:i>s</h:i> is zeroed</h:li></h:ul><h:p/>
 						The TOE must correctly verify the unmodified signatures and fail to verify the modified
@@ -6363,8 +6363,8 @@
 						<h:li>Three test cases are left unmodified</h:li>
 						<h:li>For three test cases the Message is modified</h:li>
 						<h:li>For three test cases the key is modified</h:li>
-						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
-						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li></h:ul><h:p/>
+						<h:li>For three test cases the first signature component (<h:i>r</h:i>) is modified</h:li>
+						<h:li>For three test cases the second signature component (<h:i>s</h:i>) is modified</h:li></h:ul><h:p/>
 						The TOE must correctly verify the unmodified signatures and fail to verify the modified
 						signatures.<h:p/>
 
@@ -6398,8 +6398,8 @@
 						<h:li>Three test cases are left unmodified</h:li>
 						<h:li>For three test cases the Message is modified</h:li>
 						<h:li>For three test cases the key is modified</h:li>
-						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
-						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li>
+						<h:li>For three test cases the first signature component (<h:i>r</h:i>) is modified</h:li>
+						<h:li>For three test cases the second signature component (<h:i>s</h:i>) is modified</h:li>
 						<h:li>For three test cases the value <h:i>r</h:i> is zeroed</h:li>
 						<h:li>For three test cases the value <h:i>s</h:i> is zeroed</h:li></h:ul><h:p/>
 						The TOE must correctly verify the unmodified signatures and fail to verify the modified
@@ -6435,8 +6435,8 @@
 						<h:li>Three test cases are left unmodified</h:li>
 						<h:li>For three test cases the Message is modified</h:li>
 						<h:li>For three test cases the key is modified</h:li>
-						<h:li>For three test cases the <h:i>r</h:i> value is modified</h:li>
-						<h:li>For three test cases the <h:i>s</h:i> value is modified</h:li></h:ul><h:p/>
+						<h:li>For three test cases the first signature component (<h:i>r</h:i>) is modified</h:li>
+						<h:li>For three test cases the second signature component (<h:i>s</h:i>) is modified</h:li></h:ul><h:p/>
 						The TOE must correctly verify the unmodified signatures and fail to verify the modified
 						signatures.<h:p/>
 
@@ -8343,16 +8343,6 @@
 								completion of the selection operations of FCS_COP.1/XOF.</reqtext>
 						</tabularize>
 						
-						<!-- cSHAKE -->
-						<selectable id="sel-fcs-cop-xof-cshake">
-							<col>cSHAKE</col>
-							<col>Function = <selectables>
-								<selectable>cSHAKE128</selectable>
-								<selectable>cSHAKE256</selectable></selectables>
-							</col>
-							<col>NIST SP 800-185  Section 3 [cSHAKE]</col>
-						</selectable>
-
 						<!-- SHAKE -->
 						<selectable id="sel-fcs-cop-xof-shake">
 							<col>SHAKE</col>
@@ -8362,6 +8352,16 @@
 								</selectables>
 							</col>
 							<col>NIST FIPS PUB 202 Section 6.2 [SHAKE]</col>
+						</selectable>
+
+						<!-- cSHAKE -->
+						<selectable id="sel-fcs-cop-xof-cshake">
+							<col>cSHAKE</col>
+							<col>Function = <selectables>
+								<selectable>cSHAKE128</selectable>
+								<selectable>cSHAKE256</selectable></selectables>
+							</col>
+							<col>NIST SP 800-185  Section 3 [cSHAKE]</col>
 						</selectable>
  
 						<!-- KMACXOF -->
@@ -8387,6 +8387,60 @@
 						(but which may be instrumented in terms of, for example, use of a debug mode). Where the test
 						is not carried out on the TOE itself, the test platform shall be identified and the differences
 						between test environment and TOE execution environment shall be described.<h:p/>
+
+						<!-- SHAKE -->
+						<h:br/><h:b>SHAKE</h:b><h:p/>
+						<h:table border="1">
+							<h:tr class="header" bgcolor="#cccccc">
+								<h:td valign="top">Cryptographic Algorithm</h:td>
+								<h:td valign="top">Parameters</h:td>
+								<h:td valign="top">List of Standards</h:td>
+							</h:tr>
+							<h:tr>
+								<h:td valign="top">SHAKE</h:td>
+								<h:td valign="top">Function = [<h:b>selection:</h:b> SHAKE128, SHAKE256]</h:td>
+								<h:td valign="top">NIST FIPS PUB 202 Section 6.2 [SHAKE]</h:td>
+							</h:tr>
+						</h:table><h:p/>	
+						To test the TOE’s implementation of the SHAKE Extendable Output Function the evaluator shall
+						perform the Algorithm Functional Test, Monte Carlo Test, and Variable Output Test using the
+						following input parameters:<h:ul>
+						<h:li>Function [SHAKE128, SHAKE256]</h:li>
+						<h:li>Output length [16-65536] bits</h:li></h:ul><h:p/>
+						<h:br/><h:b><h:i>Algorithm Functional Test</h:i></h:b><h:p/>
+						For each supported function, generate test cases consisting of random data for every message
+						length from 0 bits (if supported) to <h:i>rate</h:i>-1 bits, where <h:i>rate</h:i> equals<h:p/><h:ul>
+						<h:li>1344 for SHAKE128, and</h:li>
+						<h:li>1088 for SHAKE256.</h:li></h:ul><h:p/>
+						Additionally, generate tests cases of random data for messages of every multiple of (rate+1) bits
+						starting at length rate, and continuing until 65535 is exceeded. For SHAKE128, this should
+						result in a total of 1391 test cases.<h:p/>
+						<h:br/><h:b><h:i>Monte Carlo Test</h:i></h:b><h:p/>
+						The Monte Carlos test takes in a single 128-bit message (SEED) and desired output length in
+						bits, and runs 100 iterations of the chained computation. MaxOutBytes and MinOutBytes are the
+						largest and smallest supported input and output sizes in bytes, respectively.<h:p/>
+						<h:pre>
+						Range = maxOutBytes - minOutBytes + 1
+						OutputLen = maxOutBytes
+						For j = 0 to 99
+							MD[0] = SEED
+							For i = 1 to 1000
+								MSG[i] = 128 leftmost bits of MD[i-1]
+								if (MSG[i] &lt; 128 bits)
+									Append 0 bits on rightmost side of MSG[i] til MSG[i] is 128 bits
+								MD[i] = SHAKE(MSG[i], OutputLen * 8)
+								
+								RightmostOutputBits = 16 rightmost bits of MD[i] as an integer
+								OutputLen = minOutBytes + (RightmostOutputBits % Range)
+							Output MD[1000], OutputLen
+							SEED = MD[1000]
+						</h:pre><h:p/>
+						<h:br/><h:b><h:i>Variable Output Test</h:i></h:b><h:p/>
+						This test measures the ability of the TOE to generate output digests of varying sizes.<h:p/>
+						The evaluator shall generate 512 test cases such that the input for each test case consists of 128-
+						bits of random data, and the output length includes the minimum supported value, the maximum
+						supported value, and 510 random values between the minimum and maximum digest sizes
+						supported by the implementation.<h:p/>
 
 						<!-- cSHAKE -->
 						<h:br/><h:b>cSHAKE</h:b><h:p/>
@@ -8455,59 +8509,6 @@
 						}
 						</h:pre>
 						
-						<!-- SHAKE -->
-						<h:br/><h:b>SHAKE</h:b><h:p/>
-						<h:table border="1">
-							<h:tr class="header" bgcolor="#cccccc">
-								<h:td valign="top">Cryptographic Algorithm</h:td>
-								<h:td valign="top">Parameters</h:td>
-								<h:td valign="top">List of Standards</h:td>
-							</h:tr>
-							<h:tr>
-								<h:td valign="top">SHAKE</h:td>
-								<h:td valign="top">Function = [<h:b>selection:</h:b> SHAKE128, SHAKE256]</h:td>
-								<h:td valign="top">NIST FIPS PUB 202 Section 6.2 [SHAKE]</h:td>
-							</h:tr>
-						</h:table><h:p/>	
-						To test the TOE’s implementation of the SHAKE Extendable Output Function the evaluator shall
-						perform the Algorithm Functional Test, Monte Carlo Test, and Variable Output Test using the
-						following input parameters:<h:ul>
-						<h:li>Function [SHAKE128, SHAKE256]</h:li>
-						<h:li>Output length [16-65536] bits</h:li></h:ul><h:p/>
-						<h:br/><h:b><h:i>Algorithm Functional Test</h:i></h:b><h:p/>
-						For each supported function, generate test cases consisting of random data for every message
-						length from 0 bits (if supported) to <h:i>rate</h:i>-1 bits, where <h:i>rate</h:i> equals<h:p/><h:ul>
-						<h:li>1344 for SHAKE128, and</h:li>
-						<h:li>1088 for SHAKE256.</h:li></h:ul><h:p/>
-						Additionally, generate tests cases of random data for messages of every multiple of (rate+1) bits
-						starting at length rate, and continuing until 65535 is exceeded. For SHAKE128, this should
-						result in a total of 1391 test cases.<h:p/>
-						<h:br/><h:b><h:i>Monte Carlo Test</h:i></h:b><h:p/>
-						The Monte Carlos test takes in a single 128-bit message (SEED) and desired output length in
-						bits, and runs 100 iterations of the chained computation. MaxOutBytes and MinOutBytes are the
-						largest and smallest supported input and output sizes in bytes, respectively.<h:p/>
-						<h:pre>
-						Range = maxOutBytes - minOutBytes + 1
-						OutputLen = maxOutBytes
-						For j = 0 to 99
-							MD[0] = SEED
-							For i = 1 to 1000
-								MSG[i] = 128 leftmost bits of MD[i-1]
-								if (MSG[i] &lt; 128 bits)
-									Append 0 bits on rightmost side of MSG[i] til MSG[i] is 128 bits
-								MD[i] = SHAKE(MSG[i], OutputLen * 8)
-								
-								RightmostOutputBits = 16 rightmost bits of MD[i] as an integer
-								OutputLen = minOutBytes + (RightmostOutputBits % Range)
-							Output MD[1000], OutputLen
-							SEED = MD[1000]
-						</h:pre><h:p/>
-						<h:br/><h:b><h:i>Variable Output Test</h:i></h:b><h:p/>
-						This test measures the ability of the TOE to generate output digests of varying sizes.<h:p/>
-						The evaluator shall generate 512 test cases such that the input for each test case consists of 128-
-						bits of random data, and the output length includes the minimum supported value, the maximum
-						supported value, and 510 random values between the minimum and maximum digest sizes
-						supported by the implementation.<h:p/>
 						
 						<!-- KMACXOF -->
 						<h:br/><h:b>KMACXOF</h:b><h:p/>
@@ -8854,14 +8855,15 @@
 							</title>
 							<aactivity level="element">
 								<TSS>
-									The evaluator shall verify that this statement is consistent with the selection made in
-									FCS_RBG.1.2 for the seeding of the DRBG. If the ST specifies more than one DRBG, the
-									evaluator shall examine the TSS to verify that it identifies the usage of each DRBG mechanism.
+									If the ST specifies more than one DRBG, the evaluator shall examine the TSS
+									to verify that it identifies the usage of each DRBG mechanism.<h:p/>
+									The evaluator shall examine the TSS to verify that it specifies the DRBG type,
+									identifies entropy source(s) initializing and reseeding the DRBG.
 								</TSS>
 								<Guidance>
-									The evaluator shall verify that the AGD instructs the administrator how to configure
+									The evaluator shall verify that the Guidance instructs the administrator how to configure
 									the TOE to use the selected DRBG mechanism(s), if necessary, and provides information
-									regarding how to instantiate/call the DRBG for RBG services needed in this cPP.
+									regarding how to instantiate/call the DRBG for RBG services.
 								</Guidance>
 								<Tests>
 									The following tests are conditional based upon the selections made in the SFR. The evaluator
@@ -8890,14 +8892,14 @@
 									To test the TOE’s ability to generate random bits using Hash_DRBG, the evaluator shall perform
 									the Algorithm Functional Test using the following input parameters:<h:ul>
 									<h:li>Function [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:li>
-									<h:li>Prediction resistance [on, off]</h:li>
-									<h:li>Reseed [on, off]</h:li>
 									<h:li>Max security strength [256] bits</h:li>
 									<h:li>Entropy length [256-65536] bits</h:li>
 									<h:li>Max Personalization String size [65536] bits</h:li>
 									<h:li>Max additional string [65536] bits</h:li>
 									<h:li>Nonce length [128-65536] bits</h:li>
-									<h:li>Min returned bits length [256, 384, 512]</h:li></h:ul><h:p/>
+									<h:li>Min returned bits length [256, 384, 512] bits</h:li>
+									<h:li>Prediction resistance [on, off]</h:li>
+									<h:li>Reseed [on, off]</h:li></h:ul><h:p/>
 									<h:br/><h:b><h:i>Algorithm Functional Test</h:i></h:b><h:p/>
 									The evaluator shall generate 16 test groups for each claimed function. Eight with prediction
 									resistance enabled, and eight with prediction resistance turned off. For each of the eight test
@@ -8907,8 +8909,61 @@
 									across the four groups, and the rest are random lengths.<h:p/>
 									Correctness is determined by comparing the results from a known-good implementation using
 									the same input parameters.<h:p/>
-									
-									<!- QQQQQ -->
+
+									<!-- HMAC_DRBG -->
+									<h:br/><h:b>HMAC_DRBG</h:b><h:p/>
+									<h:table border="1">
+										<h:tr class="header" bgcolor="#cccccc">
+											<h:td valign="top">Identifier</h:td>
+											<h:td valign="top">RBG Algorithm</h:td>
+											<h:td valign="top">List of Standards</h:td>
+										</h:tr>
+										<h:tr>
+											<h:td valign="top">HMAC_DRBG</h:td>
+											<h:td valign="top">HMAC_DRBG with [<h:b>selection:</h:b> SHA-256, SHA-384,
+												SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:td>
+											<h:td valign="top">[<h:b>selection:</h:b> ISO/IEC 18031:2011 (Section C.2.3),
+												NIST SP 800-90A Revision 1 (Section 10.1.2)]</h:td>
+										</h:tr>
+									</h:table><h:p/>	
+									To test the TOE’s ability to generate random bits using HMAC_DRBG, the evaluator shall perform
+									the Algorithm Functional Test using the following input parameters:<h:ul>
+									<h:li>HMAC Mode [SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512]</h:li>
+									<h:li>Max security strength [256] bits</h:li>
+									<h:li>Entropy length [256-65536] bits</h:li>
+									<h:li>Max Personalization String size [65536] bits</h:li>
+									<h:li>Max additional string [65536] bits</h:li>
+									<h:li>Nonce length [128-65536] bits</h:li>
+									<h:li>Min returned bits length [256, 384, 512] bits</h:li>
+									<h:li>Prediction resistance [on, off]</h:li>
+									<h:li>Reseed [on, off]</h:li></h:ul><h:p/>
+									<h:br/><h:b><h:i>Algorithm Functional Test</h:i></h:b><h:p/>
+									The evaluator shall generate 16 test groups for each claimed function. Eight with prediction
+									resistance enabled, and eight with prediction resistance turned off. For each of the eight test
+									groups, four must have reseed enabled and four must have reseed turned off.<h:p/>
+									Each test group within the core sets of four test groups shall consist of 15 test cases each, such
+									that minimum lengths and maximum lengths for the above parameters are used at least once
+									across the four groups, and the rest are random lengths.<h:p/>
+									Correctness is determined by comparing the results from a known-good implementation using
+									the same input parameters.<h:p/>
+
+									<!-- CTR_DRBG -->
+									<h:br/><h:b>CTR_DRBG</h:b><h:p/>
+									<h:table border="1">
+										<h:tr class="header" bgcolor="#cccccc">
+											<h:td valign="top">Identifier</h:td>
+											<h:td valign="top">RBG Algorithm</h:td>
+											<h:td valign="top">List of Standards</h:td>
+										</h:tr>
+										<h:tr>
+											<h:td valign="top">CTR_DRBG</h:td>
+											<h:td valign="top">CTR_DRBG with [<h:b>selection:</h:b> AES-256, AES-192, AES-256, 
+												CAM-256, CAM-192, CAM-256, SEED-128, HIGHT-128, LEA-128, LEA-192, LEA-256]</h:td>
+											<h:td valign="top">[<h:b>selection:</h:b> ISO/IEC 18031:2011 (Section C.3.2),
+												NIST SP 800-90A Revision 1 (Section 10.2.1)]</h:td>
+										</h:tr>
+									</h:table><h:p/>	
+
 
 								</Tests>
 							</aactivity>

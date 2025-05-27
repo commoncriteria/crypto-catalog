@@ -8957,8 +8957,8 @@
 										</h:tr>
 										<h:tr>
 											<h:td valign="top">CTR_DRBG</h:td>
-											<h:td valign="top">CTR_DRBG with [<h:b>selection:</h:b> AES-256, AES-192, AES-256, 
-												CAM-256, CAM-192, CAM-256, SEED-128, HIGHT-128, LEA-128, LEA-192, LEA-256]</h:td>
+											<h:td valign="top">CTR_DRBG with [<h:b>selection:</h:b> AES-128, AES-192, AES-256, 
+												CAM-128, CAM-192, CAM-256, SEED-128, HIGHT-128, LEA-128, LEA-192, LEA-256]</h:td>
 											<h:td valign="top">[<h:b>selection:</h:b> ISO/IEC 18031:2011 (Section C.3.2),
 												NIST SP 800-90A Revision 1 (Section 10.2.1)]</h:td>
 										</h:tr>
